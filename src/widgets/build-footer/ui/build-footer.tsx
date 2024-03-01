@@ -1,11 +1,11 @@
 import { CreateSectionTrigger } from "@/features/popover-tools";
 import { auth } from "@/shared/lib/auth/model/auth";
 
-type UserFooterProps = {
+type BuildFooterProps = {
   className?: string;
 };
 
-export async function UserFooter({ className }: UserFooterProps) {
+export async function BuildFooter({ className }: BuildFooterProps) {
   const session = await auth();
   const isAdmin = session?.user.role === "ADMIN";
 

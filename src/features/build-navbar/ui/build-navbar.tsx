@@ -1,24 +1,22 @@
-import { LoginButton } from "@/features/auth/ui/buttons/login-button";
-import { UserButton } from "@/features/auth/ui/buttons/user-button";
 import { getPages } from "@/shared/actions/page/get/get-pages";
 import { auth } from "@/shared/lib/auth/model/auth";
 import cn from "classnames";
 import { MainLogo } from "./main-logo";
 import { NavLink } from "./nav-link";
 
-export type UserNavbarProps = {
+export type BuildNavbarProps = {
   CreatePageTrigger: () => JSX.Element;
   DeletePageTrigger: ({ idPage }: { idPage: string }) => JSX.Element;
   linkColor: "black" | "white";
   typeNavbar: "header" | "footer";
 };
 
-export async function UserNavbar({
+export async function BuildNavbar({
   linkColor,
   typeNavbar,
   CreatePageTrigger,
   DeletePageTrigger,
-}: UserNavbarProps) {
+}: BuildNavbarProps) {
   const { data } = await getPages();
 
   if (!data)
@@ -48,20 +46,6 @@ export async function UserNavbar({
           ))}
         {isAdmin && <CreatePageTrigger />}
       </ul>
-
-      {session && typeNavbar === "header" ? (
-        <div className="flex flex-1 items-center justify-end">
-          <div className="ml-auto mr-4 block">
-            {isAdmin && `${session?.user.role} - `}
-            {session?.user.name}
-          </div>
-          {typeNavbar === "header" && <UserButton />}
-        </div>
-      ) : (
-        <div className="flex flex-1 justify-end">
-          {typeNavbar === "header" && <LoginButton>Log In</LoginButton>}
-        </div>
-      )}
     </nav>
   );
 }

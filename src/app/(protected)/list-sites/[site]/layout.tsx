@@ -1,7 +1,7 @@
 import { PopoverTools } from '@/features/popover-tools'
 import { Toaster } from '@/shared/ui/sonner'
-import { UserFooter } from '@/widgets/user-footer'
-import { UserHeader } from '@/widgets/user-header'
+import { UserFooter } from '@/widgets/build-footer'
+import { UserHeader } from '@/widgets/build-header'
 import { JetBrains_Mono } from 'next/font/google'
 
 const merienda = JetBrains_Mono({ subsets: ['latin'] })

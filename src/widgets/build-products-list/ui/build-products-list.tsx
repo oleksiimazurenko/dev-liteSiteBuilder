@@ -7,9 +7,9 @@ import {
   ProductCardProps,
   ProductItem,
   ProductList,
-} from "@/shared/types/types";
+} from "@/shared/types/props";
 
-export type UserProductsListProps = {
+export type BuildProductsListProps = {
   id: string;
   products: ProductList;
   type: "normal" | "best";
@@ -17,13 +17,13 @@ export type UserProductsListProps = {
   ProductCard: (props: ProductCardProps) => JSX.Element;
 };
 
-export async function UserProductsList({
+export async function BuildProductsList({
   id,
   products,
   type,
   innerStyles,
   ProductCard,
-}: UserProductsListProps) {
+}: BuildProductsListProps) {
   const session = await auth();
   const isAdmin = session?.user.role === "ADMIN";
 

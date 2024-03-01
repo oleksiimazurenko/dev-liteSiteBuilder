@@ -1,19 +1,15 @@
 "use client";
 
-import { LoginForm } from "@/features/auth/ui/forms/login-form";
-import { RegisterForm } from "@/features/auth/ui/forms/register-form";
+import { LoginForm, RegisterForm, ResetForm } from "@/features/auth";
+import { LangSwitch } from "@/features/lang-switch";
+import { ThemeSwitch } from "@/features/theme-switch";
 import { useOutsideClick } from "@/shared/hooks/use-outside-click";
-import { LangSwitchProps, ThemeSwitchProps } from "@/shared/types/props";
 import { GeneralPanelOptions } from "@/shared/types/types";
 import { useRef, useState } from "react";
-import { ResetForm } from "./forms/reset-form";
 
-type GeneralPanelProps = {
-  LangSwitch: ({ className }: LangSwitchProps) => JSX.Element;
-  ThemeSwitch: ({ className }: ThemeSwitchProps) => JSX.Element;
-};
+type AuthPanelProps = {};
 
-export function GeneralPanel({ LangSwitch, ThemeSwitch }: GeneralPanelProps) {
+export function AuthPanel({}: AuthPanelProps) {
   const [generalPanel, setGeneralPanel] =
     useState<GeneralPanelOptions>("login");
   const generalPanelDivRef = useRef<HTMLDivElement | null>(null);
@@ -29,12 +25,8 @@ export function GeneralPanel({ LangSwitch, ThemeSwitch }: GeneralPanelProps) {
   );
 
   return (
-    <div className='order-2 flex items-center justify-center sm:order-2 sm:self-end md:order-1 h-full'>
-      <div
-        data-general-panel
-        ref={generalPanelDivRef}
-        className=""
-      >
+    <div className="order-2 flex h-full items-center justify-center sm:order-2 sm:self-end md:order-1">
+      <div data-general-panel ref={generalPanelDivRef} className="">
         {generalPanel === "login" && (
           <LoginForm
             setGeneralPanel={setGeneralPanel}

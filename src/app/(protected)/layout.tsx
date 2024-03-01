@@ -1,7 +1,7 @@
 import { auth } from "@/shared/lib/auth/model/auth";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { redirect } from "next/navigation";
-import { Navbar } from "../../features/auth/ui/navbar";
+import { Navbar } from "../../features/navbar/ui/navbar";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;

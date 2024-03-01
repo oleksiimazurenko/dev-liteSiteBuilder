@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/shared/ui/accordion";
-import { ProductsList } from "@/widgets/user-products-list";
+import { ProductsList } from "@/widgets/build-products-list";
 import { Component } from "@prisma/client";
 import Image from "next/image";
 
