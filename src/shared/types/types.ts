@@ -1,0 +1,1 @@
+export type GeneralPanelOptions = "register" | "login" | "forgot-password"

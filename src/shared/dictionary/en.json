@@ -1,0 +1,68 @@
+{
+  "main_page": {
+    "professions_list": [
+      [
+        "bloger",
+        "curier",
+        "cooker",
+        "barmen",
+        "photograph",
+        "web-developer",
+        "web-designer",
+        "graphic-designer",
+        "video-maker",
+        "3d-artist",
+        "3d-animator",
+        "3d-modeler"
+      ],
+      [
+        "social-media-manager",
+        "seo-specialist",
+        "content-creator",
+        "digital-marketer",
+        "app-developer",
+        "ui-ux-designer",
+        "copywriter",
+        "event-planner",
+        "virtual-assistant",
+        "customer-support"
+      ],
+      [
+        "influencer",
+        "podcaster",
+        "streamer",
+        "affiliate-marketer",
+        "game-developer",
+        "cybersecurity-specialist",
+        "data-analyst",
+        "mobile-game-designer",
+        "fitness-coach",
+        "personal-branding-consultant"
+      ]
+    ],
+    "login_panel": {
+      "email_placeholder": "john.doe@example.com",
+      "email_warning": "Email is required",
+      "password_warning": "Password is required",
+      "login_button": "Login",
+      "confirm": "Confirm",
+      "forgot_password": "Forgot password?",
+      "dont_have_an_account": "Don't have an account?"
+    },
+    "reset_panel": {
+      "back_login": "Back to login",
+      "email_placeholder": "john.doe@example.com",
+      "email_warning": "Email is required",
+      "reset_button": "Send reset email"
+    },
+    "register_panel": {
+      "name_placeholder": "John Doe",
+      "name_warning": "Name is required",
+      "email_placeholder": "john.doe@example.com",
+      "email_warning": "Email is required",
+      "password_warning": "Minimum 6 characters required",
+      "register_button": "Create an account",
+      "already_have_an_account": "Already have an account?"
+    }
+  }
+}

@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Page {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  title    String
+  url      String    @unique
+  sections Section[]
+}
+
+model Section {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  sectionStyles   Json
+  containerStyles Json
+  components      Component[] 
+  page            Page        @relation(fields: [pageId], references: [id])
+  pageId          String
+  position        Int
+}
+
+model Component {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  type        String
+  textContent String?
+  outerStyles Json?
+  innerStyles Json?
+  width       Int?
+  height      Int?
+  src         String?
+  alt         String?
+  href        String?
+  tag         String?
+  products    Product[]
+  section     Section   @relation(fields: [sectionId], references: [id])
+  sectionId   String
+  position    Int
+}
+
+model Category {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  type        String
+  description String?
+  image       String?
+  products    Product[]
+}
+
+model Product {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  price       String?
+  image       String
+  country     String?
+  type        String
+  category    Category  @relation(fields: [categoryId], references: [id])
+  component   Component @relation(fields: [componentId], references: [id])
+  categoryId  String
+  componentId String
+}
+
+// ---------------------------------------------------------------------------------------------
+
+model User {
+  id                    String                 @id @default(auto()) @map("_id") @db.ObjectId
+  name                  String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  role                  String                 @default("USER")
+  accounts              Account[]
+  isTwoFactorEnabled    Boolean                @default(false)
+  twoFactorConfirmation TwoFactorConfirmation?
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
