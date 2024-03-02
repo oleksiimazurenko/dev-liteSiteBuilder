@@ -36,7 +36,7 @@ export function LangSwitch({ className }: LangSwitchProps) {
   return (
     <Button
       className={cn(
-        "dark:bg-color-d2 bg-color-w2 text-color-w2 dark:text-color-d2 h-[30px] w-[30px] items-center justify-center overflow-hidden border border-none border-opacity-40 shadow-2xl backdrop-blur-[0.5rem] transition-all hover:scale-[1.15] hover:bg-neutral-400 active:scale-105 dark:border-none",
+        "dark:bcd2 bcw2 tcw2 dark:tcd2 h-[30px] w-[30px] items-center justify-center overflow-hidden border border-none border-opacity-40 shadow-2xl backdrop-blur-[0.5rem] transition-all hover:scale-[1.15] hover:bg-neutral-400 active:scale-105 dark:border-none",
         {
           [className as string]: className,
         },

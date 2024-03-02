@@ -109,7 +109,7 @@ export const LoginForm = ({
       >
         <AccordionItem value="item-1" className="!border-none">
           <AccordionTrigger
-            className={cn("relative h-[20px] rounded-sm p-0 text-neutral-500", {
+            className={cn("relative h-[20px] rounded-sm p-0", {
               ["[&>svg]:absolute [&>svg]:left-[-16px] [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:rotate-180 [&>svg]:transform [&>svg]:data-[state=open]:!rotate-0 [&>svg]:dark:stroke-neutral-200/50 md:[&>svg]:rotate-0 md:[&>svg]:data-[state=open]:!rotate-180"]:
                 true,
             })}
@@ -122,7 +122,7 @@ export const LoginForm = ({
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="w-full px-1 pb-[20px] pt-1 text-neutral-500"
+                className="w-full px-1 pb-[20px] pt-1"
               >
                 <div className="flex flex-col space-y-4">
                   {showTwoFactor && (
@@ -136,7 +136,7 @@ export const LoginForm = ({
                               {...field}
                               disabled={isPending}
                               placeholder="123456"
-                              className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
+                              className="icw1 dark:icd1 "
                             />
                           </FormControl>
                           <FormMessage />
@@ -159,7 +159,7 @@ export const LoginForm = ({
                                   main_page?.login_panel?.email_placeholder
                                 }
                                 type="email"
-                                className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
+                                className="icw1 dark:icd1 "
                               />
                             </FormControl>
                             <FormMessage />
@@ -178,7 +178,7 @@ export const LoginForm = ({
                                 disabled={isPending}
                                 placeholder="******"
                                 type="password"
-                                className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
+                                className="icw1 dark:icd1 "
                               />
                             </FormControl>
                             <FormMessage />
@@ -189,7 +189,7 @@ export const LoginForm = ({
                       <Button
                         disabled={isPending}
                         type="submit"
-                        className="ucw1 dark:ucd1 text-color-w1 dark:text-color-d1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+                        className="ucw1 dark:ucd1 tcw1 dark:tcd1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
                       >
                         {showTwoFactor
                           ? main_page?.login_panel?.confirm
@@ -199,7 +199,7 @@ export const LoginForm = ({
                       <Button
                         size="sm"
                         variant="link"
-                        className="text-color-w2 dark:text-color-d2 m-auto h-5 p-0 font-normal"
+                        className="tcw2 dark:tcd2 m-auto h-5 p-0 font-normal"
                         onClick={() => setGeneralPanel("forgot-password")}
                       >
                         {main_page?.login_panel?.forgot_password}
@@ -207,7 +207,7 @@ export const LoginForm = ({
 
                       <Button
                         variant="link"
-                        className="text-color-w2 dark:text-color-d2 m-auto h-5 p-0 font-normal"
+                        className="tcw2 dark:tcd2 m-auto h-5 p-0 font-normal"
                         size="sm"
                         onClick={() => setGeneralPanel("register")}
                       >

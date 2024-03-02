@@ -62,18 +62,18 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
     <CardWrapper className="py-5">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-4">
+          <div className="flex flex-col items-center justify-center space-y-4">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
                       placeholder={main_page?.register_panel?.name_placeholder}
-                      className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
+                      className="icw1 dark:icd1 "
                     />
                   </FormControl>
                   <FormMessage />
@@ -84,14 +84,14 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
                       placeholder={main_page?.register_panel?.email_placeholder}
                       type="email"
-                      className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
+                      className="icw1 dark:icd1 "
                     />
                   </FormControl>
                   <FormMessage />
@@ -102,13 +102,13 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
                       placeholder="******"
-                      className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
+                      className="icw1 dark:icd1 "
                       type="password"
                     />
                   </FormControl>
@@ -122,7 +122,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
           <Button
             disabled={isPending}
             type="submit"
-            className="ucw1 dark:ucd1 text-color-w1 dark:text-color-d1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+            className="ucw1 dark:ucd1 tcw1 dark:tcd1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
             {main_page?.register_panel?.register_button}
           </Button>
@@ -130,7 +130,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
       </Form>
       <Button
         variant="link"
-        className="text-color-w2 dark:text-color-d2 mt-[10px] h-5 w-full p-0 font-normal"
+        className="tcw2 dark:tcd2 m-auto mt-3 h-5 w-full p-0 font-normal"
         size="sm"
         onClick={() => setGeneralPanel("login")}
       >

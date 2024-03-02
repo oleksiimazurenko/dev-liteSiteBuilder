@@ -27,7 +27,7 @@ export function GeneralPreview({ className }: GeneralPreviewProps) {
         <div className="vertical-mask h-[415px] w-full md:h-[545px]">
           <Skeleton
             className={cn(
-              "flex h-full w-full items-center justify-center rounded-xl bg-gradient-to-b from-neutral-700 to-zinc-800 shadow-xl transition-all sm:text-[35px] md:text-[15px] lg:text-[20px] xl:text-[35px] 2xl:text-[40px]",
+              "flex h-full w-full items-center justify-center rounded-xl dark:bcd2 bcw2 shadow-xl transition-all sm:text-[35px] md:text-[15px] lg:text-[20px] xl:text-[35px] 2xl:text-[40px]",
             )}
           >
             {previewProfession}
@@ -57,7 +57,7 @@ export function GeneralPreview({ className }: GeneralPreviewProps) {
                     <CarouselItem
                       key={profession}
                       className={cn(
-                        "text-color-w2 dark:text-color-d2 flex-shrink flex-grow basis-auto cursor-pointer text-center",
+                        "tcw2 dark:tcd2 flex-shrink flex-grow basis-auto cursor-pointer text-center",
                         {
                           ["text-slate-500"]: profession === previewProfession,
                         },

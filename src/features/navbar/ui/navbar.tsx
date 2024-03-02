@@ -38,12 +38,12 @@ export const Navbar = ({ className, LangSwitch, ThemeSwitch }: NavbarProps) => {
             key={link}
             asChild
             className={cn(
-              "dark:bg-color-d2 bg-color-w2 border-none transition-all hover:scale-105",
+              "dark:bcd2 bcw2 border-none transition-all hover:scale-105",
             )}
           >
             <Link
               href={link}
-              className={cn("text-color-w2 dark:text-color-d2", {
+              className={cn("tcw2 dark:tcd2", {
                 ["!border !border-solid !border-black"]: pathname === link,
                 ["border border-transparent"]: pathname !== link,
               })}

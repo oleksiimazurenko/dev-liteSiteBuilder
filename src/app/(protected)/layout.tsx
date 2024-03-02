@@ -14,9 +14,9 @@ const ProtectedLayout = async ({ children }: ProtectedLayoutProps) => {
   if (!session) redirect("/");
 
   return (
-    <div className="bg-color-w1 dark:bg-color-d1 flex h-svh w-full items-center justify-center md:pb-[80px]">
+    <div className="bcw1 dark:bcd1 flex h-svh w-full items-center justify-center md:pb-[80px]">
       <Navbar
-        className="dark:bg-color-d2 bg-color-w2 fixed bottom-0 left-0 z-50 w-full bg-secondary p-4 shadow-sm"
+        className="dark:bcd2 bcw2 fixed bottom-0 left-0 z-50 w-full p-4"
         LangSwitch={LangSwitch}
         ThemeSwitch={ThemeSwitch}
       />

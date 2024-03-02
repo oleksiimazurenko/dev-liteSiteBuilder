@@ -21,7 +21,7 @@ export const CardWrapper = ({
   return (
     <Card
       className={cn(
-        "absolute bottom-5 left-1/2 z-50 flex w-[300px] -translate-x-1/2 transform flex-col border-none dark:bg-color-d2 px-5 shadow-xl bg-color-w2 md:relative md:bottom-auto md:left-auto md:translate-x-0",
+        "dark:bcd2 bg-transparent absolute bottom-5 left-1/2 z-50 flex w-[300px] -translate-x-1/2 transform flex-col border-none px-5 shadow-xl md:relative md:bottom-auto md:left-auto md:translate-x-0",
         {
           [className as string]: className,
         },
