@@ -73,7 +73,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
                       {...field}
                       disabled={isPending}
                       placeholder={main_page?.register_panel?.name_placeholder}
-                      className="border-none bg-neutral-200"
+                      className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
                     />
                   </FormControl>
                   <FormMessage />
@@ -91,7 +91,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
                       disabled={isPending}
                       placeholder={main_page?.register_panel?.email_placeholder}
                       type="email"
-                      className="border-none bg-neutral-200"
+                      className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
                     />
                   </FormControl>
                   <FormMessage />
@@ -108,7 +108,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
                       {...field}
                       disabled={isPending}
                       placeholder="******"
-                      className="border-none bg-neutral-200"
+                      className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
                       type="password"
                     />
                   </FormControl>
@@ -122,7 +122,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
           <Button
             disabled={isPending}
             type="submit"
-            className="w-full bg-neutral-200 text-slate-950 hover:bg-neutral-300 hover:text-slate-950"
+            className="ucw1 dark:ucd1 text-color-w1 dark:text-color-d1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
             {main_page?.register_panel?.register_button}
           </Button>

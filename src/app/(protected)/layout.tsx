@@ -1,7 +1,9 @@
+import { LangSwitch } from "@/features/lang-switch";
+import { Navbar } from "@/features/navbar";
+import { ThemeSwitch } from "@/features/theme-switch";
 import { auth } from "@/shared/lib/auth/model/auth";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { redirect } from "next/navigation";
-import { Navbar } from "../../features/navbar/ui/navbar";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;
@@ -12,9 +14,13 @@ const ProtectedLayout = async ({ children }: ProtectedLayoutProps) => {
   if (!session) redirect("/");
 
   return (
-    <div className="flex h-svh w-full flex-col items-center justify-center gap-y-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800 pb-[40px] pt-[120px]">
-      <Navbar />
-      <ScrollArea className=" rounded-xl border">{children}</ScrollArea>
+    <div className="bg-color-w1 dark:bg-color-d1 flex h-svh w-full items-center justify-center md:pb-[80px]">
+      <Navbar
+        className="dark:bg-color-d2 bg-color-w2 fixed bottom-0 left-0 z-50 w-full bg-secondary p-4 shadow-sm"
+        LangSwitch={LangSwitch}
+        ThemeSwitch={ThemeSwitch}
+      />
+      <ScrollArea className="h-[500px] rounded-xl">{children}</ScrollArea>
     </div>
   );
 };

@@ -82,7 +82,7 @@ export const ResetForm = ({ setGeneralPanel }: ResetFormProps) => {
                       disabled={isPending}
                       placeholder={main_page?.reset_panel?.email_placeholder}
                       type="email"
-                      className="border-none bg-neutral-200"
+                      className="icw1 dark:icd1"
                     />
                   </FormControl>
                   <FormMessage />
@@ -95,7 +95,7 @@ export const ResetForm = ({ setGeneralPanel }: ResetFormProps) => {
           <Button
             disabled={isPending}
             type="submit"
-            className="w-full bg-neutral-200 text-slate-950 hover:bg-neutral-300 hover:text-slate-950"
+            className="ucw1 dark:ucd1 text-color-w1 dark:text-color-d1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
             {main_page?.reset_panel?.reset_button}
           </Button>

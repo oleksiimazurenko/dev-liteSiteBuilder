@@ -78,46 +78,66 @@
     text-stroke: 0.5px black; /* Это нестандартное свойство и может не поддерживаться в некоторых браузерах */
   }
 
-  .bg-color-d1 {
+  /* ----------------------------------------------------------------------- */
+
+  /* universal-color-d1  */
+  .ucd1 {
+    @apply !bg-neutral-300;
+  }
+
+  /* universal-color-w1  */
+  .ucw1 {
+    @apply border !bg-neutral-400/30;
+  }
+
+  /* ----------------------------------------------------------------------- */
+
+  /* input-color-d1  */
+  .icd1 {
+    @apply border-none !bg-neutral-300 text-neutral-500 placeholder:text-neutral-400;
+  }
+
+  /* input-color-w1  */
+  .icw1 {
+    @apply border !bg-neutral-200 text-neutral-200 placeholder:text-neutral-400 ;
+  }
+
+  /* ----------------------------------------------------------------------- */
+
+  /* bg-color-d1 */
+  .bcd1 {
     @apply bg-gradient-to-r from-neutral-950 via-zinc-700 to-neutral-950;
-  }
-
-  .bg-color-d2 {
-    @apply bg-gradient-to-b from-neutral-700 to-zinc-800;
-  }
-
-  .bg-color-d3 {
-    @apply from-neutral-200 to-zinc-300;
-  }
-
-  .text-color-d1 {
-    @apply text-neutral-900;
-  }
-
-  .text-color-d2 {
-    @apply text-neutral-500;
   }
 
   .bg-color-w1 {
     @apply bg-gradient-to-r from-neutral-300 via-zinc-400 to-neutral-300;
   }
 
+  .bg-color-d2 {
+    @apply bg-gradient-to-b from-neutral-700 to-zinc-800;
+  }
+
   .bg-color-w2 {
     @apply bg-gradient-to-b from-neutral-300 to-zinc-400;
   }
 
-  .bg-color-w3 {
-    @apply bg-gradient-to-r from-neutral-500 to-zinc-600;
+  /* ----------------------------------------------------------------------- */
+
+  .text-color-d1 {
+    @apply text-neutral-900;
+  }
+
+  .text-color-w2 {
+    @apply !text-neutral-500;
+  }
+
+  .text-color-d2 {
+    @apply !text-neutral-500;
   }
 
   .text-color-w1 {
     @apply text-neutral-50;
   }
-
-  .text-color-w2 {
-    @apply text-neutral-500;
-  }
-
 }
 
 /* ---------------------------------------------------------------------- */

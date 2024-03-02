@@ -1,51 +1,66 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 
-import { Button } from "@/shared/ui/button";
-import { UserButton } from "./user-button";
 import { useCurrentRole } from "@/shared/lib/auth/hooks/use-current-role";
+import { LangSwitchProps, ThemeSwitchProps } from "@/shared/types/props";
+import { Button } from "@/shared/ui/button";
+import cn from "classnames";
+import { UserButton } from "./user-button";
 
-export const Navbar = () => {
+type NavbarProps = {
+  className?: string;
+  LangSwitch: ({ className }: LangSwitchProps) => JSX.Element;
+  ThemeSwitch: ({ className }: ThemeSwitchProps) => JSX.Element;
+};
+
+export const Navbar = ({ className, LangSwitch, ThemeSwitch }: NavbarProps) => {
   const pathname = usePathname();
 
   const session = useSession();
   const role = useCurrentRole();
 
+  const buttonArray = [
+    { name: "Info profil", link: "/info-profil" },
+    { name: "Settings", link: "/settings" },
+    { name: "List sites", link: "/list-sites" },
+  ];
+
   return (
-    <nav className="fixed bottom-0 left-0 w-full bg-secondary p-4 shadow-sm">
-      <div className="flex gap-x-2">
-        <Button
-          asChild
-          variant={pathname === "/info-profil" ? "default" : "outline"}
-        >
-          <Link href="/info-profil">Info profil</Link>
-        </Button>
-        <Button asChild variant={pathname === "/admin" ? "default" : "outline"}>
-          <Link href="/admin">Admin</Link>
-        </Button>
-        <Button
-          asChild
-          variant={pathname === "/settings" ? "default" : "outline"}
-        >
-          <Link href="/settings">Settings</Link>
-        </Button>
+    <nav className={cn('', {
+			[className as string]: className,
+		})}>
+      <div className="flex items-center gap-x-2">
+        {buttonArray.map(({ name, link }) => (
+          <Button
+            key={link}
+            asChild
+            className={cn(
+              "dark:bg-color-d2 bg-color-w2 border-none transition-all hover:scale-105",
+            )}
+          >
+            <Link
+              href={link}
+              className={cn("text-color-w2 dark:text-color-d2", {
+                ["!border !border-solid !border-black"]: pathname === link,
+                ["border border-transparent"]: pathname !== link,
+              })}
+            >
+              {name}
+            </Link>
+          </Button>
+        ))}
 
-        <Button
-          asChild
-          variant={pathname === "/list-sites" ? "default" : "outline"}
-        >
-          <Link href="/list-sites">List sites</Link>
-        </Button>
-
-        <div className="flex flex-1 items-center justify-end">
-          <div className="ml-auto mr-4 block">
-            {session?.data?.user?.name}
-          </div>
+        <div className="flex flex-1 items-center justify-center">
+          <div className="ml-auto mr-4 block">{session?.data?.user?.name}</div>
           <UserButton />
         </div>
+
+        <ThemeSwitch className="md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
+
+        <LangSwitch className="md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
       </div>
     </nav>
   );

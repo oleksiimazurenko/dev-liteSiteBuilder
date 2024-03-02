@@ -46,7 +46,7 @@ export function ThemeSwitch({ className }: ThemeSwitchProps) {
       variant="default"
     >
       {theme === "light" ? (
-        <BsMoon className="fill-slate-800" />
+        <BsMoon className="fill-neutral-500" />
       ) : (
         <BsSun className="fill-neutral-400" />
       )}

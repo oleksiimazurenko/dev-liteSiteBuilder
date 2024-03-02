@@ -31,14 +31,14 @@ import {
   AccordionTrigger,
 } from "@/shared/ui/accordion";
 
-import { LangSwitchProps } from "@/shared/types/props";
+import { LangSwitchProps, ThemeSwitchProps } from "@/shared/types/props";
 import cn from "classnames";
 type LoginFormProps = {
   setGeneralPanel: Dispatch<SetStateAction<GeneralPanelOptions>>;
   valueAccordion: string;
   setValueAccordion: Dispatch<SetStateAction<string>>;
   LangSwitch: ({ className }: LangSwitchProps) => JSX.Element;
-  ThemeSwitch: ({ className }: LangSwitchProps) => JSX.Element;
+  ThemeSwitch: ({ className }: ThemeSwitchProps) => JSX.Element;
 };
 
 export const LoginForm = ({
@@ -113,13 +113,7 @@ export const LoginForm = ({
               ["[&>svg]:absolute [&>svg]:left-[-16px] [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:rotate-180 [&>svg]:transform [&>svg]:data-[state=open]:!rotate-0 [&>svg]:dark:stroke-neutral-200/50 md:[&>svg]:rotate-0 md:[&>svg]:data-[state=open]:!rotate-180"]:
                 true,
             })}
-          >
-            {/* <Skeleton
-              className={cn(
-                "login-mask absolute left-[-20px] top-1/2 h-full w-[300px] -translate-y-1/2 transform rounded-b-lg rounded-t-none bg-neutral-600/60 md:bg-neutral-600/30",
-              )}
-            /> */}
-          </AccordionTrigger>
+          ></AccordionTrigger>
           <AccordionContent className="flex flex-col items-center justify-center space-y-2 p-0">
             <div className="flex items-center justify-center space-x-2">
               <LangSwitch className="md:hidden" />
@@ -142,7 +136,7 @@ export const LoginForm = ({
                               {...field}
                               disabled={isPending}
                               placeholder="123456"
-                              className="border-none bg-gradient-to-r from-neutral-500 to-zinc-600 text-neutral-200 placeholder:text-neutral-400 dark:from-neutral-200 dark:to-zinc-300 dark:text-slate-400 dark:placeholder:text-slate-400"
+                              className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
                             />
                           </FormControl>
                           <FormMessage />
@@ -165,7 +159,7 @@ export const LoginForm = ({
                                   main_page?.login_panel?.email_placeholder
                                 }
                                 type="email"
-                                className="border-none bg-gradient-to-r from-neutral-500 to-zinc-600 text-neutral-200 placeholder:text-neutral-400 dark:from-neutral-200 dark:to-zinc-300 dark:text-slate-400 dark:placeholder:text-slate-400"
+                                className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
                               />
                             </FormControl>
                             <FormMessage />
@@ -184,7 +178,7 @@ export const LoginForm = ({
                                 disabled={isPending}
                                 placeholder="******"
                                 type="password"
-                                className="border-none bg-gradient-to-r from-neutral-500 to-zinc-600 text-neutral-200 placeholder:text-neutral-400 dark:from-neutral-200 dark:to-zinc-300 dark:text-slate-400 dark:placeholder:text-slate-400"
+                                className="icw1 dark:icd1 text-neutral-200 placeholder:text-neutral-400  dark:text-slate-400 dark:placeholder:text-slate-400"
                               />
                             </FormControl>
                             <FormMessage />
@@ -195,7 +189,7 @@ export const LoginForm = ({
                       <Button
                         disabled={isPending}
                         type="submit"
-                        className="bg-color-w3 dark:bg-color-d3 text-color-w1 dark:text-color-d1 w-full transition-colors duration-300 ease-in-out "
+                        className="ucw1 dark:ucd1 text-color-w1 dark:text-color-d1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
                       >
                         {showTwoFactor
                           ? main_page?.login_panel?.confirm
