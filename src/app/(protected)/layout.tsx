@@ -21,6 +21,11 @@ const ProtectedLayout = async ({ children }: ProtectedLayoutProps) => {
         ThemeSwitch={ThemeSwitch}
       />
       <ScrollArea className="h-[500px] rounded-xl">{children}</ScrollArea>
+
+      <div className="absolute right-3 top-3 flex space-x-2">
+        <ThemeSwitch className="md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
+        <LangSwitch className="md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
+      </div>
     </div>
   );
 };

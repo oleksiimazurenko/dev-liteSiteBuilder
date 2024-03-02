@@ -122,7 +122,7 @@ export default async function Page() {
   const data = await getData();
 
   return (
-    <div className="dark:bg-color-d2 bg-color-w2 container p-5 shadow-lg">
+    <div className="dark:bcd2 bcw2 container p-5 shadow-xl">
       <DataTable columns={columns} data={data} />
     </div>
   );

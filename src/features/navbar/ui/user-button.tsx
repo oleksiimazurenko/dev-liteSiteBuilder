@@ -19,7 +19,7 @@ export const UserButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar className="mr-2 border border-slate-900 hover:scale-105">
+        <Avatar className="shadow-xl transition-all hover:scale-105">
           <AvatarImage
             src={user?.image ? user.image : "https://github.com/shadcn.png"}
           />

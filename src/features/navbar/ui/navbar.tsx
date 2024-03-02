@@ -29,23 +29,25 @@ export const Navbar = ({ className, LangSwitch, ThemeSwitch }: NavbarProps) => {
   ];
 
   return (
-    <nav className={cn('', {
-			[className as string]: className,
-		})}>
+    <nav
+      className={cn("", {
+        [className as string]: className,
+      })}
+    >
       <div className="flex items-center gap-x-2">
         {buttonArray.map(({ name, link }) => (
           <Button
             key={link}
             asChild
             className={cn(
-              "dark:bcd2 bcw2 border-none transition-all hover:scale-105",
+              "btnw1 dark:btnd1 shadow-xl transition-all hover:scale-105 dark:border-none",
             )}
           >
             <Link
               href={link}
-              className={cn("tcw2 dark:tcd2", {
-                ["!border !border-solid !border-black"]: pathname === link,
-                ["border border-transparent"]: pathname !== link,
+              className={cn("tw1 dark:td1", {
+                ["!border-[1.5px] !border-solid !border-white"]:
+                  pathname === link,
               })}
             >
               {name}
@@ -54,13 +56,10 @@ export const Navbar = ({ className, LangSwitch, ThemeSwitch }: NavbarProps) => {
         ))}
 
         <div className="flex flex-1 items-center justify-center">
-          <div className="ml-auto mr-4 block">{session?.data?.user?.name}</div>
+          <div className="ml-auto mr-4 block font-light text-neutral-500">{session?.data?.user?.name}</div>
           <UserButton />
         </div>
 
-        <ThemeSwitch className="md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
-
-        <LangSwitch className="md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
       </div>
     </nav>
   );

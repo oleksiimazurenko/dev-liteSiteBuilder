@@ -81,25 +81,25 @@
   /* ----------------------------------------------------------------------- */
 
   /* universal-color-dark-1  */
-  .ucd1 {
+  .btnd1 {
     @apply !bg-neutral-300;
   }
 
   /* universal-color-white-1  */
-  .ucw1 {
-    @apply border !bg-neutral-400/30;
+  .btnw1 {
+    @apply border-[0.5px] !bg-neutral-400/30;
   }
 
   /* ----------------------------------------------------------------------- */
 
   /* input-color-dark-1  */
-  .icd1 {
+  .id1 {
     @apply border-none !bg-neutral-300 !text-neutral-950 placeholder:!text-neutral-400;
   }
 
   /* input-color-white-1  */
-  .icw1 {
-    @apply border !bg-neutral-200 !text-neutral-950 placeholder:!text-neutral-400 ;
+  .iw1 {
+    @apply border !bg-neutral-200 !text-neutral-950 placeholder:!text-neutral-400;
   }
 
   /* ----------------------------------------------------------------------- */
@@ -122,26 +122,26 @@
   }
 
   .bcw3 {
-    @apply bg-transparent
+    @apply bg-transparent;
   }
 
   /* ----------------------------------------------------------------------- */
 
-   /* text-color-dark-1 */
-  .tcd1 {
-    @apply text-neutral-900;
+  /* text-color-dark-1 */
+  .td1 {
+    @apply !font-light text-neutral-900;
   }
   /* text-color-white-1 */
-  .tcw2 {
-    @apply !text-neutral-500;
+  .tw2 {
+    @apply !font-light !text-neutral-500;
   }
   /* text-color-dark-1 */
-  .tcd2 {
-    @apply !text-neutral-500;
+  .td2 {
+    @apply !font-light !text-neutral-500;
   }
   /* text-color-white-1 */
-  .tcw1 {
-    @apply text-neutral-50;
+  .tw1 {
+    @apply !font-light text-neutral-50;
   }
 }
 

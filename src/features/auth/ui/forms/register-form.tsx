@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { getRegisterSchema } from "../../../../shared/lib/auth/schemas";
+import { getRegisterSchema } from "@/shared/lib/auth/schemas";
 
 type RegisterFormProps = {
   setGeneralPanel: Dispatch<SetStateAction<GeneralPanelOptions>>;
@@ -73,7 +73,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
                       {...field}
                       disabled={isPending}
                       placeholder={main_page?.register_panel?.name_placeholder}
-                      className="icw1 dark:icd1 "
+                      className="iw1 dark:id1 "
                     />
                   </FormControl>
                   <FormMessage />
@@ -91,7 +91,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
                       disabled={isPending}
                       placeholder={main_page?.register_panel?.email_placeholder}
                       type="email"
-                      className="icw1 dark:icd1 "
+                      className="iw1 dark:id1 "
                     />
                   </FormControl>
                   <FormMessage />
@@ -108,7 +108,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
                       {...field}
                       disabled={isPending}
                       placeholder="******"
-                      className="icw1 dark:icd1 "
+                      className="iw1 dark:id1 "
                       type="password"
                     />
                   </FormControl>
@@ -122,7 +122,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
           <Button
             disabled={isPending}
             type="submit"
-            className="ucw1 dark:ucd1 tcw1 dark:tcd1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+            className="btnw1 dark:btnd1 tw1 dark:td1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
             {main_page?.register_panel?.register_button}
           </Button>
@@ -130,7 +130,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
       </Form>
       <Button
         variant="link"
-        className="tcw2 dark:tcd2 m-auto mt-3 h-5 w-full p-0 font-normal"
+        className="tw2 dark:td2 m-auto mt-3 h-5 w-full p-0 font-normal"
         size="sm"
         onClick={() => setGeneralPanel("login")}
       >
