@@ -1,129 +1,19 @@
-import { DataTable, Site, columns } from "@/features/list-sites";
-
-async function getData(): Promise<Site[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-    {
-      id: "728ed52f",
-      status: false,
-      name: "Example Site",
-      views: 100,
-      email: "newiqa@gmail.com",
-    },
-  ];
-}
+import { DataTable, columns } from "@/features/list-sites";
+import { getSites } from "@/shared/actions/site/get/get-sites";
+import { Button } from "@/shared/ui/button";
 
 export default async function Page() {
-  const data = await getData();
+  const { data } = await getSites();
 
   return (
-    <div className="dark:bcd2 bcw2 container p-5 shadow-xl">
-      <DataTable columns={columns} data={data} />
+    <div className="dark:bcd2 bcw2 container overflow-hidden rounded-lg p-5">
+      {data && data?.length > 0 && <DataTable columns={columns} data={data} />}
+      {(!data || data.length === 0) && (
+        <div className="space-x-2">
+          <Button>Создать новый сайт</Button>
+          <Button>Выбрать шаблон</Button>
+        </div>
+      )}
     </div>
   );
 }

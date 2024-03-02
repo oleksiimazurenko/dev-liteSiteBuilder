@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@/shared/ui/table";
 
-interface DataTableProps<TData, TValue> {
+type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
@@ -34,7 +34,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="h-full w-full border">
+    <div className="h-full w-full rounded-lg border">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -54,7 +54,7 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className='cursor-pointer' onClick={() => console.log('hi')}>
+        <TableBody className="cursor-pointer">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow

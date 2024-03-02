@@ -56,10 +56,11 @@ export const Navbar = ({ className, LangSwitch, ThemeSwitch }: NavbarProps) => {
         ))}
 
         <div className="flex flex-1 items-center justify-center">
-          <div className="ml-auto mr-4 block font-light text-neutral-500">{session?.data?.user?.name}</div>
+          <div className="ml-auto mr-4 block font-light text-neutral-500">
+            {session?.data?.user?.name}
+          </div>
           <UserButton />
         </div>
-
       </div>
     </nav>
   );

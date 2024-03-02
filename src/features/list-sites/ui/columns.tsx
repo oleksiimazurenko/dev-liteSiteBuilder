@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/shared/ui/button";
 import { Switch } from "@/shared/ui/switch";
 import { ColumnDef } from "@tanstack/react-table";
 import { useState } from "react";
@@ -11,10 +12,14 @@ export type Site = {
   status: boolean;
   name: string;
   views: number;
-  email: string;
+  view: boolean;
 };
 
 type SwitchCellProps = {
+  status: unknown;
+};
+
+type ViewCellProps = {
   status: unknown;
 };
 
@@ -24,11 +29,19 @@ const SwitchCell = ({ status }: SwitchCellProps) => {
   const handleClick = () => setChecked(!checked);
 
   return (
-    <Switch
-      className="dark:bg-color-d2 text-color-w1"
-      checked={checked as boolean}
-      onClick={handleClick}
-    />
+    <Switch className="" checked={checked as boolean} onClick={handleClick} />
+  );
+};
+
+const ViewCell = ({ status }: ViewCellProps) => {
+  const [checked, setChecked] = useState(status);
+
+  const handleClick = () => setChecked(!checked);
+
+  return (
+    <Button className="" disabled={checked as boolean} onClick={handleClick}>
+      View
+    </Button>
   );
 };
 
@@ -47,7 +60,8 @@ export const columns: ColumnDef<Site>[] = [
     header: "Views",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "view",
+    header: "View",
+    cell: (info) => <ViewCell status={info.getValue()} />,
   },
 ];
