@@ -12,12 +12,14 @@ import {
   generateTwoFactorToken,
   generateVerificationToken,
 } from "@/shared/lib/auth/lib/tokens";
-import { LoginSchema } from "@/shared/lib/auth/schemas";
 import { signIn } from "../../model/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "../../model/routes";
 import { getTwoFactorConfirmationByUserId } from "../get/two-factor-confirmation";
 import { getTwoFactorTokenByEmail } from "../get/two-factor-token";
 import { getUserByEmail } from "../get/user";
+import { getLoginSchema } from '../../schemas'
+
+const LoginSchema = getLoginSchema()
 
 export const login = async (
   values: z.infer<typeof LoginSchema>,

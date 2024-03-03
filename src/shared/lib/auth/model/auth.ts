@@ -1,19 +1,19 @@
-import { UserRole } from "@/shared/lib/auth/model/types";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 
-import { getAccountByUserId } from "@/shared/lib/auth/actions/get/account";
-import { getTwoFactorConfirmationByUserId } from "@/shared/lib/auth/actions/get/two-factor-confirmation";
-import { getUserById } from "@/shared/lib/auth/actions/get/user";
-import { db } from "@/shared/lib/auth/lib/db";
 import authConfig from "./auth.config";
+import { db } from "../lib/db";
+import { getUserById } from "../actions/get/user";
+import { getTwoFactorConfirmationByUserId } from "../actions/get/two-factor-confirmation";
+import { UserRole } from "./types";
+import { getAccountByUserId } from "../actions/get/account";
 
 export const {
   handlers: { GET, POST },
   auth,
   signIn,
   signOut,
-  update,
+  unstable_update: update,
 } = NextAuth({
   pages: {
     signIn: "/",
@@ -30,6 +30,7 @@ export const {
   callbacks: {
     async signIn({ user, account }) {
       // Allow OAuth without email verification
+
       if (account?.provider !== "credentials") return true;
 
       const existingUser = await getUserById(user.id);
@@ -65,7 +66,7 @@ export const {
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
       }
 
-      if (session.user) {
+      if (session.user && token.name && token.email) {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.isOAuth = token.isOAuth as boolean;

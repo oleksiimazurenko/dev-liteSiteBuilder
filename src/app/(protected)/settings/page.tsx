@@ -6,8 +6,8 @@ import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { FormError } from "@/features/auth/ui/response-status/form-error";
-import { FormSuccess } from "@/features/auth/ui/response-status/form-success";
+import { FormError } from "@/features/auth";
+import { FormSuccess } from "@/features/auth";
 import { settings } from "@/shared/lib/auth/actions/set/settings";
 import { useCurrentRole } from "@/shared/lib/auth/hooks/use-current-role";
 import { useCurrentUser } from "@/shared/lib/auth/hooks/use-current-user";
@@ -24,6 +24,7 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Switch } from "@/shared/ui/switch";
 
 const SettingsPage = () => {
@@ -66,122 +67,128 @@ const SettingsPage = () => {
   const curretRole = useCurrentRole() as string;
 
   return (
-    <Card className="w-[600px]">
-      <CardHeader>
-        <p className="text-center text-2xl font-semibold">⚙️ Settings</p>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="John Doe"
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {user?.isOAuth === false && (
-                <>
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="john.doe@example.com"
-                            type="email"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="******"
-                            type="password"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="newPassword"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>New Password</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="******"
-                            type="password"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </>
-              )}
-              {user?.isOAuth === false && (
+    <ScrollArea>
+      <Card className="border-none bg-transparent">
+        <CardHeader>
+          <p className="text-center text-2xl font-semibold">⚙️ Settings</p>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+              <div className="space-y-4">
                 <FormField
                   control={form.control}
-                  name="isTwoFactorEnabled"
+                  name="name"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-                      <div className="space-y-0.5">
-                        <FormLabel>Two Factor Authentication</FormLabel>
-                        <FormDescription>
-                          Enable two factor authentication for your account
-                        </FormDescription>
-                      </div>
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Switch
+                        <Input
+                          {...field}
+                          placeholder={user?.name ? user?.name : undefined}
                           disabled={isPending}
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
+                          className='iw1 dark:id1 '
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
-              )}
-            </div>
-            <FormError message={error} />
-            <FormSuccess message={success} />
-            <Button disabled={isPending} type="submit">
-              Save
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+                {user?.isOAuth === false && (
+                  <>
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="john.doe@example.com"
+                              type="email"
+                              disabled={isPending}
+                              className='iw1 dark:id1 '
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Password</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="******"
+                              type="password"
+                              disabled={isPending}
+                              className='iw1 dark:id1 '
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="newPassword"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>New Password</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="******"
+                              type="password"
+                              disabled={isPending}
+                              className='iw1 dark:id1 '
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </>
+                )}
+                {user?.isOAuth === false && (
+                  <FormField
+                    control={form.control}
+                    name="isTwoFactorEnabled"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                        <div className="space-y-0.5">
+                          <FormLabel>Two Factor Authentication</FormLabel>
+                          <FormDescription>
+                            Enable two factor authentication for your account
+                          </FormDescription>
+                        </div>
+                        <FormControl>
+                          <Switch
+                            disabled={isPending}
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                )}
+              </div>
+              <FormError message={error} />
+              <FormSuccess message={success} />
+              <Button disabled={isPending} type="submit" className='btnw1 dark:btnd1 shadow-xl transition-all hover:scale-105 dark:border-none'>
+                Save
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    </ScrollArea>
   );
 };
 

@@ -4,7 +4,7 @@ import prisma from '@/shared/lib/prisma-client'
 import { getErrorMessage } from '@/shared/utils/extract-error-message'
 import { getLastUrlSegment } from '@/shared/utils/get-last-url-segment'
 
-const getPageByUrl = async (url: string) => {
+const getSiteByUrl = async (url: string) => {
 	try {
 
 		const processedUrl = getLastUrlSegment(url)
@@ -12,19 +12,23 @@ const getPageByUrl = async (url: string) => {
 		return {
 			success: false,
 			error:
-				'ID page not found, because function getLastUrlSegment returned null, error in file: actions/page/get/get-page-by-url.ts',
+				'ID site not found, because function getLastUrlSegment returned null, error in file: actions/site/get/get-site-by-url.ts',
 		}
 
-		const page = await prisma.page.findUnique({
+		const site = await prisma.site.findUnique({
 			where: {
 				url: processedUrl,
 			},
 			include: {
-				sections: {
+				pages: {
 					include: {
-						components: {
+						sections: {
 							include: {
-								products: true,
+								components: {
+									include: {
+										products: true,
+									},
+								},
 							},
 						},
 					},
@@ -32,13 +36,13 @@ const getPageByUrl = async (url: string) => {
 			},
 		})
 
-		if (!page) return { success: false, error: `The page with URL '${processedUrl}' was not found. Error in file: actions/page/get/get-page-by-url.ts`}
+		if (!site) return { success: false, error: `The site with URL '${processedUrl}' was not found. Error in file: actions/site/get/get-site-by-url.ts`}
 
-		return { success: true, data: page }
+		return { success: true, data: site }
 	} catch (error) {
 		console.error(getErrorMessage(error))
 		return { success: false, error: getErrorMessage(error) }
 	}
 }
 
-export { getPageByUrl }
+export { getSiteByUrl }

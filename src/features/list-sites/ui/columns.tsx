@@ -5,8 +5,6 @@ import { Switch } from "@/shared/ui/switch";
 import { ColumnDef } from "@tanstack/react-table";
 import { useState } from "react";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type Site = {
   id: string;
   status: boolean;

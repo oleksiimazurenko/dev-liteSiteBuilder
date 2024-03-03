@@ -1,4 +1,4 @@
-import { UserInfo } from "@/features/auth/ui/user-info";
+import { UserInfo } from "@/features/auth";
 import { currentUser } from "@/shared/lib/auth/actions/get/auth";
 
 export default async function InfoProfil() {

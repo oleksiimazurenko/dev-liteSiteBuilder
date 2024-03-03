@@ -6,8 +6,10 @@ import * as z from "zod";
 import { db } from "@/shared/lib/auth/lib/db";
 import { sendVerificationEmail } from "@/shared/lib/auth/lib/mail";
 import { generateVerificationToken } from "@/shared/lib/auth/lib/tokens";
-import { RegisterSchema } from "@/shared/lib/auth/schemas";
 import { getUserByEmail } from "../get/user";
+import { getRegisterSchema } from '../../schemas'
+
+const RegisterSchema = getRegisterSchema()
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
