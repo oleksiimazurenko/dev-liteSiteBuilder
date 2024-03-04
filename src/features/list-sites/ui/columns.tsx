@@ -7,10 +7,10 @@ import { useState } from "react";
 
 export type Site = {
   id: string;
-  status: boolean;
+  status?: boolean | null;
   name: string;
-  views: number;
-  view: boolean;
+  views?: number | null;
+  view?: boolean | null;
 };
 
 type SwitchCellProps = {

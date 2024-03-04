@@ -27,8 +27,10 @@ export function GeneralPreview({ className }: GeneralPreviewProps) {
         <div className="vertical-mask h-[415px] w-full md:h-[545px]">
           <Skeleton
             className={cn(
-              "flex h-full w-full items-center justify-center rounded-xl dark:bcd2 bcw2 shadow-xl transition-all sm:text-[35px] md:text-[15px] lg:text-[20px] xl:text-[35px] 2xl:text-[40px] tw2 dark:td2",
+              "dark:bcd2 bcw2 tw2 dark:td2 flex h-full w-full items-center justify-center rounded-xl shadow-xl transition-all sm:text-[35px] md:text-[15px] lg:text-[20px] xl:text-[35px] 2xl:text-[40px] cursor-pointer",
             )}
+            onMouseOver={() => setPreviewProfession("Создать этот шаблон?")}
+            onMouseLeave={() => setPreviewProfession("Pattern Landee")}
           >
             {previewProfession}
           </Skeleton>
