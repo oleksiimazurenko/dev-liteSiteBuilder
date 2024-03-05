@@ -2,7 +2,6 @@ import { LangSwitch } from "@/features/lang-switch";
 import { Navbar } from "@/features/navbar";
 import { ThemeSwitch } from "@/features/theme-switch";
 import { auth } from "@/shared/lib/auth/model/auth";
-import { ScrollArea } from "@/shared/ui/scroll-area";
 import { redirect } from "next/navigation";
 
 interface ProtectedLayoutProps {
@@ -20,7 +19,7 @@ const ProtectedLayout = async ({ children }: ProtectedLayoutProps) => {
         LangSwitch={LangSwitch}
         ThemeSwitch={ThemeSwitch}
       />
-      <div className="bcw2 dark:bcd2 h-[500px] w-[300px] md:w-[500px] rounded-xl">
+      <div className="dark:bcd2 flex h-[500px] w-[300px] flex-col items-center justify-center rounded-xl border-none bg-transparent p-5 shadow-xl md:w-[500px]">
         {children}
       </div>
 

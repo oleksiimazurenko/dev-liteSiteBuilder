@@ -17,15 +17,12 @@ import { z } from "zod";
 import { FirstSchema } from "../model/schema";
 
 type FirstProps = {
-	embla: CarouselApi;
+  embla: CarouselApi;
+  setFirstValues: (values: z.infer<typeof FirstSchema>) => void;
 };
 
-
-export function First({ embla }: FirstProps) {
-  const [formValues, setFormValues] = useState<z.infer<
-    typeof FirstSchema
-  > | null>(null);
-
+export function First({ embla, setFirstValues }: FirstProps) {
+  
   const firstForm = useForm<z.infer<typeof FirstSchema>>({
     resolver: zodResolver(FirstSchema),
     defaultValues: {
@@ -36,7 +33,7 @@ export function First({ embla }: FirstProps) {
 
   const onNextStep = (values: z.infer<typeof FirstSchema>) => {
     if (embla) {
-      setFormValues(values);
+      setFirstValues(values);
       embla.scrollTo(1);
     }
   };
@@ -44,9 +41,9 @@ export function First({ embla }: FirstProps) {
     <Form {...firstForm}>
       <form
         onSubmit={firstForm.handleSubmit(onNextStep)}
-        className="w-full px-1 pb-[20px] pt-1"
+        className="min-w-[260px] max-w-[450px] p-0"
       >
-        <div className="flex flex-col space-y-4">
+        <div className="w-full space-y-4">
           <FormField
             control={firstForm.control}
             name="name"

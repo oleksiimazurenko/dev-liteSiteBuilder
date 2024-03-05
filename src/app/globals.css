@@ -219,19 +219,13 @@
   mask-image: linear-gradient(to top, transparent, black 99%, black 1%);
 }
 
-.login-mask {
+.horizontal-mask {
   -webkit-mask-image: linear-gradient(
-    to top,
+    to right,
     transparent,
     black 50%,
     black 50%,
     transparent
   );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent,
-    black 99%,
-    black 1%,
-    transparent
-  );
+  mask-image: linear-gradient(to right, transparent, black 20%, transparent);
 }
