@@ -21,5 +21,5 @@ export const SecondSchema = z.object({
   ),
   title: z.string().min(2, { message: "error" }),
   subtitle: z.string().min(3, { message: "error" }),
-  aboutMe: z.string().min(5, { message: "error" }),
+  description: z.string().min(5, { message: "error" }),
 });

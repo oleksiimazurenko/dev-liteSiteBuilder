@@ -1,52 +1,120 @@
-'use server'
+"use server";
 
-import { writeFile } from 'fs/promises'
-import { join } from 'path'
+import crypto from "crypto";
+import { constants, existsSync } from "fs";
+import { access, mkdir, readFile, writeFile } from "fs/promises";
+import { join } from "path";
 
-const uploadImage = async (data: FormData, pathName: string) => {
-    const file: File | null = data.get('file') as unknown as File
-    if (!file) {
-        throw new Error('No file uploaded')
-    }
+// // Функция для асинхронной проверки существования файла
+const fileExists = async (path: string): Promise<boolean> => {
+  try {
+    await access(path, constants.F_OK);
+    return true;
+  } catch {
+    return false;
+  }
+};
 
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
+const calculateFileHash = (buffer: Buffer): string => {
+  return crypto.createHash("sha256").update(buffer).digest("hex");
+};
 
-    // Определение расширения файла на основе его MIME-типа
-    const extension = getExtension(file.type)
+// Функция для проверки уникальности изображения и создания/обновления файла hashes.json
+const isImageUniqueAndUpdateHashFile = async (
+  directoryPath: string,
+  fileHash: string,
+) => {
+  const hashFilePath = join(directoryPath, "hashes.json");
+  let hashes = [];
 
-    // Получение оригинального имени файла без расширения
-    const originalName = file.name.substring(0, file.name.lastIndexOf('.')) || 'image'
-    
-    // Обрезка оригинального имени файла до 7 символов, если оно длиннее
-    const truncatedName = originalName.length > 7 ? originalName.substring(0, 7) : originalName
+  // Создаём директорию, если она не существует
+  if (!existsSync(directoryPath)) {
+    await mkdir(directoryPath, { recursive: true });
+  }
 
-    // Соединение обрезанного имени с расширением файла
-    const newFileName = truncatedName + extension
+  // Читаем файл hashes.json, если он существует
+  if (await fileExists(hashFilePath)) {
+    const data = await readFile(hashFilePath, "utf-8");
+    hashes = JSON.parse(data);
+  }
 
-    const path = join(process.cwd(), pathName, newFileName)
-    await writeFile(path, buffer)
+  // Проверяем, уникально ли изображение
+  if (hashes.includes(fileHash)) {
+    return false; // Изображение не уникально
+  }
 
-    console.log(`open ${path} to see the uploaded file`)
+  // Добавляем хеш в массив и обновляем файл hashes.json
+  hashes.push(fileHash);
+  await writeFile(hashFilePath, JSON.stringify(hashes), "utf-8");
 
-    return { 
-        success: true,
-        fileName: newFileName,
-    }
-}
+  return true; // Изображение уникально
+};
+
+const uploadImage = async (
+  data: FormData,
+  pathName: string,
+  nameFolder?: string,
+) => {
+  const file: File | null = data.get("file") as unknown as File;
+  if (!file) {
+    throw new Error("No file uploaded");
+  }
+
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+  const fileHash = calculateFileHash(buffer);
+
+  const directoryPath = nameFolder
+    ? join(process.cwd(), pathName, nameFolder)
+    : join(process.cwd(), pathName);
+
+  // Проверяем уникальность изображения перед его записью
+  if (!(await isImageUniqueAndUpdateHashFile(directoryPath, fileHash))) {
+    console.log("Image already exists and was not uploaded again.");
+    return {
+      success: false,
+      message: "Image already exists.",
+    };
+  }
+
+  // Создаем директорию, если это еще не было сделано в isImageUniqueAndUpdateHashFile
+  // Это можно убрать
+  // await mkdir(directoryPath, { recursive: true });
+
+  try {
+    // Записываем файл изображения
+    const imagePath = join(
+      directoryPath,
+      `${Date.now()}${getExtension(file.type)}`,
+    );
+    await writeFile(imagePath, buffer);
+    console.log(`File uploaded successfully to ${imagePath}`);
+  } catch (error) {
+    console.error("Failed to upload image", error);
+    return {
+      success: false,
+      message: "Failed to upload image.",
+    };
+  }
+
+  return {
+    success: true,
+    fileName: file.name,
+  };
+};
 
 const getExtension = (mimeType: string): string => {
-    switch (mimeType) {
-        case 'image/jpeg':
-            return '.jpeg'
-        case 'image/png':
-            return '.png'
-        case 'image/gif':
-            return '.gif'
-        // Добавьте дополнительные MIME-типы и их расширения по мере необходимости
-        default:
-            return '' // Возвращает пустую строку или можно выбросить ошибку, если MIME-тип не поддерживается
-    }
-}
+  switch (mimeType) {
+    case "image/jpeg":
+      return ".jpeg";
+    case "image/png":
+      return ".png";
+    case "image/gif":
+      return ".gif";
 
-export { uploadImage }
+    default:
+      return "";
+  }
+};
+
+export { uploadImage };

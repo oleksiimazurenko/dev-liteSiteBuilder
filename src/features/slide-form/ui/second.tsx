@@ -1,4 +1,5 @@
-import { uploadImage } from "@/shared/actions/upload-image";
+"use client";
+
 import { Button } from "@/shared/ui/button";
 import { CarouselApi } from "@/shared/ui/carousel";
 import {
@@ -18,6 +19,12 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { FirstSchema, SecondSchema } from "../model/schema";
+import { createSite } from "@/shared/actions/site/set/create-site";
+import { currentUser } from "@/shared/lib/auth/actions/get/auth";
+import { auth } from "@/shared/lib/auth/model/auth";
+import { useSession } from "next-auth/react";
+import { useCurrentUser } from "@/shared/lib/auth/hooks/use-current-user";
+import { uploadImage } from '@/shared/actions/upload-image'
 
 type SecondProps = {
   embla: CarouselApi;
@@ -30,74 +37,71 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
+  const userId = useCurrentUser()?.id;
+
   const secondForm = useForm<z.infer<typeof SecondSchema>>({
     resolver: zodResolver(SecondSchema),
     defaultValues: {
       title: "",
       subtitle: "",
-      aboutMe: "",
+      description: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof SecondSchema>) => {
-    const { image, title, subtitle, aboutMe } = values;
+    const { image, title, subtitle, description } = values;
 
-    console.log(firstValues)
-
-    console.log(values)
+    const imageName = (image as { name: string }).name;
 
     startTransition(async () => {
 
+      if (!userId) throw new Error("User not found");
+      if (!firstValues?.name || !firstValues?.url)
+        throw new Error("First values not found");
+      if (!imageName) throw new Error("Image not found");
 
-      // if (image && image instanceof File) {
-      //   try {
-      //     // Создание объекта FormData для отправки на сервер и добавление в него файла
-      //     const data = new FormData();
-      //     data.set("file", image);
-      //     //-----------------------------------------------------------------------------
+      // const response = await createSite(userId, firstValues?.name, imageName, title, subtitle, description, true, 0, true, firstValues?.url)
 
-      //     // Отправка файла на сервер и получение ответа
-      //     const { success, fileName } = await uploadImage(data, "public");
-      //     //-----------------------------------------------------------------------------
+      if (image && image instanceof File) {
+        try {
+          // Создание объекта FormData для отправки на сервер и добавление в него файла
+          const data = new FormData();
+          data.set("file", image);
+          //-----------------------------------------------------------------------------
 
-      //     // Изменение сообщения в модальном окне
-      //     if (success) {
-      //       toast.success("The image was successfully uploaded to the server");
-      //     }
-      //     //-----------------------------------------------------------------------------
+          // Отправка файла на сервер и получение ответа
+          const { success, fileName } = await uploadImage(data, "protected/users", userId );
+          //-----------------------------------------------------------------------------
 
-      //     // Чтобы опять можно было выбрать тот же файл
-      //     const inputFile = document.querySelector(
-      //       "#fileImageChangeBackground",
-      //     ) as HTMLInputElement;
-      //     if (inputFile) {
-      //       inputFile.value = "";
-      //     }
-      //     //-----------------------------------------------------------------------------
+          // Изменение сообщения в модальном окне
+          if (success) {
+            toast.success("The image was successfully uploaded to the server");
+          }
+          //-----------------------------------------------------------------------------
 
-      //     // Сброс формы
-      //     secondForm.reset();
-      //   } catch (e: unknown) {
-      //     // Вывод ошибки в консоль
-      //     console.error(getErrorMessage(e));
+          // Сброс формы
+          // secondForm.reset();
+        } catch (e: unknown) {
+          // Вывод ошибки в консоль
+          console.error(getErrorMessage(e));
 
-      //     // Вывод ошибки в toast
-      //     toast.error(getErrorMessage(e));
+          // Вывод ошибки в toast
+          toast.error(getErrorMessage(e));
 
-      //     // Чтобы опять можно было выбрать тот же файл
-      //     const inputFile = document.querySelector(
-      //       "#fileImageChangeBackground",
-      //     ) as HTMLInputElement;
-      //     if (inputFile) {
-      //       inputFile.value = "";
-      //     }
+          // Чтобы опять можно было выбрать тот же файл
+          // const inputFile = document.querySelector(
+          //   "#fileImageChangeBackground",
+          // ) as HTMLInputElement;
+          // if (inputFile) {
+          //   inputFile.value = "";
+          // }
 
-      //     // Сброс формы
-      //     secondForm.reset();
-      //   }
-      // } else {
-      //   throw new Error("Something went wrong.");
-      // }
+          // Сброс формы
+          // secondForm.reset();
+        }
+      } else {
+        throw new Error("Something went wrong.");
+      }
     });
   };
 
@@ -231,7 +235,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
 
           <FormField
             control={secondForm.control}
-            name="aboutMe"
+            name="description"
             render={({ field }) => (
               <FormItem>
                 <FormControl>

@@ -9,9 +9,10 @@ import { revalidatePath } from "next/cache";
 const createSite = async (
   id: string,
   name: string,
+  imageUrl: string,
   title: string,
   subtitle: string,
-  aboutMe: string,
+  description: string,
   status: boolean,
   views: number,
   view: boolean,
@@ -24,9 +25,10 @@ const createSite = async (
       const site = await prisma.site.create({
         data: {
           name,
+          imageUrl,
           title,
           subtitle,
-          aboutMe,
+          description,
           status,
           views,
           view,
