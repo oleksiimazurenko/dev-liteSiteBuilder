@@ -1,5 +1,6 @@
 'use client'
-import { usePopoverToolsStore } from '@/shared/store/store'
+
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 import { PlusSquare } from 'lucide-react'
 
 export function CreateSectionTrigger() {

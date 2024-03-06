@@ -3,8 +3,9 @@
 import { useEffect, useRef } from "react";
 
 import { useCurrentRole } from "@/shared/lib/auth/hooks/use-current-role";
-import { usePopoverToolsStore } from "@/shared/store/store";
+
 import cn from "classnames";
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 
 type TextEditorProps = {
   id: string;

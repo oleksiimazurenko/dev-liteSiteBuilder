@@ -4,7 +4,7 @@ import { FontSizeIcon } from '@radix-ui/react-icons'
 import { Arrow } from '@radix-ui/react-popover'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { updateInlineStyles } from '../../../../../shared/helpers/update-inline-styles'
+import { updateInlineStyles } from '@/shared/helpers/update-inline-styles'
 
 type FontSizeToolProps = {
 	currentElement: HTMLElement | Element | undefined | null

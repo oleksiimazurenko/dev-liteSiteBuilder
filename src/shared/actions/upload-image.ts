@@ -72,14 +72,10 @@ const uploadImage = async (
   if (!(await isImageUniqueAndUpdateHashFile(directoryPath, fileHash))) {
     console.log("Image already exists and was not uploaded again.");
     return {
-      success: false,
-      message: "Image already exists.",
+      success: true,
+      message: "Image already exists and was not uploaded again.",
     };
   }
-
-  // Создаем директорию, если это еще не было сделано в isImageUniqueAndUpdateHashFile
-  // Это можно убрать
-  // await mkdir(directoryPath, { recursive: true });
 
   try {
     // Записываем файл изображения
@@ -99,6 +95,7 @@ const uploadImage = async (
 
   return {
     success: true,
+    message: "The image was successfully uploaded to the server",
     fileName: file.name,
   };
 };

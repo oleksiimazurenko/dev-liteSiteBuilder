@@ -6,7 +6,7 @@ import { Arrow } from '@radix-ui/react-popover'
 import { TextCursor } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { updateTextContent } from '../../../../../shared/helpers/update-text-content'
+import { updateTextContent } from '@/shared/helpers/update-text-content'
 
 type ChangeTextProps = {
 	currentElement: HTMLElement | Element | undefined | null

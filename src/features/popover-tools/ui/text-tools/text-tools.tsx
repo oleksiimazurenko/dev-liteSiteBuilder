@@ -1,6 +1,6 @@
 'use client'
 
-import { usePopoverToolsStore } from '@/shared/store/store'
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 import { RemoveElement } from '../section-tools/tools/remove-element'
 import { BGColorTools } from '../tools/bg-color-tools'
 import { BorderRadiusTool } from '../tools/border-radius-tool'

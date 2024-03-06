@@ -9,13 +9,12 @@ import { revalidatePath } from "next/cache";
 const createSite = async (
   id: string,
   name: string,
-  imageUrl: string,
+  imageName: string,
   title: string,
   subtitle: string,
   description: string,
   status: boolean,
   views: number,
-  view: boolean,
   url: string,
 ) => {
   try {
@@ -25,13 +24,12 @@ const createSite = async (
       const site = await prisma.site.create({
         data: {
           name,
-          imageUrl,
+          imageName,
           title,
           subtitle,
           description,
           status,
           views,
-          view,
           url,
           userId: id,
         },
@@ -82,7 +80,7 @@ const createSite = async (
     return { success: true, data: transactionResult };
   } catch (error) {
     console.error(getErrorMessage(error));
-    return { success: false, error: getErrorMessage(error) };
+    return { success: false, error: getErrorMessage(error), message: "The site was not created"};
   }
 };
 

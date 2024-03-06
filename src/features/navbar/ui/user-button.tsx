@@ -27,12 +27,12 @@ export const UserButton = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
-        <DropdownMenuItem
+        {/* <DropdownMenuItem
           onClick={() => router.push("/settings", { scroll: false })}
         >
           <UserRoundCog className="mr-2 h-4 w-4" />
           Settings
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuItem onClick={() => logout()}>
           <LogOut className="mr-2 h-4 w-4" />
           logout

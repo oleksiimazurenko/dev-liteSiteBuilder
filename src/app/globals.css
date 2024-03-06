@@ -220,12 +220,6 @@
 }
 
 .horizontal-mask {
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 50%,
-    black 50%,
-    transparent
-  );
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20%, transparent);
   mask-image: linear-gradient(to right, transparent, black 20%, transparent);
 }

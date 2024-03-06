@@ -1,5 +1,5 @@
 'use client'
-import { usePopoverToolsStore } from '@/shared/store/store'
+
 import { Button } from '@/shared/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/popover'
 import { Arrow } from '@radix-ui/react-popover'
@@ -8,6 +8,7 @@ import { deleteSection } from '../../../../../shared/actions/section/set/delete-
 import { usePathname } from 'next/navigation'
 import { getPageByUrl } from '@/shared/actions/page/get/get-page-by-url'
 import { useEffect, useRef } from 'react'
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 
 type RemoveSectionProps = {
 	currentElement: HTMLElement | Element | undefined | null

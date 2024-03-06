@@ -1,9 +1,9 @@
 'use client'
 
-import { usePopoverToolsStore } from '@/shared/store/store'
 import { Button } from '@/shared/ui/button'
 import { toast } from 'sonner'
 import { deleteProduct } from '@/shared/actions/product/set/delete-product'
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 
 export function DeleteProduct() {
 	const { idProduct, setIsOpenPopoverTools } = usePopoverToolsStore()

@@ -1,8 +1,8 @@
 'use client'
 
-import { usePopoverToolsStore } from '@/shared/store/store'
 import { toast } from 'sonner'
 import { TextModel } from './model-elements/text-model'
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 
 export function CreateElementTools() {
 	const { editableGroup } = usePopoverToolsStore()

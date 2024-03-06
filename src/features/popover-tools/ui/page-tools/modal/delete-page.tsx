@@ -1,10 +1,10 @@
 'use client'
 
-import { usePopoverToolsStore } from '@/shared/store/store'
 import { Button } from '@/shared/ui/button'
 import Link from 'next/link'
 import { toast } from 'sonner'
 import { deletePage } from '@/shared/actions/page/set/delete-page'
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 
 export function DeletePage() {
 	const { idPage, setIsOpenPopoverTools } = usePopoverToolsStore()

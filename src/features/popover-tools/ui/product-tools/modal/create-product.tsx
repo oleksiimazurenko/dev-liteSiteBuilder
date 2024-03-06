@@ -17,13 +17,14 @@ import {
 import { Input } from '@/shared/ui/input'
 
 import { uploadImage } from '@/shared/actions/upload-image'
-import { usePopoverToolsStore } from '@/shared/store/store'
 import { RadioGroup, RadioGroupItem } from '@/shared/ui/radio-group'
 import { getErrorMessage } from '@/shared/utils/extract-error-message'
 import { ImagePlus } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { createProduct } from '../../../../../shared/actions/product/set/create-product'
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
+import { useSession } from 'next-auth/react'
 
 // ---------------------------------------------------------------
 // Описываем схему валидации
@@ -60,6 +61,8 @@ export function CreateProduct() {
 	)
 	const { setIsOpenPopoverTools, idComponent } = usePopoverToolsStore()
 
+	const userId = useSession().data?.user?.id
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -77,8 +80,9 @@ export function CreateProduct() {
 		type,
 		file,
 	}: z.infer<typeof formSchema>) => {
-		if (file && file instanceof File) {
+		if (file && file instanceof File && userId) {
 			try {
+
 				// Создание объекта FormData для отправки на сервер и добавление в него файла
 				const dataImage = new FormData()
 				dataImage.set('file', file)
@@ -87,18 +91,18 @@ export function CreateProduct() {
 				// Отправка файла на сервер и получение ответа
 				const { success: successFile, fileName } = await uploadImage(
 					dataImage,
-					'public/products'
+					'protected',
+					userId
 				)
 				//-----------------------------------------------------------------------------
 
 				// Отправка данных на сервер и получение ответа
-
-				const { success, data } = await createProduct({
+				const { success } = await createProduct({
 					name,
 					country,
 					price,
 					type,
-					image: fileName,
+					image: fileName ? fileName : 'fileName not found, error in file: src/features/popover-tools/ui/product-tools/modal/create-product.tsx',
 					componentId: idComponent,
 				})
 

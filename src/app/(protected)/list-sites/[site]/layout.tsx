@@ -1,7 +1,9 @@
 import { PopoverTools } from '@/features/popover-tools'
-import { Toaster } from '@/shared/ui/sonner'
-import { UserFooter } from '@/widgets/build-footer'
-import { UserHeader } from '@/widgets/build-header'
+import { getSiteByUrl } from '@/shared/actions/site/get/get-site-by-url'
+import { getSites } from '@/shared/actions/site/get/get-sites'
+import { ScrollArea } from '@/shared/ui/scroll-area'
+import { BuildFooter } from '@/widgets/build-footer'
+import { BuildHeader } from '@/widgets/build-header'
 import { JetBrains_Mono } from 'next/font/google'
 
 const merienda = JetBrains_Mono({ subsets: ['latin'] })
@@ -31,11 +33,10 @@ export async function generateMetadata({
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<div className={merienda.className}>
-			<UserHeader className='max-w-[2100px] m-auto' />
-			<main className='max-w-[2100px] m-auto'>{children}</main>
-			<Toaster />
+			<BuildHeader className='max-w-[2100px] m-auto' />
+			<ScrollArea>{children}</ScrollArea>
 			<PopoverTools />
-			<UserFooter className='max-w-[2100px] m-auto' />
+			<BuildFooter className='max-w-[2100px] m-auto' />
 		</div>
 	)
 }

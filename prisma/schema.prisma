@@ -10,13 +10,12 @@ datasource db {
 model Site {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
-  imageUrl    String?
+  imageName   String?
   title       String?
   subtitle    String?
   description String?
   status      Boolean?
   views       Int?
-  view        Boolean?
   url         String   @unique
   pages       Page[]
   user        User     @relation(fields: [userId], references: [id])

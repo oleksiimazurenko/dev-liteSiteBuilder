@@ -4,7 +4,7 @@ import prisma from '@/shared/lib/prisma-client';
 import { getErrorMessage } from '@/shared/utils/extract-error-message';
 import { getLastUrlSegment } from '@/shared/utils/get-last-url-segment'
 
-const getIdSite = async (url: string) => {
+const getIdSiteByUrl = async (url: string) => {
 	try {
 
 		const processedUrl = getLastUrlSegment(url)
@@ -24,7 +24,7 @@ const getIdSite = async (url: string) => {
 		if (site) {
 			return { success: true, data: site.id }; // Успешно найдена страница
 		} else {
-			return { success: false, error: 'Site not found' }; // Страница не найдена
+			return { success: false, error: 'ID Site not found' }; // Страница не найдена
 		}
 	} catch (error) {
 		console.error(getErrorMessage(error));
@@ -32,4 +32,4 @@ const getIdSite = async (url: string) => {
 	}
 };
 
-export { getIdSite };
+export { getIdSiteByUrl };

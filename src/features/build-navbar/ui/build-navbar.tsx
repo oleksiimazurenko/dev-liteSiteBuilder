@@ -17,15 +17,13 @@ export async function BuildNavbar({
   CreatePageTrigger,
   DeletePageTrigger,
 }: BuildNavbarProps) {
+
   const { data } = await getPages();
 
   if (!data)
     return (
-      <div>Partition dataPages not found in database. Error in navbar.tsx</div>
+      <div className='bg-red-400 flex justify-center items-center'>Partition dataPages not found in database. Notice in src/features/build-navbar/ui/build-navbar.tsx</div>
     );
-
-  const session = await auth();
-  const isAdmin = session?.user.role === "ADMIN";
 
   return (
     <nav
@@ -37,14 +35,14 @@ export async function BuildNavbar({
       <MainLogo linkColor={linkColor} />
       <ul className="flex">
         {data
-          .filter(({ title }) => title !== "Home Page")
-          .map(({ id, title, url }) => (
+          .filter(({ name }) => name !== "Home Page")
+          .map(({ id, name, url }) => (
             <li className="relative" key={id}>
-              <NavLink slug={`/${url}`}>{title}</NavLink>
-              {isAdmin && <DeletePageTrigger idPage={id} />}
+              <NavLink slug={`/${url}`}>{name}</NavLink>
+              <DeletePageTrigger idPage={id} />
             </li>
           ))}
-        {isAdmin && <CreatePageTrigger />}
+        <CreatePageTrigger />
       </ul>
     </nav>
   );

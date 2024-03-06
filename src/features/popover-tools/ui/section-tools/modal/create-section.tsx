@@ -15,10 +15,10 @@ import {
 } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 
-import { usePopoverToolsStore } from '@/shared/store/store'
 import { usePathname } from 'next/navigation'
 import { createSection } from '@/shared/actions/section/set/create-section'
 import { toast } from 'sonner'
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 
 const formSchema = z.object({
 	name: z.string().min(2).max(50),

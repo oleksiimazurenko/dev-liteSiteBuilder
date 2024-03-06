@@ -15,9 +15,13 @@ import {
 } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 
-import { usePopoverToolsStore } from '@/shared/store/store'
+
 import { toast } from 'sonner'
-import { createPage } from '../../../../../shared/actions/page/set/create-page'
+import { createPage } from '@/shared/actions/page/set/create-page'
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
+import { get } from 'http'
+import { getSiteByUrl } from '@/shared/actions/site/get/get-site-by-url'
+import { usePathname } from 'next/navigation'
 
 const formSchema = z.object({
 	title: z.string().min(2).max(50),
@@ -33,12 +37,22 @@ export function CreatePage() {
 		},
 	})
 
+	const pathName = usePathname()
+
 	const { setIsOpenPopoverTools } = usePopoverToolsStore()
 
 	const onSubmit = async ({ title, url }: z.infer<typeof formSchema>) => {
-		const { success, data } = await createPage(title, url)
 
-		success ? toast.success('Page created') : toast.error('Error creating page')
+		const siteId = (await getSiteByUrl(pathName)).data?.id
+
+		if(!siteId){
+			toast.error('Error creating page, happen in file: src/features/popover-tools/ui/page-tools/modal/create-page.tsx')
+			return
+		}
+
+		const { success, data } = await createPage(siteId, title, url)
+
+		success ? toast.success('Page created') : toast.error('Error creating page, happen in file: src/features/popover-tools/ui/page-tools/modal/create-page.tsx')
 
 		form.reset()
 	}

@@ -2,7 +2,7 @@ import { rgbToHex } from '@/shared/helpers/color/rgb-to-hex'
 import { Input } from '@/shared/ui/input'
 import { usePathname } from 'next/navigation'
 import { useRef, useState } from 'react'
-import { updateInlineStyles } from '../../../../../shared/helpers/update-inline-styles'
+import { updateInlineStyles } from '@/shared/helpers/update-inline-styles'
 
 type ColorToolProps = {
 	currentElement: HTMLElement | Element | undefined | null

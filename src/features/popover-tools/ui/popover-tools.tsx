@@ -3,7 +3,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { SlidersHorizontal } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-import { usePopoverToolsStore } from "@/shared/store/store";
 import { Arrow } from "@radix-ui/react-popover";
 
 import { TextTools } from "./text-tools/text-tools";
@@ -16,6 +15,7 @@ import { CreateProduct } from "./product-tools/modal/create-product";
 import { DeleteProduct } from "./product-tools/modal/delete-product";
 import { CreateSection } from "./section-tools/modal/create-section";
 import { SectionTools } from "./section-tools/section-tools";
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 
 type PopoverToolsProps = {};
 

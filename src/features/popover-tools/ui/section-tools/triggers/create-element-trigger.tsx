@@ -1,6 +1,7 @@
 'use client'
 
-import { usePopoverToolsStore } from '@/shared/store/store'
+
+import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 import { PlusSquare, Settings } from 'lucide-react'
 import { forwardRef, useRef } from 'react'
 

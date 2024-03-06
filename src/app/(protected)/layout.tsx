@@ -2,6 +2,7 @@ import { LangSwitch } from "@/features/lang-switch";
 import { Navbar } from "@/features/navbar";
 import { ThemeSwitch } from "@/features/theme-switch";
 import { auth } from "@/shared/lib/auth/model/auth";
+import { ScrollArea } from '@/shared/ui/scroll-area'
 import { redirect } from "next/navigation";
 
 interface ProtectedLayoutProps {
@@ -13,14 +14,15 @@ const ProtectedLayout = async ({ children }: ProtectedLayoutProps) => {
   if (!session) redirect("/");
 
   return (
-    <div className="bcw1 dark:bcd1 flex h-svh w-full items-center justify-center md:pb-[80px]">
+    <div className="flex h-svh w-full items-center justify-center bg-white md:pb-[72px]">
       <Navbar
         className="dark:bcd2 bcw2 fixed bottom-0 left-0 z-50 w-full p-4"
         LangSwitch={LangSwitch}
         ThemeSwitch={ThemeSwitch}
       />
-      <div className="dark:bcd2 flex h-[500px] w-[300px] flex-col items-center justify-center rounded-xl border-none bg-transparent p-5 shadow-xl md:w-[500px]">
-        {children}
+
+      <div className="bcw1 dark:bcd1 flex h-full !w-full flex-col items-center justify-center p-0">
+      <ScrollArea>{children}</ScrollArea>
       </div>
 
       <div className="absolute right-3 top-3 flex space-x-2">

@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/shared/ui/accordion";
-import { ProductsList } from "@/widgets/build-products-list";
+import { BuildProductsList } from '@/widgets/build-products-list'
 import { Component } from "@prisma/client";
 import Image from "next/image";
 
@@ -87,7 +87,7 @@ export async function RenderComponent({
     return {
       id,
       content: (
-        <ProductsList
+        <BuildProductsList
           id={id}
           key={id}
           products={dataProduct}

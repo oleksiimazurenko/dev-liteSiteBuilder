@@ -1,18 +1,22 @@
 import { DataTable, columns } from "@/features/list-sites";
 import { getSites } from "@/shared/actions/site/get/get-sites";
+import { auth } from '@/shared/lib/auth/model/auth'
 import { Button } from "@/shared/ui/button";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import cn from "classnames";
 import Link from "next/link";
 
 export default async function ListSites() {
+
+  const userId = await auth()
   const { data } = await getSites();
+  const sites = data?.filter((site) => site.userId === userId?.user?.id);
 
   return (
     <div className="container relative flex h-full w-full flex-col items-center justify-center space-y-5 overflow-hidden rounded-lg p-5">
-      {data && data?.length > 0 && (
+      {sites && sites.length > 0 && (
         <ScrollArea>
-          <DataTable columns={columns} data={data} />
+          <DataTable columns={columns} data={sites} />
         </ScrollArea>
       )}
 

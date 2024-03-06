@@ -1,5 +1,8 @@
 "use client";
 
+import { createSite } from "@/shared/actions/site/set/create-site";
+import { uploadImage } from "@/shared/actions/upload-image";
+import { useCurrentUser } from "@/shared/lib/auth/hooks/use-current-user";
 import { Button } from "@/shared/ui/button";
 import { CarouselApi } from "@/shared/ui/carousel";
 import {
@@ -14,17 +17,12 @@ import { getErrorMessage } from "@/shared/utils/extract-error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
 import cn from "classnames";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { FirstSchema, SecondSchema } from "../model/schema";
-import { createSite } from "@/shared/actions/site/set/create-site";
-import { currentUser } from "@/shared/lib/auth/actions/get/auth";
-import { auth } from "@/shared/lib/auth/model/auth";
-import { useSession } from "next-auth/react";
-import { useCurrentUser } from "@/shared/lib/auth/hooks/use-current-user";
-import { uploadImage } from '@/shared/actions/upload-image'
 
 type SecondProps = {
   embla: CarouselApi;
@@ -36,6 +34,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
   const [isPending, startTransition] = useTransition();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const userId = useCurrentUser()?.id;
 
@@ -48,39 +47,81 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
     },
   });
 
+  const resetImage = () => {
+    secondForm.setValue("image", null); // Сбрасываем значение поля image в форме от react-hook-form
+    if (imageInputRef.current) imageInputRef.current.value = ""; // Сбрасываем значение input
+    setPreviewUrl(null); // Сбрасываем URL превью
+  };
+
   const onSubmit = (values: z.infer<typeof SecondSchema>) => {
     const { image, title, subtitle, description } = values;
-
     const imageName = (image as { name: string }).name;
 
     startTransition(async () => {
 
-      if (!userId) throw new Error("User not found");
-      if (!firstValues?.name || !firstValues?.url)
-        throw new Error("First values not found");
-      if (!imageName) throw new Error("Image not found");
+      if (
+        image &&
+        image instanceof File &&
+        userId &&
+        firstValues &&
+        firstValues?.name &&
+        firstValues?.url &&
+        imageName
+      ) {
 
-      // const response = await createSite(userId, firstValues?.name, imageName, title, subtitle, description, true, 0, true, firstValues?.url)
-
-      if (image && image instanceof File) {
         try {
-          // Создание объекта FormData для отправки на сервер и добавление в него файла
-          const data = new FormData();
-          data.set("file", image);
-          //-----------------------------------------------------------------------------
 
-          // Отправка файла на сервер и получение ответа
-          const { success, fileName } = await uploadImage(data, "protected/users", userId );
-          //-----------------------------------------------------------------------------
+          const { success: successSite, message } = await createSite(
+            userId,
+            firstValues?.name,
+            imageName,
+            title,
+            subtitle,
+            description,
+            true,
+            0,
+            firstValues?.url,
+          );
 
-          // Изменение сообщения в модальном окне
-          if (success) {
-            toast.success("The image was successfully uploaded to the server");
+          if (successSite) {
+
+            toast.success("The site was successfully created");
+
+            // Создание объекта FormData для отправки на сервер и добавление в него файла
+            const data = new FormData();
+            data.set("file", image);
+            //-----------------------------------------------------------------------------
+
+            // Отправка файла на сервер и получение ответа
+            const { success: successImage, message } = await uploadImage(
+              data,
+              "protected/users",
+              userId,
+            );
+            //-----------------------------------------------------------------------------
+
+            // Изменение сообщения в модальном окне
+            if (successImage) {
+              toast.success(
+                message,
+              );
+              router.push(`list-sites/${firstValues?.url}`);
+            } else {
+              toast.error(
+                message + "Notice in file: src/features/slide-form/ui/second.tsx",
+              );
+            }
+            //-----------------------------------------------------------------------------
+
+            // Сброс формы
+            secondForm.reset();
+            resetImage();
+
+          } else {
+            toast.error(
+              message + "Notice in file: src/features/slide-form/ui/second.tsx",
+            );
           }
-          //-----------------------------------------------------------------------------
-
-          // Сброс формы
-          // secondForm.reset();
         } catch (e: unknown) {
           // Вывод ошибки в консоль
           console.error(getErrorMessage(e));
@@ -88,19 +129,13 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
           // Вывод ошибки в toast
           toast.error(getErrorMessage(e));
 
-          // Чтобы опять можно было выбрать тот же файл
-          // const inputFile = document.querySelector(
-          //   "#fileImageChangeBackground",
-          // ) as HTMLInputElement;
-          // if (inputFile) {
-          //   inputFile.value = "";
-          // }
-
           // Сброс формы
-          // secondForm.reset();
+          secondForm.reset();
         }
       } else {
-        throw new Error("Something went wrong.");
+        toast.error(
+          "The site was not created because we have error in outer wrapper, error in file: src/features/slide-form/ui/second.tsx",
+        );
       }
     });
   };
@@ -109,12 +144,6 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
     if (embla) {
       embla.scrollTo(0);
     }
-  };
-
-  const resetImage = () => {
-    secondForm.setValue("image", null); // Сбрасываем значение поля image в форме от react-hook-form
-    if (imageInputRef.current) imageInputRef.current.value = ""; // Сбрасываем значение input
-    setPreviewUrl(null); // Сбрасываем URL превью
   };
 
   return (
@@ -262,6 +291,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
 
           <Button
             size="sm"
+            disabled={isPending}
             type="button"
             variant="link"
             className="tw2 dark:td2 m-auto h-5 p-0 font-normal"

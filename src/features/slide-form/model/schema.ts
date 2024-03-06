@@ -1,8 +1,22 @@
+import { getSites } from "@/shared/actions/site/get/get-sites";
 import { z } from "zod";
 
 export const FirstSchema = z.object({
-  name: z.string().min(2, { message: "error" }),
-  url: z.string().min(2, { message: "error" }),
+  name: z.string().min(2, { message: "Назва не може бути менше 2 символів" }),
+  url: z
+    .string()
+    .min(2, { message: "Назва не може бути менше 2 символів" })
+    .superRefine(async (url, ctx) => {
+      const { data: sites } = await getSites(); // Предполагается, что это асинхронная функция
+      const exists = sites?.some((site) => site.url === url); // Проверяем, существует ли такой URL
+      if (exists) {
+        // Если URL существует, добавляем ошибку в контекст Zod
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "URL вже існує в базі даних",
+        });
+      }
+    }),
 });
 
 export const SecondSchema = z.object({
