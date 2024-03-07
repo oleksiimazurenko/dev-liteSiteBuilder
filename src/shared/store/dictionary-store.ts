@@ -1,4 +1,4 @@
-import { getDictionary } from "@/shared/dictionary/get-dictionary";
+import { getDictionary } from "@/shared/dictionary/api/get-dictionary";
 import { create } from "zustand";
 
 export type Dictionary = {

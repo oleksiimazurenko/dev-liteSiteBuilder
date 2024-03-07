@@ -41,6 +41,7 @@ const createSite = async (
           name,
           url,
           siteId: site.id,
+          isMain: true,
         },
       });
 

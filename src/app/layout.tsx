@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/shared/ui/sonner"
 import { ScrollArea } from '@/shared/ui/scroll-area'
+import { getLangUser } from '@/shared/actions/user/get-lang-user'
 
 export const metadata: Metadata = {
   title: "Landee",
@@ -23,8 +24,8 @@ export default async function RootLayout({
   return (
     <SessionProvider>
       <html lang="en">
-        <body className={cn("max-w-[4400px]")}>
-          <main><ScrollArea>{children}</ScrollArea></main>
+        <body className={cn("max-w-[2400px] m-auto")}>
+          <main>{children}</main>
           {!session && (
             <ThemeSwitch className="hidden md:fixed md:bottom-5 md:left-5 md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
           )}

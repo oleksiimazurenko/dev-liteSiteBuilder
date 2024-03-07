@@ -1,27 +1,27 @@
-import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
-import { getIdFirstSection } from '../actions/section/get/get-id-first-section'
-import { useDNDSectionStore } from '../store/store'
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+import { getIdFirstSection } from "../actions/section/get/get-id-first-section";
+import { useDNDSectionStore } from "../store/dnd-store";
 
 export function useFirstSectionSpace(): void {
-	const pathName = usePathname()
-	const { currentItems } = useDNDSectionStore()	
+  const pathName = usePathname();
+  const { currentItems } = useDNDSectionStore();
 
-	const getFirstSection = async () => {
-		const { data: idSection } = await getIdFirstSection(pathName)
-		if (!idSection) return
+  const getFirstSection = async () => {
+    const { data: idSection } = await getIdFirstSection(pathName);
+    if (!idSection) return;
 
-		return document.querySelector(`[data-id="${idSection}"]`) as HTMLDivElement
-	}
+    return document.querySelector(`[data-id="${idSection}"]`) as HTMLDivElement;
+  };
 
-	useEffect(() => {
-		;(async () => {
-			const firstSection = await getFirstSection()
+  useEffect(() => {
+    (async () => {
+      const firstSection = await getFirstSection();
 
-			if (firstSection) {
-				firstSection.style.minHeight = '300px'
-				firstSection.style.paddingTop = '120px'
-			}
-		})()
-	}, [currentItems])
+      if (firstSection) {
+        firstSection.style.minHeight = "300px";
+        firstSection.style.paddingTop = "120px";
+      }
+    })();
+  }, [currentItems]);
 }

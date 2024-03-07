@@ -4,7 +4,7 @@ type Lang = {
 
 const getDictionary = async (locale: string): Promise<Lang> => {
   try {
-    const dictionary = await import(`./${locale}.json`).then(
+    const dictionary = await import(`../${locale}.json`).then(
       (module) => module.default,
     );
     return dictionary;

@@ -29,6 +29,7 @@ model Page {
   sections Section[]
   site     Site      @relation(fields: [siteId], references: [id])
   siteId   String
+  isMain   Boolean?
 }
 
 model Section {
@@ -91,11 +92,12 @@ model User {
   emailVerified         DateTime?
   image                 String?
   password              String?
-  role                  String                 @default("USER")
   accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   sites                 Site[]
+  lang                  String?                @default("en")
+  theme                 String?                @default("dark")
 }
 
 model Account {

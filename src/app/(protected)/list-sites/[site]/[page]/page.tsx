@@ -49,7 +49,6 @@ export default async function Page({
 
 
   const { data } = await getPageByUrl(page)
-  const sessionUserId = await useSession().data?.user.id
 
 	const siteId = data?.siteId
 	
@@ -66,18 +65,11 @@ export default async function Page({
 	const { data: site } = await getSiteById(siteId)
 	const userId = site?.userId
 
-  const isEditable = userId === sessionUserId;
-
   // Берем секции первой страницы новосозданного сайта
   const sections = data?.sections;
 
   const promisesSections = sections.sort(sortPosition).map(RenderSection);
   const renderedSections = await Promise.all(promisesSections);
 
-  return (
-    <>
-      {isEditable && <DNDSection items={renderedSections} />}
-      {!isEditable && renderedSections.map(({ content }) => content)}
-    </>
-  );
+  return <DNDSection items={renderedSections} />;
 }

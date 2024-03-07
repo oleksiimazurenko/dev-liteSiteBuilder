@@ -4,5 +4,9 @@ import { currentUser } from "@/shared/lib/auth/actions/get/auth";
 export default async function InfoProfil() {
   const user = await currentUser();
 
-  return <UserInfo label="💻 Info profil" user={user} />;
+  return (
+    <div className='h-full flex justify-center items-center '>
+      <UserInfo label="💻 Info profil" user={user} />
+    </div>
+  )
 }

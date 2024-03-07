@@ -45,8 +45,8 @@ export default async function Site({
 
   if (!data || !sections) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gradient-to-r from-slate-800 via-teal-800 to-slate-800 text-[20px] text-slate-50">
-        Partition data not found in database. Error in file:
+      <div className="h-screen bg-red-400 flex justify-center items-center">
+        Partition data not found in database. Notice in:
         src/app/(protected)/sites/[site]/page.tsx
       </div>
     );

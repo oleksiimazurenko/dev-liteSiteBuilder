@@ -1,6 +1,11 @@
+export type ProfessionObject = {
+	profession: string;
+  imagePreview: string;
+};
+
 export type MainPageTranslations = {
   main_page: {
-    professions_list: string[][];
+    professions_list: ProfessionObject[];
     login_panel: {
 			[key: string]: string
 		},

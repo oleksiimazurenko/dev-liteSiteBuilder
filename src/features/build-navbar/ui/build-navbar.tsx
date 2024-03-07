@@ -18,11 +18,15 @@ export async function BuildNavbar({
   DeletePageTrigger,
 }: BuildNavbarProps) {
 
+  
+
   const { data } = await getPages();
+
+  const siteUrl = data?.find(({ isMain }) => isMain === true)?.url;
 
   if (!data)
     return (
-      <div className='bg-red-400 flex justify-center items-center'>Partition dataPages not found in database. Notice in src/features/build-navbar/ui/build-navbar.tsx</div>
+      <div className='bg-red-400 flex justify-center items-center'>Partition dataPages not found in database. Notice in: src/features/build-navbar/ui/build-navbar.tsx</div>
     );
 
   return (
@@ -32,10 +36,10 @@ export async function BuildNavbar({
         ["justify-center text-slate-800/90"]: linkColor === "black",
       })}
     >
-      <MainLogo linkColor={linkColor} />
+      <MainLogo siteUrl={siteUrl}/>
       <ul className="flex">
         {data
-          .filter(({ name }) => name !== "Home Page")
+          .filter(({ isMain }) => isMain !== true)
           .map(({ id, name, url }) => (
             <li className="relative" key={id}>
               <NavLink slug={`/${url}`}>{name}</NavLink>

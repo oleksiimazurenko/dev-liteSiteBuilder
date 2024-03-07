@@ -5,7 +5,6 @@ import authConfig from "./auth.config";
 import { db } from "../lib/db";
 import { getUserById } from "../actions/get/user";
 import { getTwoFactorConfirmationByUserId } from "../actions/get/two-factor-confirmation";
-import { UserRole } from "./types";
 import { getAccountByUserId } from "../actions/get/account";
 
 export const {
@@ -58,10 +57,6 @@ export const {
         session.user.id = token.sub;
       }
 
-      if (token.role && session.user) {
-        session.user.role = token.role as UserRole;
-      }
-
       if (session.user) {
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
       }
@@ -86,7 +81,8 @@ export const {
       token.isOAuth = !!existingAccount;
       token.name = existingUser.name;
       token.email = existingUser.email;
-      token.role = existingUser.role;
+      token.lang = existingUser.lang;
+      token.theme = existingUser.theme;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
 
       return token;

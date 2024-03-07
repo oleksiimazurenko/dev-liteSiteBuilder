@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { bykyvedeLight, jetBrainsMono, poppins } from '../fonts/shared-fonts'
 
 
-export function useFontFamilySwitch(lang: string) {
+export function useInitFontFamily(lang: string) {
 
 	const removeExistingFontClass = (): void => {
 		const existingFontClass = document.body.className

@@ -4,8 +4,11 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { useCurrentRole } from "@/shared/lib/auth/hooks/use-current-role";
-import { LangSwitchProps, ThemeSwitchProps } from "@/shared/types/props";
+import {
+  LangSwitchProps,
+  LogOutProps,
+  ThemeSwitchProps,
+} from "@/shared/types/props";
 import { Button } from "@/shared/ui/button";
 import cn from "classnames";
 import { UserButton } from "./user-button";
@@ -14,13 +17,18 @@ type NavbarProps = {
   className?: string;
   LangSwitch: ({ className }: LangSwitchProps) => JSX.Element;
   ThemeSwitch: ({ className }: ThemeSwitchProps) => JSX.Element;
+  LogOut: ({ className }: LogOutProps) => JSX.Element;
 };
 
-export const Navbar = ({ className, LangSwitch, ThemeSwitch }: NavbarProps) => {
+export const Navbar = ({
+  className,
+  LangSwitch,
+  ThemeSwitch,
+  LogOut,
+}: NavbarProps) => {
   const pathname = usePathname();
 
   const session = useSession();
-  const role = useCurrentRole();
 
   const buttonArray = [
     { name: "Info profil", link: "/info-profil" },
@@ -59,7 +67,11 @@ export const Navbar = ({ className, LangSwitch, ThemeSwitch }: NavbarProps) => {
           <div className="ml-auto mr-4 block font-light text-neutral-500">
             {session?.data?.user?.name}
           </div>
-          <UserButton />
+          <UserButton
+            LangSwitch={LangSwitch}
+            ThemeSwitch={ThemeSwitch}
+            LogOut={LogOut}
+          />
         </div>
       </div>
     </nav>
