@@ -8,12 +8,14 @@ import { Button } from "@/shared/ui/button";
 import cn from "classnames";
 
 export function LangSwitch({ className }: LangSwitchProps) {
-  const { setLanguage, language: lang } = useDictionaryStore();
+  const { dictionary, setLanguage, language: lang } = useDictionaryStore();
 
   useInitDictionary();
+
   useInitFontFamily(lang);
 
   const toggleLang = () => {
+
     switch (lang) {
       case "en":
         setLanguage("ua");

@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 type DictionaryList = {
-	[key: string]: string;
+  [key: string]: string;
 };
 
 export const SettingsSchema = z
@@ -50,11 +50,11 @@ export const NewPasswordSchema = z.object({
 export const getResetSchema = (dictionaryList?: DictionaryList) => {
   const emailWarning = dictionaryList?.email_warning || "Email is required";
 
-	const ResetSchema = z.object({
-		email: z.string().email({
-			message: emailWarning
-		}),
-	});
+  const ResetSchema = z.object({
+    email: z.string().email({
+      message: emailWarning,
+    }),
+  });
 
   return ResetSchema;
 };
@@ -63,7 +63,8 @@ export const getResetSchema = (dictionaryList?: DictionaryList) => {
 
 export const getLoginSchema = (dictionaryList?: DictionaryList) => {
   const emailWarning = dictionaryList?.email_warning || "Email is required";
-  const passwordWarning = dictionaryList?.password_warning || "Password is required";
+  const passwordWarning =
+    dictionaryList?.password_warning || "Password is required";
 
   const LoginSchema = z.object({
     email: z.string().email({ message: emailWarning }),
@@ -76,21 +77,17 @@ export const getLoginSchema = (dictionaryList?: DictionaryList) => {
 
 // -------------------------------------------------------------
 
-
 export const getRegisterSchema = (dictionaryList?: DictionaryList) => {
   const emailWarning = dictionaryList?.email_warning || "Email is required";
-  const passwordWarning = dictionaryList?.password_warning || "Minimum 6 characters required";
+  const passwordWarning =
+    dictionaryList?.password_warning || "Minimum 6 characters required";
   const nameWarning = dictionaryList?.name_warning || "Name is required";
 
-
-	const RegisterSchema = z.object({
-		email: z.string().email({ message: emailWarning }),
-		password: z.string().min(6, { message: passwordWarning }),
-		name: z.string().min(1, { message: nameWarning }),
-	});
-
-
-  
+  const RegisterSchema = z.object({
+    email: z.string().email({ message: emailWarning }),
+    password: z.string().min(6, { message: passwordWarning }),
+    name: z.string().min(1, { message: nameWarning }),
+  });
 
   return RegisterSchema;
-}
+};

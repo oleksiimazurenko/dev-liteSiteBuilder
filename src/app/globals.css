@@ -67,7 +67,6 @@
 }
 
 @layer base {
-
   * {
     @apply border-border;
   }
@@ -144,9 +143,6 @@
   .tw1 {
     @apply !font-light text-neutral-50;
   }
-
- 
-
 }
 
 /* ---------------------------------------------------------------------- */
@@ -201,7 +197,7 @@
 
 /* ---------------------------------------------------------------------- */
 
-.slider-mask {
+.horizontal-mask {
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 3%,
@@ -217,13 +213,29 @@
     transparent 95%
   );
 }
-
 .vertical-mask {
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 2%,
+    black 50%,
+    black 50%,
+    transparent 98%
+  );
+  mask-image: linear-gradient(
+    to top,
+    transparent 2%,
+    black 50%,
+    black 50%,
+    transparent 98%
+  );
+}
+
+.bottom-mask {
   -webkit-mask-image: linear-gradient(to top, transparent, black 99%, black 1%);
   mask-image: linear-gradient(to top, transparent, black 99%, black 1%);
 }
 
-.horizontal-mask {
+/* .horizontal-mask {
   -webkit-mask-image: linear-gradient(to right, transparent, black 20%, transparent);
   mask-image: linear-gradient(to right, transparent, black 20%, transparent);
-}
+} */

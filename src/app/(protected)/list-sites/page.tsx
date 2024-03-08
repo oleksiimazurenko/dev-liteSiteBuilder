@@ -16,7 +16,7 @@ export default async function ListSites() {
   const professionsList = await getProfessionList();
 
   return (
-    <div className="grid w-full grid-cols-[1fr,1fr] items-center justify-center space-x-3">
+    <div className="grid h-full w-full grid-cols-[1fr,1fr] items-center justify-center">
       <div className="container relative flex w-full flex-col items-center justify-center space-y-5 overflow-hidden rounded-lg p-5">
         {sites && sites.length > 0 && (
           <ScrollArea>
@@ -44,7 +44,7 @@ export default async function ListSites() {
         </Button>
       </div>
 
-      <div className="grid w-full grid-cols-[1fr,1fr] items-center justify-center">
+      <div className="vertical-mask grid w-full grid-cols-[1fr,1fr] items-center justify-center gap-4">
         <CarouselProfessions
           type="list-sites"
           professionsList={professionsList}

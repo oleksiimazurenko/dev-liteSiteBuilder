@@ -8,7 +8,6 @@ import * as z from "zod";
 
 import { FormError, FormSuccess } from "@/features/auth";
 import { settings } from "@/shared/lib/auth/actions/set/settings";
-import { useCurrentRole } from "@/shared/lib/auth/hooks/use-current-role";
 import { useCurrentUser } from "@/shared/lib/auth/hooks/use-current-user";
 import { SettingsSchema } from "@/shared/lib/auth/schemas/index";
 import { Button } from "@/shared/ui/button";
@@ -41,7 +40,6 @@ const SettingsPage = () => {
       newPassword: undefined,
       name: user?.name || undefined,
       email: user?.email || undefined,
-      role: user?.role || undefined,
       isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
     },
   });
@@ -62,8 +60,6 @@ const SettingsPage = () => {
         .catch(() => setError("Something went wrong!"));
     });
   };
-
-  const curretRole = useCurrentRole() as string;
 
   return (
     <div className="flex h-full items-center justify-center">

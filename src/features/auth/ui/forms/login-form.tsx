@@ -60,7 +60,7 @@ export const LoginForm = ({
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
-  const { dictionary, language } = useDictionaryStore();
+  const { dictionary } = useDictionaryStore();
   const { main_page } = dictionary as unknown as MainPageTranslations;
 
   const LoginSchema = getLoginSchema(main_page?.login_panel);

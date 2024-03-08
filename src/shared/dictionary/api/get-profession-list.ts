@@ -1,9 +1,8 @@
-import { getLangUser } from "@/shared/actions/user/get-lang-user";
+import { getLangUser } from "@/shared/actions/user/get/get-lang-user";
 import { MainPageTranslations } from "@/shared/types/dectionary";
 import { getDictionary } from "./get-dictionary";
 
 const getProfessionList = async () => {
-
   const { data: userLang } = await getLangUser();
 
   const professionsList = (

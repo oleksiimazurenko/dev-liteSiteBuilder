@@ -1,6 +1,7 @@
 "use client";
 
 import { useCurrentProfessionStore } from "@/shared/store/current-profession";
+import { Dictionary, useDictionaryStore } from '@/shared/store/dictionary-store'
 import { ProfessionObject } from "@/shared/types/dectionary";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
 import { splitProfessions } from "@/shared/utils/split-professions";
@@ -14,20 +15,30 @@ type CarouselProfessionsProps = {
   professionsList: ProfessionObject[];
 };
 
+function isProfessionObjectArray(array: any): array is ProfessionObject[] {
+  return Array.isArray(array) && array.every(item => 
+    typeof item === 'object' && 'profession' in item && 'imagePreview' in item);
+}
+
 export function CarouselProfessions({
   type,
   professionsList,
 }: CarouselProfessionsProps) {
-  const { currentProfession, setCurrentProfession } =
-    useCurrentProfessionStore();
+  const { currentProfession, setCurrentProfession } = useCurrentProfessionStore();
+
+  // Получаем professionsList из store, при этом убедимся, что он соответствует ожидаемому типу
+  const dictionaryProfessionsList = (useDictionaryStore()?.dictionary?.main_page as Dictionary)?.professions_list as unknown as ProfessionObject[];
+  const storeProfessionsList = isProfessionObjectArray(dictionaryProfessionsList) ? dictionaryProfessionsList : undefined;
+
+  const currentProfessionsList = storeProfessionsList || professionsList;
 
   const line = type === "general-preview" ? 3 : 2;
-
-  const resultProfessionList = splitProfessions(professionsList, line);
+  const resultProfessionList = splitProfessions(currentProfessionsList, line);
 
   return resultProfessionList.map((professions, index) => {
     return (
       <Carousel
+        orientation={type === "general-preview" ? "horizontal" : "vertical"}
         key={index}
         opts={{
           loop: true,
@@ -41,10 +52,14 @@ export function CarouselProfessions({
           }),
         ]}
         className={cn("", {
-          ["slider-mask"]: type === "general-preview",
+          ["horizontal-mask"]: type === "general-preview",
         })}
       >
-        <CarouselContent className="flex">
+        <CarouselContent
+          className={cn("flex", {
+            ["h-[calc(100svh-72px)] flex-col"]: type === "list-sites",
+          })}
+        >
           {professions.map(({ profession, imagePreview }, i) => (
             <CarouselItem
               key={profession}
@@ -62,7 +77,7 @@ export function CarouselProfessions({
                 <Image
                   src={imagePreview}
                   alt={profession}
-                  className="!relative aspect-[3/4]"
+                  className="!relative aspect-[3/4] rounded-xl border border-white"
                   fill={true}
                   objectFit="cover"
                 />

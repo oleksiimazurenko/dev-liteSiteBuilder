@@ -1,7 +1,7 @@
 "use client";
 
 import { createSite } from "@/shared/actions/site/set/create-site";
-import { uploadImage } from "@/shared/actions/upload-image";
+import { uploadImage } from "@/shared/actions/user/set/upload-image";
 import { useCurrentUser } from "@/shared/lib/auth/hooks/use-current-user";
 import { Button } from "@/shared/ui/button";
 import { CarouselApi } from "@/shared/ui/carousel";
@@ -58,7 +58,6 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
     const imageName = (image as { name: string }).name;
 
     startTransition(async () => {
-
       if (
         image &&
         image instanceof File &&
@@ -68,9 +67,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
         firstValues?.url &&
         imageName
       ) {
-
         try {
-
           const { success: successSite, message } = await createSite(
             userId,
             firstValues?.name,
@@ -84,7 +81,6 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
           );
 
           if (successSite) {
-
             toast.success("The site was successfully created");
 
             // Создание объекта FormData для отправки на сервер и добавление в него файла
@@ -102,13 +98,12 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
 
             // Изменение сообщения в модальном окне
             if (successImage) {
-              toast.success(
-                message,
-              );
+              toast.success(message);
               router.push(`list-sites/${firstValues?.url}`);
             } else {
               toast.error(
-                message + "Notice in file: src/features/slide-form/ui/second.tsx",
+                message +
+                  "Notice in file: src/features/slide-form/ui/second.tsx",
               );
             }
             //-----------------------------------------------------------------------------
@@ -116,7 +111,6 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
             // Сброс формы
             secondForm.reset();
             resetImage();
-
           } else {
             toast.error(
               message + "Notice in file: src/features/slide-form/ui/second.tsx",
