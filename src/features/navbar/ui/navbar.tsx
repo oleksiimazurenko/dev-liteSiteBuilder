@@ -31,9 +31,9 @@ export const Navbar = ({
   const session = useSession();
 
   const buttonArray = [
-    { name: "Info profil", link: "/info-profil" },
-    { name: "Settings", link: "/settings" },
-    { name: "List sites", link: "/list-sites" },
+    { name: "Info profil", link: "/app/info-profil" },
+    { name: "Settings", link: "/app/settings" },
+    { name: "List sites", link: "/app/list-sites" },
   ];
 
   return (

@@ -1,9 +1,13 @@
 "use client";
 
+import {
+  Dictionary,
+  useDictionaryStore,
+} from "@/shared/dictionary/store/dictionary-store";
 import { useCurrentProfessionStore } from "@/shared/store/current-profession";
-import { Dictionary, useDictionaryStore } from '@/shared/store/dictionary-store'
 import { ProfessionObject } from "@/shared/types/dectionary";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
+import { isProfessionObjectArray } from '@/shared/utils/is-profession-object-array'
 import { splitProfessions } from "@/shared/utils/split-professions";
 
 import cn from "classnames";
@@ -15,20 +19,23 @@ type CarouselProfessionsProps = {
   professionsList: ProfessionObject[];
 };
 
-function isProfessionObjectArray(array: any): array is ProfessionObject[] {
-  return Array.isArray(array) && array.every(item => 
-    typeof item === 'object' && 'profession' in item && 'imagePreview' in item);
-}
-
 export function CarouselProfessions({
   type,
   professionsList,
 }: CarouselProfessionsProps) {
-  const { currentProfession, setCurrentProfession } = useCurrentProfessionStore();
+  const { currentProfession, setCurrentProfession } =
+    useCurrentProfessionStore();
 
   // Получаем professionsList из store, при этом убедимся, что он соответствует ожидаемому типу
-  const dictionaryProfessionsList = (useDictionaryStore()?.dictionary?.main_page as Dictionary)?.professions_list as unknown as ProfessionObject[];
-  const storeProfessionsList = isProfessionObjectArray(dictionaryProfessionsList) ? dictionaryProfessionsList : undefined;
+  const dictionaryProfessionsList = (
+    useDictionaryStore()?.dictionary?.main_page as Dictionary
+  )?.professions_list as unknown as ProfessionObject[];
+  // Если professionsList из store соответствует ожидаемому типу, то используем его, иначе используем professionsList из props
+  const storeProfessionsList = isProfessionObjectArray(
+    dictionaryProfessionsList
+  )
+    ? dictionaryProfessionsList
+    : undefined;
 
   const currentProfessionsList = storeProfessionsList || professionsList;
 
@@ -64,9 +71,9 @@ export function CarouselProfessions({
             <CarouselItem
               key={profession}
               className={cn(
-                "tw2 dark:td2 flex-shrink flex-grow basis-auto cursor-pointer text-center",
+                "tw2 dark:td2 flex-shrink flex-grow basis-auto cursor-pointer text-center !bg-transparent",
                 {
-                  ["!text-slate-950"]: profession === currentProfession,
+                  ["!text-neutral-900"]: profession === currentProfession,
                 },
               )}
               onClick={() => setCurrentProfession(profession)}

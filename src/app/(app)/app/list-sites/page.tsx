@@ -1,7 +1,7 @@
 import { CarouselProfessions } from "@/features/carousel-professions";
 import { DataTable, columns } from "@/features/list-sites";
 import { getSites } from "@/shared/actions/site/get/get-sites";
-import { getProfessionList } from "@/shared/dictionary/api/get-profession-list";
+import { getProfessionList } from "@/shared/dictionary/helpers/get-profession-list";
 import { auth } from "@/shared/lib/auth/model/auth";
 import { Button } from "@/shared/ui/button";
 import { ScrollArea } from "@/shared/ui/scroll-area";
@@ -35,10 +35,10 @@ export default async function ListSites() {
 
         <Button
           className={cn(
-            "btnw1 dark:btnd1 p-0 shadow-xl transition-all hover:scale-105 dark:border-none",
+            "btnw1 dark:btnd1 p-0 transition-all hover:scale-105 dark:border-none",
           )}
         >
-          <Link href="/create-site" className="flex h-full items-center p-3">
+          <Link href="/app/create-site" className="flex h-full items-center p-3">
             Створити новий сайт
           </Link>
         </Button>

@@ -1,13 +1,13 @@
-import { getLangUser } from "@/shared/actions/user/get/get-lang-user";
+import { getLangUser } from "@/shared/dictionary/actions/get/get-lang-user";
 import { MainPageTranslations } from "@/shared/types/dectionary";
 import { getDictionary } from "./get-dictionary";
 
 const getProfessionList = async () => {
-  const { data: userLang } = await getLangUser();
+  const { lang } = await getLangUser();
 
   const professionsList = (
     (await getDictionary(
-      userLang ? userLang : "en",
+      lang ? lang : "en",
     )) as unknown as MainPageTranslations
   ).main_page?.professions_list;
 

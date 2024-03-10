@@ -8,8 +8,9 @@ import * as z from "zod";
 import { CardWrapper } from "@/features/auth/ui/card-wrapper/card-wrapper";
 import { FormError } from "@/features/auth/ui/response-status/form-error";
 import { FormSuccess } from "@/features/auth/ui/response-status/form-success";
+import { useDictionaryStore } from "@/shared/dictionary/store/dictionary-store";
 import { register } from "@/shared/lib/auth/actions/set/register";
-import { useDictionaryStore } from "@/shared/store/dictionary-store";
+import { getRegisterSchema } from "@/shared/lib/auth/schemas";
 import { MainPageTranslations } from "@/shared/types/dectionary";
 import { GeneralPanelOptions } from "@/shared/types/types";
 import { Button } from "@/shared/ui/button";
@@ -21,7 +22,6 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { getRegisterSchema } from "@/shared/lib/auth/schemas";
 
 type RegisterFormProps = {
   setGeneralPanel: Dispatch<SetStateAction<GeneralPanelOptions>>;

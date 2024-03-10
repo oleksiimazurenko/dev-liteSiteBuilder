@@ -1,5 +1,6 @@
-import { getDictionary } from "@/shared/dictionary/api/get-dictionary";
+import { getDictionary } from "@/shared/dictionary/helpers/get-dictionary";
 import { create } from "zustand";
+import { setLangUser } from '../actions/set/set-lang-user'
 
 export type Dictionary = {
   [key: string]: string | string[] | Dictionary;
@@ -24,8 +25,9 @@ export const useDictionaryStore = create<DictionaryState & DictionaryActions>(
   (set, get) => ({
     ...initialState,
     setLanguage: async (newLanguage: string) => {
+      // Берем словарь для нового языка
       const dictionary = await getDictionary(newLanguage);
-      localStorage.setItem("language", newLanguage);
+      // Обновляем состояние
       set({ language: newLanguage, dictionary });
     },
     loadDictionary: async () => {

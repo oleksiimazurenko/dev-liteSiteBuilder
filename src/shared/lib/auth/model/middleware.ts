@@ -39,16 +39,15 @@ export default auth((req) => {
 
 		const encodedCallbackUrl = encodeURIComponent(callbackUrl)
 
+		// Перенаправить на страницу входа в систему
 		return Response.redirect(
 			new URL(`?callbackUrl=${encodedCallbackUrl}`, nextUrl)
-			// new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl)
 		)
 	}
 
 	return
 })
 
-// Optionally, don't invoke Middleware on some paths
 export const config = {
 	matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 }

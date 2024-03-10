@@ -32,18 +32,19 @@ const getLangUser = async () => {
       },
     });
 
-    if (!userLang?.lang) {
+    if (userLang === null || !userLang.lang) {
       return {
         success: false,
         message:
           "User lang not found. Notice in file: actions/user/get/get-lang-user.ts",
       };
-    } else {
-      return {
-        success: true,
-        data: userLang.lang,
-      };
     }
+
+    return {
+      success: true,
+      lang: userLang.lang,
+    }
+  
 
   } catch (error) {
     console.error(getErrorMessage(error));

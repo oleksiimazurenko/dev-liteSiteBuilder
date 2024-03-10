@@ -1,8 +1,8 @@
 "use server";
 
-import { componentStyles } from "@/shared/initial-styles/style-component";
-import { sectionStyles } from "@/shared/initial-styles/style-section";
 import prisma from "@/shared/lib/prisma-client";
+import { componentStyles } from "@/shared/styles/initial/style-component";
+import { sectionStyles } from "@/shared/styles/initial/style-section";
 import { getErrorMessage } from "@/shared/utils/extract-error-message";
 import { revalidatePath } from "next/cache";
 
@@ -81,7 +81,11 @@ const createSite = async (
     return { success: true, data: transactionResult };
   } catch (error) {
     console.error(getErrorMessage(error));
-    return { success: false, error: getErrorMessage(error), message: "The site was not created"};
+    return {
+      success: false,
+      error: getErrorMessage(error),
+      message: "The site was not created",
+    };
   }
 };
 

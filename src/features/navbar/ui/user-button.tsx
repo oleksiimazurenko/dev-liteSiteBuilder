@@ -1,10 +1,10 @@
 "use client";
 
-import { useInitDictionary } from "@/shared/hooks/use-init-dictionary";
+import { useInitDictionary } from "@/shared/dictionary/hooks/use-init-dictionary";
+import { useDictionaryStore } from "@/shared/dictionary/store/dictionary-store";
 import { useInitFontFamily } from "@/shared/hooks/use-init-font-family";
 import { useInitTheme } from "@/shared/hooks/use-init-theme";
 import { useCurrentUser } from "@/shared/lib/auth/hooks/use-current-user";
-import { useDictionaryStore } from "@/shared/store/dictionary-store";
 import {
   LangSwitchProps,
   LogOutProps,
@@ -32,7 +32,7 @@ export const UserButton = ({
   const user = useCurrentUser();
 
   useInitDictionary();
-  
+
   const { language: lang } = useDictionaryStore();
 
   useInitFontFamily(lang);

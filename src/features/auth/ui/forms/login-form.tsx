@@ -20,8 +20,8 @@ import {
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
 
+import { useDictionaryStore } from "@/shared/dictionary/store/dictionary-store";
 import { getLoginSchema } from "@/shared/lib/auth/schemas";
-import { useDictionaryStore } from "@/shared/store/dictionary-store";
 import { MainPageTranslations } from "@/shared/types/dectionary";
 import { GeneralPanelOptions } from "@/shared/types/types";
 import {

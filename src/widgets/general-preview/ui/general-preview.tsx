@@ -1,5 +1,5 @@
 import { CarouselProfessions } from "@/features/carousel-professions";
-import { getProfessionList } from "@/shared/dictionary/api/get-profession-list";
+import { getProfessionList } from "@/shared/dictionary/helpers/get-profession-list";
 import { Preview } from "./preview";
 
 type GeneralPreviewProps = {

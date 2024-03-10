@@ -5,7 +5,7 @@ import { SessionProvider } from "@/shared/providers/session-provider/session-pro
 import { Toaster } from "@/shared/ui/sonner";
 import cn from "classnames";
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/shared/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Landee",
