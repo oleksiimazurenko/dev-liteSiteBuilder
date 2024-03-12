@@ -2,8 +2,6 @@
 
 import { useEffect, useRef } from "react";
 
-import { useCurrentRole } from "@/shared/lib/auth/hooks/use-current-role";
-
 import cn from "classnames";
 import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 
@@ -24,9 +22,6 @@ export function TextEditor({
 }: TextEditorProps) {
   const textEditorRef = useRef<HTMLDivElement>(null);
   const Tag = tag;
-
-  const currentRole = useCurrentRole();
-  const isAdmin = currentRole === "ADMIN";
 
   const {
     editableGroup,
@@ -70,12 +65,10 @@ export function TextEditor({
         data-component
         data-trigger-tools
         style={innerStyles as React.CSSProperties}
-        className={cn("", {
-          ["cursor-pointer"]: isAdmin,
-        })}
+        className={cn("cursor-pointer")}
         ref={textEditorRef}
-        tabIndex={isAdmin ? 0 : -1}
-        onClick={(e) => isAdmin && onHandleClick(e)}
+        tabIndex={0}
+        onClick={onHandleClick}
       />
     </Tag>
   );

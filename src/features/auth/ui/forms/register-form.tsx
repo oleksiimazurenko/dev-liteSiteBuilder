@@ -122,7 +122,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
           <Button
             disabled={isPending}
             type="submit"
-            className="btnw1 dark:btnd1 tw1 dark:td1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+            className="btnw1 dark:btnd1 text-white dark:text-black w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
             {main_page?.register_panel?.register_button}
           </Button>
@@ -130,7 +130,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
       </Form>
       <Button
         variant="link"
-        className="tw2 dark:td2 m-auto mt-3 h-5 w-full p-0 font-normal"
+        className="text-neutral-500 dark:text-neutral-500 m-auto mt-3 h-5 w-full p-0 font-normal"
         size="sm"
         onClick={() => setGeneralPanel("login")}
       >

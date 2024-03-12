@@ -193,7 +193,8 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                         className={cn(
                           "btnw1 dark:btnd1 tw1 dark:td1 w-full cursor-pointer rounded-md p-2 text-center transition-all duration-300 ease-in-out hover:scale-[1.02]",
                           {
-                            ["pointer-events-none contrast-50"]: previewUrl,
+                            ["pointer-events-none text-neutral-400 contrast-50"]:
+                              previewUrl,
                           },
                         )}
                       >
@@ -203,7 +204,8 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                         className={cn(
                           "btnw1 dark:btnd1 tw1 dark:td1 w-full cursor-pointer rounded-md p-2 text-center transition-all duration-300 ease-in-out hover:scale-[1.02]",
                           {
-                            ["pointer-events-none contrast-50"]: !previewUrl,
+                            ["pointer-events-none text-neutral-400 contrast-50"]:
+                              !previewUrl,
                           },
                         )}
                         onClick={resetImage}

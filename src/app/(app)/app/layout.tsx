@@ -3,7 +3,6 @@ import { LogOut } from "@/features/logout";
 import { Navbar } from "@/features/navbar";
 import { ThemeSwitch } from "@/features/theme-switch";
 import { auth } from "@/shared/lib/auth/model/auth";
-import { ScrollArea } from "@/shared/ui/scroll-area";
 import { redirect } from "next/navigation";
 
 interface ProtectedLayoutProps {
@@ -15,8 +14,9 @@ const ProtectedLayout = async ({ children }: ProtectedLayoutProps) => {
   if (!session) redirect("/");
 
   return (
-    <div className="relative w-full bg-white md:pb-[72px]">
-      <div className="bcw1 dark:bcd1 min-h-[calc(100svh-72px)] w-full">
+    <div className="relative w-full bg-white h-screen">
+      
+      <div className="bcw1 dark:bcd1 w-full md:h-[calc(100%-72px)]">
         {children}
       </div>
 

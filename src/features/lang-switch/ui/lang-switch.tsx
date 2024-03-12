@@ -8,7 +8,6 @@ import { publicRoutes } from "@/shared/lib/auth/model/routes";
 import { LangSwitchProps } from "@/shared/types/props";
 import { Button } from "@/shared/ui/button";
 import cn from "classnames";
-import local from 'next/font/local'
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 

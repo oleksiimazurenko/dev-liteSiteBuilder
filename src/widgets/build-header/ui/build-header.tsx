@@ -3,9 +3,10 @@ import { CreatePageTrigger, DeletePageTrigger } from "@/features/popover-tools";
 
 type BuildHeaderProps = {
   className?: string;
+  siteId: string;
 };
 
-export async function BuildHeader({ className }: BuildHeaderProps) {
+export async function BuildHeader({ className, siteId }: BuildHeaderProps) {
   return (
     <header
       className={`absolute left-1/2 top-0 z-50 w-full -translate-x-1/2 transform py-[30px] ${className}`}
@@ -15,6 +16,7 @@ export async function BuildHeader({ className }: BuildHeaderProps) {
         typeNavbar="header"
         CreatePageTrigger={CreatePageTrigger}
         DeletePageTrigger={DeletePageTrigger}
+        siteId={siteId}
       />
     </header>
   );

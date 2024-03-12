@@ -53,7 +53,7 @@ export const Navbar = ({
           >
             <Link
               href={link}
-              className={cn("tw1 dark:td1", {
+              className={cn("text-white dark:text-black", {
                 ["!border-[1.5px] !border-solid !border-white"]:
                   pathname === link,
               })}

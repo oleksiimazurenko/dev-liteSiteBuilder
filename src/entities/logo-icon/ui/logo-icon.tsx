@@ -9,7 +9,7 @@ type LogoIconProps = {
 export function LogoIcon({ className }: LogoIconProps) {
   return (
     <div
-      className={cn("!hidden text-[13px] lg:!block tw2 dark:td2", {
+      className={cn("!hidden text-[13px] lg:!block text-neutral-500", {
         [className as string]: className,
         // [jetBrainsMono.className]: jetBrainsMono,
       })}

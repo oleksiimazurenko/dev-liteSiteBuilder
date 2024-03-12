@@ -189,7 +189,7 @@ export const LoginForm = ({
                       <Button
                         disabled={isPending}
                         type="submit"
-                        className="btnw1 dark:btnd1 tw1 dark:td1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+                        className="btnw1 dark:btnd1 text-white dark:text-black w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
                       >
                         {showTwoFactor
                           ? main_page?.login_panel?.confirm
@@ -199,7 +199,7 @@ export const LoginForm = ({
                       <Button
                         size="sm"
                         variant="link"
-                        className="tw2 dark:td2 m-auto h-5 p-0 font-normal"
+                        className="text-neutral-500 m-auto h-5 p-0 font-normal"
                         onClick={() => setGeneralPanel("forgot-password")}
                       >
                         {main_page?.login_panel?.forgot_password}
@@ -207,7 +207,7 @@ export const LoginForm = ({
 
                       <Button
                         variant="link"
-                        className="tw2 dark:td2 m-auto h-5 p-0 font-normal"
+                        className="text-neutral-500 m-auto h-5 p-0 font-normal"
                         size="sm"
                         onClick={() => setGeneralPanel("register")}
                       >

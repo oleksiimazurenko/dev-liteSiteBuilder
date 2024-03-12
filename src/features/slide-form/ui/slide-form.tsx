@@ -12,6 +12,7 @@ import {
   Dictionary,
   useDictionaryStore,
 } from "@/shared/dictionary/store/dictionary-store";
+import { useWindowSize } from "@/shared/hooks/use-window-size";
 import { useCurrentProfessionStore } from "@/shared/store/current-profession";
 import { ProfessionObject } from "@/shared/types/dectionary";
 import { isProfessionObjectArray } from "@/shared/utils/is-profession-object-array";
@@ -20,7 +21,6 @@ import { z } from "zod";
 import { FirstSchema } from "../model/schema";
 import { First } from "./first";
 import { Second } from "./second";
-import { useWindowSize } from "@/shared/hooks/use-window-size";
 
 type SlideFormProps = {
   professionsList: ProfessionObject[];
@@ -51,63 +51,68 @@ export function SlideForm({ professionsList }: SlideFormProps) {
   const currentProfessionsList = storeProfessionsList || professionsList;
 
   return (
-    <>
-      <Carousel
-        setApi={setEmbla}
-        opts={{
-          watchDrag: false,
-        }}
-        className="bcw2 dark:bcd2 overflow-hidden rounded-2xl shadow-xl"
-      >
-        <CarouselContent className="!ml-0 max-w-[400px] space-x-3">
-          <CarouselItem className="flex flex-col items-center justify-center space-y-2 p-0">
-            <h2>Створення нового сайту</h2>
+    <Carousel
+      setApi={setEmbla}
+      opts={{
+        watchDrag: false,
+      }}
+      className="bcw2 dark:bcd2 overflow-hidden rounded-2xl shadow-xl"
+    >
+      <CarouselContent className="!ml-0 max-w-[400px] space-x-0">
+        <CarouselItem className="flex flex-col items-center justify-center space-y-5 p-0">
+          <h2 className="text-neutral-500">Створення нового сайту</h2>
 
-            <First embla={embla} setFirstValues={setFirstValues} />
+          <First embla={embla} setFirstValues={setFirstValues} />
 
-            <Button variant="link">
-              <Link href="/app/list-sites">Відміна</Link>
-            </Button>
-          </CarouselItem>
+          <Button variant="link" className="!mt-2 p-0">
+            <Link href="/app/list-sites" className="text-neutral-500">
+              Відміна
+            </Link>
+          </Button>
+        </CarouselItem>
 
-          <CarouselItem className="flex flex-col items-center justify-center space-y-2 p-0">
-            <Carousel className="!overflow-hidden">
-              <CarouselContent className="!ml-0 max-h-[460px] max-w-[450px]">
-                <CarouselItem className="flex flex-col items-center justify-center space-y-2 p-0">
-                  <h2>Оберіть шаблон для сайту</h2>
-                  <Second
-                    embla={embla}
-                    setEmbla={setEmbla}
-                    firstValues={firstValues}
-                  />
-                </CarouselItem>
-                {currentProfessionsList.map((profession, index) => (
-                  <CarouselItem
-                    key={index}
-                    className="flex items-center justify-center p-0"
+        <CarouselItem className="flex flex-col items-center justify-center space-y-2 p-0 ">
+          <Carousel className="!overflow-hidden">
+            <CarouselContent className="!ml-0 max-h-[460px] max-w-[450px]">
+              <CarouselItem className="relative flex w-[400px] flex-col items-center justify-center space-y-2 p-0 md:p-4">
+                <h2 className="text-neutral-500">Оберіть шаблон для сайту</h2>
+                <Second
+                  embla={embla}
+                  setEmbla={setEmbla}
+                  firstValues={firstValues}
+                />
+                <div className="absolute right-0 top-[-8px] h-full w-[15px] cursor-grab rounded-bl-xl rounded-tl-xl bg-neutral-700/20 shadow-2xl md:hidden block">
+                  <span className="absolute left-1/2 top-1/2 h-[70%] w-[0.5px] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-black/20"></span>
+                  <span className="absolute right-1/4 top-1/2 h-[70%] w-[0.5px] -translate-x-1/3 -translate-y-1/2 transform rounded-full bg-black/20"></span>
+                  <span className="absolute left-1/4 top-1/2 h-[70%] w-[0.5px] -translate-x-1/4 -translate-y-1/2 transform rounded-full bg-black/20"></span>
+                </div>
+              </CarouselItem>
+              {currentProfessionsList.map((profession, index) => (
+                <CarouselItem
+                  key={index}
+                  className="flex items-center justify-center p-0 md:hidden"
+                >
+                  <div
+                    onClick={() => {
+                      setCurrentProfession(profession.profession);
+                    }}
+                    className="w-full"
                   >
-                    <div
-                      onClick={() => {
-                        setCurrentProfession(profession.profession);
-                      }}
-                      className="w-full"
-                    >
-                      <Image
-                        src={profession.imagePreview}
-                        alt={profession.profession}
-                        objectFit="cover"
-                        objectPosition="center"
-                        fill={true}
-                        className="!relative"
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-          </CarouselItem>
-        </CarouselContent>
-      </Carousel>
-    </>
+                    <Image
+                      src={profession.imagePreview}
+                      alt={profession.profession}
+                      objectFit="cover"
+                      objectPosition="center"
+                      fill={true}
+                      className="!relative"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </CarouselItem>
+      </CarouselContent>
+    </Carousel>
   );
 }

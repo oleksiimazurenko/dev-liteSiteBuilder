@@ -14,6 +14,9 @@ module.exports = {
 			},
 		},
 		extend: {
+			screens: {
+        'max-h-550': {'raw': '(max-height: 550px)'},
+      },
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
