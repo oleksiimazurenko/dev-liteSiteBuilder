@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   const session = await auth();
 
-  if (session) redirect("/list-sites"); // Когда сделаю точку выхода и входа в систему, то здесь будет редирект на страницу списка сайтов
+  if (session) redirect("/app/list-sites");
 
   return (
     <div className="bcw1 dark:bcd1 relative grid min-h-screen min-w-[300px] grid-cols-[1fr] grid-rows-[6fr_1fr] items-baseline justify-center p-[20px] md:grid-cols-[1fr_2fr] md:grid-rows-1">

@@ -5,26 +5,50 @@ import { componentStyles } from "@/shared/styles/initial/style-component";
 import { sectionStyles } from "@/shared/styles/initial/style-section";
 import { getErrorMessage } from "@/shared/utils/extract-error-message";
 import { revalidatePath } from "next/cache";
+import { uploadImage } from "../../user/set/upload-image";
+import { deleteImage } from "../../user/set/delete-image";
+
+type ImageObject = {
+  data: FormData;
+  nameFolder: string;
+};
 
 const createSite = async (
   id: string,
   name: string,
-  imageName: string,
   title: string,
   subtitle: string,
   description: string,
   status: boolean,
   views: number,
   url: string,
+  imageObject?: ImageObject,
 ) => {
+  let isImageWasUploaded = false;
+  let imageFileName: string = "";
+
   try {
+
+    if (imageObject) {
+      const { data, nameFolder } = imageObject;
+      const { success, fileName, message } = await uploadImage(
+        data,
+        nameFolder,
+      );
+      
+      if (!success) throw new Error(message);
+      
+      isImageWasUploaded = true;
+      if (fileName) imageFileName = fileName;
+    }
+
     // Используем $transaction для атомарного создания страницы, секции и компонента
     const transactionResult = await prisma.$transaction(async (prisma) => {
       // Создаем сайт
       const site = await prisma.site.create({
         data: {
           name,
-          imageName,
+          imageName: imageFileName,
           title,
           subtitle,
           description,
@@ -81,6 +105,11 @@ const createSite = async (
     return { success: true, data: transactionResult };
   } catch (error) {
     console.error(getErrorMessage(error));
+
+    if (isImageWasUploaded) {
+      await deleteImage(id, imageFileName);
+    }
+
     return {
       success: false,
       error: getErrorMessage(error),

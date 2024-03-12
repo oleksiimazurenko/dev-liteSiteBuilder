@@ -1,59 +1,35 @@
 "use server";
 
+import prisma from "@/shared/lib/prisma-client"; 
 import crypto from "crypto";
-import { constants, existsSync } from "fs";
-import { access, mkdir, readFile, writeFile } from "fs/promises";
-import { join } from "path";
-
-// // Функция для асинхронной проверки существования файла
-const fileExists = async (path: string): Promise<boolean> => {
-  try {
-    await access(path, constants.F_OK);
-    return true;
-  } catch {
-    return false;
-  }
-};
+import { promises as fs, existsSync } from "fs";
+import path from "path";
 
 const calculateFileHash = (buffer: Buffer): string => {
   return crypto.createHash("sha256").update(buffer).digest("hex");
 };
 
-// Функция для проверки уникальности изображения и создания/обновления файла hashes.json
-const isImageUniqueAndUpdateHashFile = async (
-  directoryPath: string,
-  fileHash: string,
-) => {
-  const hashFilePath = join(directoryPath, "hashes.json");
-  let hashes = [];
+// Проверка уникальности изображения в базе данных
+const isImageUnique = async (fileHash: string, userId: string): Promise<boolean> => {
 
-  // Создаём директорию, если она не существует
-  if (!existsSync(directoryPath)) {
-    await mkdir(directoryPath, { recursive: true });
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (user && user.imageHashs) {
+    const hashesArray = JSON.parse(user.imageHashs as string);
+    return !hashesArray.includes(fileHash);
   }
 
-  // Читаем файл hashes.json, если он существует
-  if (await fileExists(hashFilePath)) {
-    const data = await readFile(hashFilePath, "utf-8");
-    hashes = JSON.parse(data);
-  }
-
-  // Проверяем, уникально ли изображение
-  if (hashes.includes(fileHash)) {
-    return false; // Изображение не уникально
-  }
-
-  // Добавляем хеш в массив и обновляем файл hashes.json
-  hashes.push(fileHash);
-  await writeFile(hashFilePath, JSON.stringify(hashes), "utf-8");
-
-  return true; // Изображение уникально
+  return true;
 };
+
 
 const uploadImage = async (
   data: FormData,
-  pathName: string,
-  nameFolder?: string,
+  userId: string,
 ) => {
   const file: File | null = data.get("file") as unknown as File;
   if (!file) {
@@ -64,12 +40,8 @@ const uploadImage = async (
   const buffer = Buffer.from(bytes);
   const fileHash = calculateFileHash(buffer);
 
-  const directoryPath = nameFolder
-    ? join(process.cwd(), pathName, nameFolder)
-    : join(process.cwd(), pathName);
-
-  // Проверяем уникальность изображения перед его записью
-  if (!(await isImageUniqueAndUpdateHashFile(directoryPath, fileHash))) {
+  // Проверяем уникальность изображения
+  if (!(await isImageUnique(fileHash, userId))) {
     console.log("Image already exists and was not uploaded again.");
     return {
       success: true,
@@ -77,14 +49,32 @@ const uploadImage = async (
     };
   }
 
+  console.log('23421412341234123412341243')
+
+  const directoryPath = path.join(process.cwd(), "public/images/users", userId);
+
+  // Убедитесь, что директория существует
+  if (!existsSync(directoryPath)) {
+    await fs.mkdir(directoryPath, { recursive: true });
+  }
+
+  const fileName = `${Date.now()}${getExtension(file.type)}`;
+  const imagePath = path.join(directoryPath, fileName);
+
   try {
     // Записываем файл изображения
-    const imagePath = join(
-      directoryPath,
-      `${Date.now()}${getExtension(file.type)}`,
-    );
-    await writeFile(imagePath, buffer);
+    await fs.writeFile(imagePath, buffer);
     console.log(`File uploaded successfully to ${imagePath}`);
+
+    // Здесь можно обновить запись в базе данных, добавив хеш изображения к пользователю
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        // Обновите эту часть в соответствии с вашей логикой хранения хешей
+        imageHashs: { push: fileHash }, // Пример для MongoDB, для других БД может отличаться
+      },
+    });
+
   } catch (error) {
     console.error("Failed to upload image", error);
     return {
@@ -96,7 +86,7 @@ const uploadImage = async (
   return {
     success: true,
     message: "The image was successfully uploaded to the server",
-    fileName: file.name,
+    fileName,
   };
 };
 
@@ -108,7 +98,6 @@ const getExtension = (mimeType: string): string => {
       return ".png";
     case "image/gif":
       return ".gif";
-
     default:
       return "";
   }

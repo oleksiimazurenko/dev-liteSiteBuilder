@@ -1,7 +1,6 @@
 "use client";
 
 import { createSite } from "@/shared/actions/site/set/create-site";
-import { uploadImage } from "@/shared/actions/user/set/upload-image";
 import { useCurrentUser } from "@/shared/lib/auth/hooks/use-current-user";
 import { Button } from "@/shared/ui/button";
 import { CarouselApi } from "@/shared/ui/carousel";
@@ -55,7 +54,6 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
 
   const onSubmit = (values: z.infer<typeof SecondSchema>) => {
     const { image, title, subtitle, description } = values;
-    const imageName = (image as { name: string }).name;
 
     startTransition(async () => {
       if (
@@ -64,53 +62,38 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
         userId &&
         firstValues &&
         firstValues?.name &&
-        firstValues?.url &&
-        imageName
+        firstValues?.url
       ) {
         try {
+          const data = new FormData();
+          data.set("file", image);
+
+          const imageObject = {
+            data,
+            nameFolder: userId,
+          };
+
           const { success: successSite, message } = await createSite(
             userId,
             firstValues?.name,
-            imageName,
             title,
             subtitle,
             description,
             true,
             0,
             firstValues?.url,
+            imageObject,
           );
 
           if (successSite) {
             toast.success("The site was successfully created");
 
-            // Создание объекта FormData для отправки на сервер и добавление в него файла
-            const data = new FormData();
-            data.set("file", image);
-            //-----------------------------------------------------------------------------
+            toast.success(message);
+            router.push(`list-sites/${firstValues?.url}`);
 
-            // Отправка файла на сервер и получение ответа
-            const { success: successImage, message } = await uploadImage(
-              data,
-              "protected/users",
-              userId,
-            );
-            //-----------------------------------------------------------------------------
-
-            // Изменение сообщения в модальном окне
-            if (successImage) {
-              toast.success(message);
-              router.push(`list-sites/${firstValues?.url}`);
-            } else {
-              toast.error(
-                message +
-                  "Notice in file: src/features/slide-form/ui/second.tsx",
-              );
-            }
-            //-----------------------------------------------------------------------------
-
-            // Сброс формы
             secondForm.reset();
             resetImage();
+
           } else {
             toast.error(
               message + "Notice in file: src/features/slide-form/ui/second.tsx",

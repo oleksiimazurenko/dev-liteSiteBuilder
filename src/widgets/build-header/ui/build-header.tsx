@@ -17,6 +17,7 @@ export async function BuildHeader({ className, siteId }: BuildHeaderProps) {
         CreatePageTrigger={CreatePageTrigger}
         DeletePageTrigger={DeletePageTrigger}
         siteId={siteId}
+    
       />
     </header>
   );

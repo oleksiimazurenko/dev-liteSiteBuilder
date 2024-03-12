@@ -55,7 +55,7 @@ export default async function Layout({
         [merienda.className]: true,
       })}
     >
-      <BuildHeader className="m-auto max-w-[2400px]" siteId={data.id} />
+      <BuildHeader className="m-auto max-w-[2400px]" siteId={data.id}/>
       {children}
       <PopoverTools />
       <BuildFooter className="m-auto max-w-[2400px]" />

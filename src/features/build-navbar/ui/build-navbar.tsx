@@ -1,10 +1,9 @@
-import { getPages } from "@/shared/actions/page/get/get-pages";
-import { auth } from "@/shared/lib/auth/model/auth";
+import { getPagesBySiteId } from "@/shared/actions/page/get/get-pages-by-site-id";
+import { getSiteById } from "@/shared/actions/site/get/get-site-by-id";
 import cn from "classnames";
 import { MainLogo } from "./main-logo";
 import { NavLink } from "./nav-link";
-import { getPagesBySiteId } from '@/shared/actions/page/get/get-pages-by-site-id'
-import { getSiteById } from '@/shared/actions/site/get/get-site-by-id'
+import { join } from 'path'
 
 export type BuildNavbarProps = {
   CreatePageTrigger: () => JSX.Element;
@@ -19,20 +18,23 @@ export async function BuildNavbar({
   typeNavbar,
   CreatePageTrigger,
   DeletePageTrigger,
-  siteId
+  siteId,
 }: BuildNavbarProps) {
+  const { data: pages } = await getPagesBySiteId(siteId);
+  const { data: site } = await getSiteById(siteId);
 
-  
+  const siteUrl = pages?.find(({ isMain }) => isMain === true)?.url;
 
-  const { data } = await getPagesBySiteId(siteId);
-  const imageName = (await getSiteById(siteId)).data?.imageName
-
-  const siteUrl = data?.find(({ isMain }) => isMain === true)?.url;
-
-  if (!data)
+  if (!pages || !site) {
     return (
-      <div className='bg-red-400 flex justify-center items-center'>Partition dataPages not found in database. Notice in: src/features/build-navbar/ui/build-navbar.tsx</div>
+      <div className="flex items-center justify-center bg-red-400">
+        Partition dataPages not found in database. Notice in:
+        src/features/build-navbar/ui/build-navbar.tsx
+      </div>
     );
+  }
+
+  const imagePath = join('/images/users', site.userId, site.imageName);
 
   return (
     <nav
@@ -41,9 +43,12 @@ export async function BuildNavbar({
         ["justify-center text-slate-800/90"]: linkColor === "black",
       })}
     >
-      <MainLogo siteUrl={siteUrl} imageName={imageName}/>
+      <MainLogo
+        siteUrl={siteUrl}
+        imagePath={imagePath}
+      />
       <ul className="flex">
-        {data
+        {pages
           .filter(({ isMain }) => isMain !== true)
           .map(({ id, name, url }) => (
             <li className="relative" key={id}>

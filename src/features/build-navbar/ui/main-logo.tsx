@@ -5,13 +5,13 @@ import Link from "next/link";
 
 type MainLogoProps = {
   siteUrl: string | undefined;
-  imageName?: string | null;
+  imagePath: string | undefined;
 };
 
-export function MainLogo({ siteUrl, imageName }: MainLogoProps) {
+export function MainLogo({ siteUrl, imagePath }: MainLogoProps) {
   return (
-    <Link href={`${siteUrl}`} className="px-[20px]">
-      <Image src={imageName ? `/${imageName}` : "/img-icon.svg"} width={50} height={50} alt="logo" />
+    <Link href={`${siteUrl}`} className="w-[50px] h-[50px] rounded-full overflow-hidden">
+      <Image src={imagePath ? imagePath : "/img-icon.svg"} objectFit='cover' fill={true} alt="logo" className='!relative'/>
     </Link>
   );
 }
