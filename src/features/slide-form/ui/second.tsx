@@ -73,7 +73,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
             nameFolder: userId,
           };
 
-          const { success: successSite, message } = await createSite(
+          const { success: isSite, message } = await createSite(
             userId,
             firstValues?.name,
             title,
@@ -85,7 +85,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
             imageObject,
           );
 
-          if (successSite) {
+          if (isSite) {
             toast.success("The site was successfully created");
 
             toast.success(message);

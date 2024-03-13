@@ -98,7 +98,7 @@ model User {
   sites                 Site[]
   lang                  String?                @default("en")
   theme                 String?                @default("dark")
-  imageHashs            Json?
+  imageData             Json?
 }
 
 model Account {
