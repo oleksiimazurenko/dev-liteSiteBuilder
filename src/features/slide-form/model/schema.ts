@@ -6,11 +6,19 @@ export const FirstSchema = z.object({
   url: z
     .string()
     .min(2, { message: "Назва не може бути менше 2 символів" })
+    .refine(
+      (url) => {
+        const pattern = /^[A-Za-z0-9_-]+$/;
+        return pattern.test(url);
+      },
+      {
+        message: "URL може містити тільки літери, цифри, підкреслення та тире",
+      },
+    )
     .superRefine(async (url, ctx) => {
-      const { data: sites } = await getSites(); // Предполагается, что это асинхронная функция
-      const exists = sites?.some((site) => site.url === url); // Проверяем, существует ли такой URL
+      const { data: sites } = await getSites();
+      const exists = sites?.some((site) => site.url === url);
       if (exists) {
-        // Если URL существует, добавляем ошибку в контекст Zod
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "URL вже існує в базі даних",

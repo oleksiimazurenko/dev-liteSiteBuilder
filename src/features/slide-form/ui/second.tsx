@@ -73,7 +73,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
             nameFolder: userId,
           };
 
-          const { success: isSite, message } = await createSite(
+          const { success, message } = await createSite(
             userId,
             firstValues?.name,
             title,
@@ -85,14 +85,13 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
             imageObject,
           );
 
-          if (isSite) {
+          if (success) {
             toast.success("The site was successfully created");
 
             router.push(`list-sites/${firstValues?.url}`);
 
             secondForm.reset();
             resetImage();
-
           } else {
             toast.error(
               message + "Notice in file: src/features/slide-form/ui/second.tsx",
@@ -110,7 +109,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
         }
       } else {
         toast.error(
-          "The site was not created because we have error in outer wrapper, error in file: src/features/slide-form/ui/second.tsx",
+          "The site was not created. Notice in file: src/features/slide-form/ui/second.tsx",
         );
       }
     });
@@ -197,7 +196,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                     </div>
                   </div>
                 </FormControl>
-                <FormMessage className="!mt-[20px]" />
+                <FormMessage className="!mt-[10px] text-[12px]" />
               </FormItem>
             )}
           />
@@ -216,7 +215,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                     className="iw1 dark:id1 "
                   />
                 </FormControl>
-                <FormMessage className="!mt-[2px]" />
+                <FormMessage className="!mt-[3px] text-[12px]" />
               </FormItem>
             )}
           />
@@ -235,7 +234,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                     className="iw1 dark:id1 "
                   />
                 </FormControl>
-                <FormMessage className="!mt-[2px]" />
+                <FormMessage className="!mt-[3px] text-[12px]" />
               </FormItem>
             )}
           />
@@ -254,7 +253,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                     className="iw1 dark:id1 "
                   />
                 </FormControl>
-                <FormMessage className="!mt-[2px]" />
+                <FormMessage className="!mt-[3px] text-[12px]" />
               </FormItem>
             )}
           />
@@ -262,9 +261,20 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
           <Button
             disabled={isPending}
             type="submit"
-            className="btnw1 dark:btnd1 tw1 dark:td1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+            className="btnw1 dark:btnd1 tw1 dark:td1 relative w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
-            Створити сайт!
+            {!isPending ? (
+              "Створити сайт!"
+            ) : (
+              <span className="relative flex h-4 w-4">
+                <span
+                  className={cn(
+                    "dark:bcd2 bcw2 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",
+                  )}
+                ></span>
+                <span className="dark:bcd2 bcw2 relative inline-flex h-4 w-4 rounded-full"></span>
+              </span>
+            )}
           </Button>
 
           <Button

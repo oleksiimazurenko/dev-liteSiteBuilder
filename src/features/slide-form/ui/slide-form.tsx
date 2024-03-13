@@ -58,7 +58,7 @@ export function SlideForm({ professionsList }: SlideFormProps) {
       }}
       className="bcw2 dark:bcd2 overflow-hidden rounded-2xl shadow-xl"
     >
-      <CarouselContent className="!ml-0 max-w-[400px] space-x-0">
+      <CarouselContent className="!ml-0 max-w-[450px] space-x-0">
         <CarouselItem className="flex flex-col items-center justify-center space-y-5 p-0">
           <h2 className="text-neutral-500">Створення нового сайту</h2>
 
@@ -73,7 +73,7 @@ export function SlideForm({ professionsList }: SlideFormProps) {
 
         <CarouselItem className="flex flex-col items-center justify-center space-y-2 p-0 ">
           <Carousel className="!overflow-hidden">
-            <CarouselContent className="!ml-0 max-h-[460px] max-w-[450px]">
+            <CarouselContent className="!ml-0 max-h-[650px] max-w-[450px]">
               <CarouselItem className="relative flex w-[400px] flex-col items-center justify-center space-y-2 p-0 md:p-4">
                 <h2 className="text-neutral-500">Оберіть шаблон для сайту</h2>
                 <Second
@@ -81,7 +81,7 @@ export function SlideForm({ professionsList }: SlideFormProps) {
                   setEmbla={setEmbla}
                   firstValues={firstValues}
                 />
-                <div className="absolute right-0 top-[-8px] h-full w-[15px] cursor-grab rounded-bl-xl rounded-tl-xl bg-neutral-700/20 shadow-2xl md:hidden block">
+                <div className="absolute right-0 top-[-8px] block h-full w-[15px] cursor-grab rounded-bl-xl rounded-tl-xl bg-neutral-700/20 shadow-2xl md:hidden">
                   <span className="absolute left-1/2 top-1/2 h-[70%] w-[0.5px] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-black/20"></span>
                   <span className="absolute right-1/4 top-1/2 h-[70%] w-[0.5px] -translate-x-1/3 -translate-y-1/2 transform rounded-full bg-black/20"></span>
                   <span className="absolute left-1/4 top-1/2 h-[70%] w-[0.5px] -translate-x-1/4 -translate-y-1/2 transform rounded-full bg-black/20"></span>

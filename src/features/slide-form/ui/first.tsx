@@ -22,7 +22,6 @@ type FirstProps = {
 };
 
 export function First({ embla, setFirstValues }: FirstProps) {
-  
   const firstForm = useForm<z.infer<typeof FirstSchema>>({
     resolver: zodResolver(FirstSchema),
     defaultValues: {
@@ -41,7 +40,7 @@ export function First({ embla, setFirstValues }: FirstProps) {
     <Form {...firstForm}>
       <form
         onSubmit={firstForm.handleSubmit(onNextStep)}
-        className="min-w-[260px] max-w-[450px] p-0"
+        className="w-[260px] p-0"
       >
         <div className="w-full space-y-4">
           <FormField
@@ -57,7 +56,7 @@ export function First({ embla, setFirstValues }: FirstProps) {
                     className="iw1 dark:id1 "
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-[12px]" />
               </FormItem>
             )}
           />
@@ -75,7 +74,7 @@ export function First({ embla, setFirstValues }: FirstProps) {
                     className="iw1 dark:id1 "
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-[12px]" />
               </FormItem>
             )}
           />
