@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma-client";
+import { getErrorMessage } from "@/shared/utils/extract-error-message";
 import crypto from "crypto";
 import { existsSync, promises as fs } from "fs";
 import path from "path";
@@ -20,8 +21,14 @@ const isImageUnique = async (
   });
 
   if (user && user.imageData) {
-    const hashesArray = JSON.parse(user.imageData as string);
-    return !hashesArray.includes(fileHash);
+    const imageDataArray = JSON.parse(user.imageData as string);
+
+    const hashExists = imageDataArray.some(
+      (item: { hash: string }) => item.hash === fileHash,
+    );
+
+    // Если хеш найден, изображение не уникально
+    return !hashExists;
   }
 
   return true;
@@ -30,7 +37,9 @@ const isImageUnique = async (
 const uploadImage = async (data: FormData, userId: string) => {
   const file: File | null = data.get("file") as unknown as File;
   if (!file) {
-    throw new Error("No file uploaded. Notice in file: src/shared/actions/user/set/upload-image.ts");
+    throw new Error(
+      "No file uploaded. Notice in file: src/shared/actions/user/set/upload-image.ts",
+    );
   }
 
   const bytes = await file.arrayBuffer();
@@ -38,10 +47,33 @@ const uploadImage = async (data: FormData, userId: string) => {
   const fileHash = calculateFileHash(buffer);
 
   if (!(await isImageUnique(fileHash, userId))) {
+    let fileName;
+
+    try {
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { imageData: true },
+      });
+
+      if (user && user.imageData) {
+        fileName = JSON.parse(user.imageData as string).find(
+          (user: { name: string; hash: string }) => user.hash === fileHash,
+        )?.name;
+        fileName = fileName
+          ? fileName
+          : "Error in file: src/shared/actions/user/set/upload-image.ts";
+      }
+    } catch (e) {
+      console.log(getErrorMessage(e));
+    }
+
     console.log("Image already exists and was not uploaded again.");
     return {
       success: true,
       message: "Image already exists and was not uploaded again.",
+      fileName: fileName
+        ? fileName
+        : "Error in file: src/shared/actions/user/set/upload-image.ts",
     };
   }
 

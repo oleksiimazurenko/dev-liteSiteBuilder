@@ -88,7 +88,6 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
           if (isSite) {
             toast.success("The site was successfully created");
 
-            toast.success(message);
             router.push(`list-sites/${firstValues?.url}`);
 
             secondForm.reset();
