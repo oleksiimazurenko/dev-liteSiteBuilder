@@ -67,69 +67,57 @@
 }
 
 @layer base {
-
-  /* universal-color-dark-1  */
-  .btnd1 {
+  .button-dark {
     @apply !bg-neutral-300;
   }
 
-  /* universal-color-white-1  */
-  .btnw1 {
+  .button-white {
     @apply border-[0.5px] !bg-neutral-400/30;
   }
 
   /* ----------------------------------------------------------------------- */
 
-  /* input-color-dark-1  */
-  .id1 {
+  .input-dark {
     @apply border-none !bg-neutral-300 !text-neutral-950 placeholder:!text-neutral-400;
   }
 
-  /* input-color-white-1  */
-  .iw1 {
+  .input-white {
     @apply border !bg-neutral-200 !text-neutral-950 placeholder:!text-neutral-400;
   }
 
   /* ----------------------------------------------------------------------- */
 
-  /* bg-color-dark-1 */
-  .bcd1 {
+  .third-gradient-dark {
     @apply bg-gradient-to-r from-neutral-950 via-zinc-700 to-neutral-950;
   }
 
-  .bcw1 {
+  .third-gradient-white {
     @apply bg-gradient-to-r from-neutral-300 via-zinc-400 to-neutral-300;
   }
 
-  .bcd2 {
+  .second-gradient-dark {
     @apply bg-gradient-to-b from-neutral-700 to-zinc-800;
   }
 
-  .bcw2 {
+  .second-gradient-white {
     @apply bg-gradient-to-b from-neutral-300 to-zinc-400;
-  }
-
-  .bcw3 {
-    @apply bg-transparent;
   }
 
   /* ----------------------------------------------------------------------- */
 
-  /* text-dark-1 */
-  .td1 {
+  .text-dark-1 {
     @apply !font-light text-neutral-900;
   }
-  .tw1 {
+  .text-white-1 {
     @apply !font-light text-neutral-50;
   }
 
-  .td2 {
+  .text-dark-2 {
     @apply !font-light !text-neutral-500;
   }
-  .tw2 {
+  .text-white-2 {
     @apply !font-light !text-neutral-500;
   }
-  
 }
 
 /* ----------------------------------------------------------------------- */

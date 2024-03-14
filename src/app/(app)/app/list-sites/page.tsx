@@ -22,8 +22,10 @@ export default async function ListSites() {
 
         {(!data || data.length === 0) && (
           <>
-            <div className="tw2 dark:td2 md:text-[30px]">Ваш перший сайт</div>
-            <div className="tw2 dark:td2 text-center md:text-[16px]">
+            <div className="text-white-2 dark:text-dark-2 md:text-[30px]">
+              Ваш перший сайт
+            </div>
+            <div className="text-white-2 dark:text-dark-2 text-center md:text-[16px]">
               Ви легко можете створити Ваш сайт прямо зараз!
             </div>
           </>
@@ -31,7 +33,7 @@ export default async function ListSites() {
 
         <Button
           className={cn(
-            "btnw1 dark:btnd1 p-0 transition-all hover:scale-105 dark:border-none",
+            "button-white dark:button-dark p-0 transition-all hover:scale-105 dark:border-none",
           )}
         >
           <Link

@@ -11,7 +11,6 @@ import {
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { FirstSchema } from "../model/schema";
@@ -53,7 +52,7 @@ export function First({ embla, setFirstValues }: FirstProps) {
                     {...field}
                     placeholder="Ваша назва сайту"
                     type="text"
-                    className="iw1 dark:id1 "
+                    className="input-white dark:input-dark "
                   />
                 </FormControl>
                 <FormMessage className="text-[12px]" />
@@ -71,7 +70,7 @@ export function First({ embla, setFirstValues }: FirstProps) {
                     {...field}
                     placeholder="Ваше посилання на сайт"
                     type="text"
-                    className="iw1 dark:id1 "
+                    className="input-white dark:input-dark "
                   />
                 </FormControl>
                 <FormMessage className="text-[12px]" />
@@ -81,7 +80,7 @@ export function First({ embla, setFirstValues }: FirstProps) {
 
           <Button
             type="submit"
-            className="btnw1 dark:btnd1 tw1 dark:td1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+            className="button-white dark:button-dark text-white-1 dark:text-dark-1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
             Наступний крок
           </Button>

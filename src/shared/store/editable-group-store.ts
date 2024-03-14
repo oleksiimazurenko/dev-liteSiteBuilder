@@ -11,15 +11,14 @@ type typeOpen =
   | "create-element"
   | "create-section";
 
-
 type typeEditableGroup = {
   editableElement: HTMLElement | SVGSVGElement | null;
   editableTrigger: SVGSVGElement | HTMLElement | null;
 };
 
-export type typePopoverToolsStore = {
+export type typeDrawerToolsStore = {
   editableGroup: typeEditableGroup;
-  isOpenPopoverTools: boolean;
+  isOpenDrawerTools: boolean;
   typeOpen: typeOpen | null;
 
   idPage: string | null;
@@ -29,7 +28,7 @@ export type typePopoverToolsStore = {
   idProduct: string | null;
 
   setEditableGroup: (popupTriggerElement: typeEditableGroup) => void;
-  setIsOpenPopoverTools: (isOpenPopoverTools: boolean) => void;
+  setIsOpenDrawerTools: (isOpenDrawerTools: boolean) => void;
   setTypeOpen: (typeOpen: typeOpen) => void;
 
   setIdPage: (idPage: string) => void;
@@ -39,12 +38,12 @@ export type typePopoverToolsStore = {
   setIdProduct: (idProduct: string) => void;
 };
 
-export const usePopoverToolsStore = create<typePopoverToolsStore>((set) => ({
+export const useDrawerToolsStore = create<typeDrawerToolsStore>((set) => ({
   editableGroup: {
     editableElement: null,
     editableTrigger: null,
   },
-  isOpenPopoverTools: false,
+  isOpenDrawerTools: false,
   typeOpen: null,
 
   idPage: null,
@@ -54,8 +53,8 @@ export const usePopoverToolsStore = create<typePopoverToolsStore>((set) => ({
   idProduct: null,
 
   setEditableGroup: (editableGroup) => set({ editableGroup }),
-  setIsOpenPopoverTools: (isOpenPopoverTools) =>
-    set({ isOpenPopoverTools: isOpenPopoverTools }),
+  setIsOpenDrawerTools: (isOpenDrawerTools) =>
+    set({ isOpenDrawerTools: isOpenDrawerTools }),
   setTypeOpen: (typeOpen) => set({ typeOpen }),
 
   setIdPage: (idPage) => set({ idPage }),

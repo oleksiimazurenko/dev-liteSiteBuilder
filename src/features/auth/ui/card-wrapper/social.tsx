@@ -21,19 +21,19 @@ export const Social = () => {
   return (
     <div className="flex w-full items-center gap-x-2">
       <Button
-        className="btnw1 dark:btnd1 w-full p-[7px] transition-all hover:scale-105 dark:border-none"
+        className="button-white dark:button-dark w-full p-[7px] transition-all hover:scale-105 dark:border-none"
         onClick={() => onClick("google")}
       >
         <FcGoogle className="h-full w-full " />
       </Button>
       <Button
-        className="btnw1 dark:btnd1 w-full p-[7px] transition-all hover:scale-105 dark:border-none"
+        className="button-white dark:button-dark w-full p-[7px] transition-all hover:scale-105 dark:border-none"
         onClick={() => onClick("github")}
       >
         <FaGithub className="h-full w-full" />
       </Button>
       <Button
-        className="btnw1 dark:btnd1 w-full p-[7px] transition-all hover:scale-105 dark:border-none"
+        className="button-white dark:button-dark w-full p-[7px] transition-all hover:scale-105 dark:border-none"
         variant="default"
         disabled={true}
         onClick={() => onClick("apple")}

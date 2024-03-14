@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
+import { useDrawerToolsStore } from "@/shared/store/editable-group-store";
 import cn from "classnames";
-import { usePopoverToolsStore } from '@/shared/store/editable-group-store'
 
 type TextEditorProps = {
   id: string;
@@ -23,12 +23,8 @@ export function TextEditor({
   const textEditorRef = useRef<HTMLDivElement>(null);
   const Tag = tag;
 
-  const {
-    editableGroup,
-    setEditableGroup,
-    setIsOpenPopoverTools,
-    setTypeOpen,
-  } = usePopoverToolsStore();
+  const { editableGroup, setEditableGroup, setIsOpenDrawerTools, setTypeOpen } =
+    useDrawerToolsStore();
 
   const { editableElement, editableTrigger } = editableGroup;
 
@@ -49,7 +45,7 @@ export function TextEditor({
     }
 
     // Открываем поповер
-    setIsOpenPopoverTools(true);
+    setIsOpenDrawerTools(true);
 
     // Сохраняем редактируемый элемент
     setEditableGroup({

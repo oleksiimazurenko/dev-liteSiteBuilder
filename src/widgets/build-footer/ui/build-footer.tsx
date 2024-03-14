@@ -1,4 +1,4 @@
-import { CreateSectionTrigger } from "@/features/popover-tools";
+import { CreateSectionTrigger } from "@/features/drawer-tools";
 import { auth } from "@/shared/lib/auth/model/auth";
 
 type BuildFooterProps = {

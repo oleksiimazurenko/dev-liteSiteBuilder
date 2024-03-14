@@ -1,24 +1,21 @@
-import { DNDSection } from "@/features/popover-tools";
+import { DNDSection } from "@/features/drawer-tools";
 import { RenderSection, sortPosition } from "@/generator";
-import { getPageByUrl } from '@/shared/actions/page/get/get-page-by-url'
-import { getPages } from '@/shared/actions/page/get/get-pages'
-import { getSiteById } from '@/shared/actions/site/get/get-site-by-id'
-import { getSiteByUrl } from '@/shared/actions/site/get/get-site-by-url'
-import { getSites } from '@/shared/actions/site/get/get-sites'
-import { Component, Page, Section, Site } from '@prisma/client'
-import { useSession } from 'next-auth/react'
+import { getPageByUrl } from "@/shared/actions/page/get/get-page-by-url";
+import { getPages } from "@/shared/actions/page/get/get-pages";
+import { getSiteById } from "@/shared/actions/site/get/get-site-by-id";
+import { Component, Page, Section, Site } from "@prisma/client";
 
 type SectionWithComponents = {
-  components: Component[]
-} & Section
+  components: Component[];
+} & Section;
 
 type PagesWithSections = {
-  sections: SectionWithComponents[]
-} & Page 
+  sections: SectionWithComponents[];
+} & Page;
 
 type SiteWithPages = {
-  pages: PagesWithSections[]
-} & Site
+  pages: PagesWithSections[];
+} & Site;
 
 export async function generateStaticParams() {
   const { data } = await getPages();
@@ -46,12 +43,9 @@ export default async function Page({
 }: {
   params: { page: string };
 }) {
+  const { data } = await getPageByUrl(page);
 
-
-  const { data } = await getPageByUrl(page)
-
-	const siteId = data?.siteId
-	
+  const siteId = data?.siteId;
 
   if (!data || !siteId) {
     return (
@@ -62,8 +56,8 @@ export default async function Page({
     );
   }
 
-	const { data: site } = await getSiteById(siteId)
-	const userId = site?.userId
+  const { data: site } = await getSiteById(siteId);
+  const userId = site?.userId;
 
   // Берем секции первой страницы новосозданного сайта
   const sections = data?.sections;

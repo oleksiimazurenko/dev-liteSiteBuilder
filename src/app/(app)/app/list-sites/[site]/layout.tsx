@@ -1,4 +1,4 @@
-import { PopoverTools } from "@/features/popover-tools";
+import { DrawerTools } from "@/features/drawer-tools";
 import { getSiteByUrl } from "@/shared/actions/site/get/get-site-by-url";
 import { getSites } from "@/shared/actions/site/get/get-sites";
 import { BuildFooter } from "@/widgets/build-footer";
@@ -55,9 +55,9 @@ export default async function Layout({
         [merienda.className]: true,
       })}
     >
-      <BuildHeader className="m-auto max-w-[2400px]" siteId={data.id}/>
+      <BuildHeader className="m-auto max-w-[2400px]" siteId={data.id} />
       {children}
-      <PopoverTools />
+      <DrawerTools />
       <BuildFooter className="m-auto max-w-[2400px]" />
     </div>
   );

@@ -2,10 +2,10 @@ import { LangSwitch } from "@/features/lang-switch";
 import { ThemeSwitch } from "@/features/theme-switch";
 import { auth } from "@/shared/lib/auth/model/auth";
 import { SessionProvider } from "@/shared/providers/session-provider/session-provider";
+import "@/shared/styles/globals.css";
 import { Toaster } from "@/shared/ui/sonner";
 import cn from "classnames";
 import type { Metadata } from "next";
-import "@/shared/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Landee",
@@ -25,10 +25,10 @@ export default async function RootLayout({
         <body className={cn("m-auto max-w-[2400px]")}>
           <main>{children}</main>
           {!session && (
-            <ThemeSwitch className="hidden md:fixed md:bottom-5 md:left-5 md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
+            <ThemeSwitch className="dark:second-gradient-dark second-gradient-white hidden md:fixed md:bottom-5 md:left-5 md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
           )}
           {!session && (
-            <LangSwitch className="hidden md:fixed md:left-5 md:top-5 md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
+            <LangSwitch className="dark:second-gradient-dark second-gradient-white hidden md:fixed md:left-5 md:top-5 md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
           )}
           <Toaster />
         </body>

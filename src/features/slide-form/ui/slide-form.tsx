@@ -56,7 +56,7 @@ export function SlideForm({ professionsList }: SlideFormProps) {
       opts={{
         watchDrag: false,
       }}
-      className="bcw2 dark:bcd2 overflow-hidden rounded-2xl shadow-xl"
+      className="second-gradient-white dark:second-gradient-dark overflow-hidden rounded-2xl shadow-xl"
     >
       <CarouselContent className="!ml-0 max-w-[450px] space-x-0">
         <CarouselItem className="flex flex-col items-center justify-center space-y-5 p-0">

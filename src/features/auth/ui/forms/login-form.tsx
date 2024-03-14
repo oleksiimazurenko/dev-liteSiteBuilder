@@ -136,7 +136,7 @@ export const LoginForm = ({
                               {...field}
                               disabled={isPending}
                               placeholder="123456"
-                              className="iw1 dark:id1 "
+                              className="input-white dark:input-dark "
                             />
                           </FormControl>
                           <FormMessage />
@@ -159,7 +159,7 @@ export const LoginForm = ({
                                   main_page?.login_panel?.email_placeholder
                                 }
                                 type="email"
-                                className="iw1 dark:id1 "
+                                className="input-white dark:input-dark "
                               />
                             </FormControl>
                             <FormMessage />
@@ -178,7 +178,7 @@ export const LoginForm = ({
                                 disabled={isPending}
                                 placeholder="******"
                                 type="password"
-                                className="iw1 dark:id1 "
+                                className="input-white dark:input-dark "
                               />
                             </FormControl>
                             <FormMessage />
@@ -189,7 +189,7 @@ export const LoginForm = ({
                       <Button
                         disabled={isPending}
                         type="submit"
-                        className="btnw1 dark:btnd1 text-white dark:text-black w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+                        className="button-white dark:button-dark w-full text-white transition-all duration-300 ease-in-out hover:scale-[1.02] dark:text-black"
                       >
                         {showTwoFactor
                           ? main_page?.login_panel?.confirm
@@ -199,7 +199,7 @@ export const LoginForm = ({
                       <Button
                         size="sm"
                         variant="link"
-                        className="text-neutral-500 m-auto h-5 p-0 font-normal"
+                        className="m-auto h-5 p-0 font-normal text-neutral-500"
                         onClick={() => setGeneralPanel("forgot-password")}
                       >
                         {main_page?.login_panel?.forgot_password}
@@ -207,7 +207,7 @@ export const LoginForm = ({
 
                       <Button
                         variant="link"
-                        className="text-neutral-500 m-auto h-5 p-0 font-normal"
+                        className="m-auto h-5 p-0 font-normal text-neutral-500"
                         size="sm"
                         onClick={() => setGeneralPanel("register")}
                       >

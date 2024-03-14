@@ -20,7 +20,6 @@ export function LangSwitch({ className }: LangSwitchProps) {
 
   //Устанавливаем язык пользователя на сервере
   const handleSetLangUser = async (lang: string) => {
-
     // Если мы находимся на публичной странице, то не отправляем запрос на сервер так как пользователь не авторизован нету на кого записывать данные
     if (!publicRoutes.includes(pathname)) {
       const { success, message } = await setLangUser(lang);
@@ -30,7 +29,6 @@ export function LangSwitch({ className }: LangSwitchProps) {
         );
       }
     }
-
   };
 
   const toggleLang = () => {
@@ -56,7 +54,7 @@ export function LangSwitch({ className }: LangSwitchProps) {
   return (
     <Button
       className={cn(
-        "dark:bcd2 bcw2 h-[30px] w-[30px] items-center justify-center overflow-hidden border border-none border-opacity-40 font-light text-neutral-500 shadow-2xl backdrop-blur-[0.5rem] transition-all hover:scale-[1.07] hover:bg-neutral-400 active:scale-105 dark:border-none",
+        "items-center justify-center overflow-hidden border-opacity-40 font-light text-neutral-500 dark:text-neutral-800 shadow-2xl backdrop-blur-[0.5rem] transition-all hover:scale-[1.07] active:scale-105",
         {
           [className as string]: className,
         },

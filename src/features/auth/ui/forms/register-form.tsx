@@ -73,7 +73,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
                       {...field}
                       disabled={isPending}
                       placeholder={main_page?.register_panel?.name_placeholder}
-                      className="iw1 dark:id1 "
+                      className="input-white dark:input-dark "
                     />
                   </FormControl>
                   <FormMessage />
@@ -91,7 +91,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
                       disabled={isPending}
                       placeholder={main_page?.register_panel?.email_placeholder}
                       type="email"
-                      className="iw1 dark:id1 "
+                      className="input-white dark:input-dark "
                     />
                   </FormControl>
                   <FormMessage />
@@ -108,7 +108,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
                       {...field}
                       disabled={isPending}
                       placeholder="******"
-                      className="iw1 dark:id1 "
+                      className="input-white dark:input-dark "
                       type="password"
                     />
                   </FormControl>
@@ -122,7 +122,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
           <Button
             disabled={isPending}
             type="submit"
-            className="btnw1 dark:btnd1 text-white dark:text-black w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+            className="button-white dark:button-dark w-full text-white transition-all duration-300 ease-in-out hover:scale-[1.02] dark:text-black"
           >
             {main_page?.register_panel?.register_button}
           </Button>
@@ -130,7 +130,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
       </Form>
       <Button
         variant="link"
-        className="text-neutral-500 dark:text-neutral-500 m-auto mt-3 h-5 w-full p-0 font-normal"
+        className="m-auto mt-3 h-5 w-full p-0 font-normal text-neutral-500 dark:text-neutral-500"
         size="sm"
         onClick={() => setGeneralPanel("login")}
       >

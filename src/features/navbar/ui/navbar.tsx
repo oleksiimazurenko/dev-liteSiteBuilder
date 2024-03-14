@@ -48,7 +48,7 @@ export const Navbar = ({
             key={link}
             asChild
             className={cn(
-              "btnw1 dark:btnd1 shadow-xl transition-all hover:scale-105 dark:border-none",
+              "button-white dark:button-dark shadow-xl transition-all hover:scale-105 dark:border-none",
             )}
           >
             <Link

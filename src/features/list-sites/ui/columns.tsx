@@ -12,12 +12,11 @@ import {
   TooltipTrigger,
 } from "@/shared/ui/tooltip";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
+import cn from "classnames";
 import { Trash2 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
-import cn from "classnames";
-import { Badge } from "@/shared/ui/badge";
 
 export type Site = {
   id: string;
@@ -85,7 +84,7 @@ const ViewCell = ({ info }: { info: CellContext<Site, unknown> }) => {
 
   return (
     <Button
-      className="btnw1 dark:btnd1 shadow-xl transition-all hover:scale-105 dark:border-none"
+      className="button-white dark:button-dark shadow-xl transition-all hover:scale-105 dark:border-none"
       onClick={handleClick}
     >
       View
@@ -127,7 +126,7 @@ const DeleteCell = ({ info }: { info: CellContext<Site, unknown> }) => {
 
   return (
     <Button
-      className="btnw1 dark:btnd1 shadow-xl transition-all hover:scale-105 dark:border-none"
+      className="button-white dark:button-dark shadow-xl transition-all hover:scale-105 dark:border-none"
       disabled={isPending as boolean}
       onClick={handleClick}
     >

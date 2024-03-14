@@ -61,7 +61,7 @@ export const ResetForm = ({ setGeneralPanel }: ResetFormProps) => {
       <div className="flex w-full flex-col">
         <Button
           variant="link"
-          className="text-neutral-500 dark:text-neutral-500 m-auto h-5 p-0 font-normal"
+          className="m-auto h-5 p-0 font-normal text-neutral-500 dark:text-neutral-500"
           size="sm"
           onClick={() => setGeneralPanel("login")}
         >
@@ -82,7 +82,7 @@ export const ResetForm = ({ setGeneralPanel }: ResetFormProps) => {
                       disabled={isPending}
                       placeholder={main_page?.reset_panel?.email_placeholder}
                       type="email"
-                      className="iw1 dark:id1 "
+                      className="input-white dark:input-dark "
                     />
                   </FormControl>
                   <FormMessage />
@@ -95,7 +95,7 @@ export const ResetForm = ({ setGeneralPanel }: ResetFormProps) => {
           <Button
             disabled={isPending}
             type="submit"
-            className="btnw1 dark:btnd1 text-white dark:text-black w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+            className="button-white dark:button-dark w-full text-white transition-all duration-300 ease-in-out hover:scale-[1.02] dark:text-black"
           >
             {main_page?.reset_panel?.reset_button}
           </Button>

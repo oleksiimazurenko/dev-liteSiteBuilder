@@ -172,7 +172,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                       <label
                         htmlFor="image-site"
                         className={cn(
-                          "btnw1 dark:btnd1 tw1 dark:td1 w-full cursor-pointer rounded-md p-2 text-center transition-all duration-300 ease-in-out hover:scale-[1.02]",
+                          "button-white dark:button-dark text-white-1 dark:text-dark-1 w-full cursor-pointer rounded-md p-2 text-center transition-all duration-300 ease-in-out hover:scale-[1.02]",
                           {
                             ["pointer-events-none text-neutral-400 contrast-50"]:
                               previewUrl,
@@ -183,7 +183,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                       </label>
                       <div
                         className={cn(
-                          "btnw1 dark:btnd1 tw1 dark:td1 w-full cursor-pointer rounded-md p-2 text-center transition-all duration-300 ease-in-out hover:scale-[1.02]",
+                          "button-white dark:button-dark text-white-1 dark:text-dark-1 w-full cursor-pointer rounded-md p-2 text-center transition-all duration-300 ease-in-out hover:scale-[1.02]",
                           {
                             ["pointer-events-none text-neutral-400 contrast-50"]:
                               !previewUrl,
@@ -212,7 +212,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                     disabled={isPending}
                     placeholder="Заголовок"
                     type="text"
-                    className="iw1 dark:id1 "
+                    className="input-white dark:input-dark "
                   />
                 </FormControl>
                 <FormMessage className="!mt-[3px] text-[12px]" />
@@ -231,7 +231,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                     disabled={isPending}
                     placeholder="Підзаголовок"
                     type="text"
-                    className="iw1 dark:id1 "
+                    className="input-white dark:input-dark "
                   />
                 </FormControl>
                 <FormMessage className="!mt-[3px] text-[12px]" />
@@ -250,7 +250,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                     disabled={isPending}
                     placeholder="Про мене"
                     type="text"
-                    className="iw1 dark:id1 "
+                    className="input-white dark:input-dark "
                   />
                 </FormControl>
                 <FormMessage className="!mt-[3px] text-[12px]" />
@@ -261,7 +261,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
           <Button
             disabled={isPending}
             type="submit"
-            className="btnw1 dark:btnd1 tw1 dark:td1 relative w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+            className="button-white dark:button-dark text-white-1 dark:text-dark-1 relative w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
             {!isPending ? (
               "Створити сайт!"
@@ -269,10 +269,10 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
               <span className="relative flex h-4 w-4">
                 <span
                   className={cn(
-                    "dark:bcd2 bcw2 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",
+                    "dark:second-gradient-dark second-gradient-white absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",
                   )}
                 ></span>
-                <span className="dark:bcd2 bcw2 relative inline-flex h-4 w-4 rounded-full"></span>
+                <span className="dark:second-gradient-dark second-gradient-white relative inline-flex h-4 w-4 rounded-full"></span>
               </span>
             )}
           </Button>
@@ -282,7 +282,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
             disabled={isPending}
             type="button"
             variant="link"
-            className="tw2 dark:td2 m-auto h-5 p-0 font-normal"
+            className="text-white-2 dark:text-dark-2 m-auto h-5 p-0 font-normal"
             onClick={onPrevStep}
           >
             Повернутися на попередній крок

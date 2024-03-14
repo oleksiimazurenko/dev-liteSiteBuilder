@@ -1,9 +1,8 @@
-import { DNDSection } from "@/features/popover-tools";
+import { DNDSection } from "@/features/drawer-tools";
 import { RenderSection, sortPosition } from "@/generator";
-import { getSiteByUrl } from '@/shared/actions/site/get/get-site-by-url'
-import { getSites } from '@/shared/actions/site/get/get-sites'
-import { auth } from '@/shared/lib/auth/model/auth'
-import { Component, Page, Section, Site } from '@prisma/client'
+import { getSiteByUrl } from "@/shared/actions/site/get/get-site-by-url";
+import { getSites } from "@/shared/actions/site/get/get-sites";
+import { auth } from "@/shared/lib/auth/model/auth";
 
 export async function generateStaticParams() {
   const { data } = await getSites();
@@ -31,12 +30,10 @@ export default async function Site({
 }: {
   params: { site: string };
 }) {
+  const { data } = await getSiteByUrl(site);
+  const session = await await auth();
 
-
-  const { data } = await getSiteByUrl(site)
-  const session = await await auth()
-  
-  const userId = session?.user.id
+  const userId = session?.user.id;
 
   const isEditable = data?.userId === userId;
 
@@ -45,7 +42,7 @@ export default async function Site({
 
   if (!data || !sections) {
     return (
-      <div className="h-screen bg-red-400 flex justify-center items-center">
+      <div className="flex h-screen items-center justify-center bg-red-400">
         Partition data not found in database. Notice in:
         src/app/(protected)/sites/[site]/page.tsx
       </div>

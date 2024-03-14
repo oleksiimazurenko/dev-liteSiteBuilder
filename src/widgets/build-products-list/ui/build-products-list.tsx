@@ -1,7 +1,7 @@
 import {
   CreateProductTrigger,
   DeleteProductTrigger,
-} from "@/features/popover-tools";
+} from "@/features/drawer-tools";
 import { auth } from "@/shared/lib/auth/model/auth";
 import {
   ProductCardProps,

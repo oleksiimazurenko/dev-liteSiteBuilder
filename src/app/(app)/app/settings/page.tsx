@@ -86,7 +86,7 @@ const SettingsPage = () => {
                             {...field}
                             placeholder={user?.name ? user?.name : undefined}
                             disabled={isPending}
-                            className="iw1 dark:id1 "
+                            className="input-white dark:input-dark "
                           />
                         </FormControl>
                         <FormMessage />
@@ -107,7 +107,7 @@ const SettingsPage = () => {
                                 placeholder="john.doe@example.com"
                                 type="email"
                                 disabled={isPending}
-                                className="iw1 dark:id1 "
+                                className="input-white dark:input-dark "
                               />
                             </FormControl>
                             <FormMessage />
@@ -126,7 +126,7 @@ const SettingsPage = () => {
                                 placeholder="******"
                                 type="password"
                                 disabled={isPending}
-                                className="iw1 dark:id1 "
+                                className="input-white dark:input-dark "
                               />
                             </FormControl>
                             <FormMessage />
@@ -145,7 +145,7 @@ const SettingsPage = () => {
                                 placeholder="******"
                                 type="password"
                                 disabled={isPending}
-                                className="iw1 dark:id1 "
+                                className="input-white dark:input-dark "
                               />
                             </FormControl>
                             <FormMessage />
@@ -183,7 +183,7 @@ const SettingsPage = () => {
                 <Button
                   disabled={isPending}
                   type="submit"
-                  className="btnw1 dark:btnd1 shadow-xl transition-all hover:scale-105 dark:border-none"
+                  className="button-white dark:button-dark shadow-xl transition-all hover:scale-105 dark:border-none"
                 >
                   Save
                 </Button>

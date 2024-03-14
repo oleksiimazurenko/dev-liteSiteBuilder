@@ -1,5 +1,5 @@
 import { BuildNavbar } from "@/features/build-navbar";
-import { CreatePageTrigger, DeletePageTrigger } from "@/features/popover-tools";
+import { CreatePageTrigger, DeletePageTrigger } from "@/features/drawer-tools";
 
 type BuildHeaderProps = {
   className?: string;
@@ -17,7 +17,6 @@ export async function BuildHeader({ className, siteId }: BuildHeaderProps) {
         CreatePageTrigger={CreatePageTrigger}
         DeletePageTrigger={DeletePageTrigger}
         siteId={siteId}
-    
       />
     </header>
   );
