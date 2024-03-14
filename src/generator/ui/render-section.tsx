@@ -15,7 +15,6 @@ export async function RenderSection({
   components,
 }: RenderSectionType) {
   const session = await auth();
-  const isAdmin = session?.user.role === "ADMIN";
 
   const promisesComponents = components.sort(sortPosition).map(RenderComponent);
   const renderedComponents = await Promise.all(promisesComponents);
@@ -35,11 +34,7 @@ export async function RenderSection({
           className="container"
           style={containerStyles as React.CSSProperties}
         >
-          {isAdmin ? (
-            <DNDComponent items={renderedComponents} />
-          ) : (
-            renderedComponents.map(({ content }) => content)
-          )}
+          <DNDComponent items={renderedComponents} />
         </div>
       </section>
     ),

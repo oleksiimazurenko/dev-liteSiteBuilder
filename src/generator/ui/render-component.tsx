@@ -26,8 +26,6 @@ export async function RenderComponent({
   height,
   href,
 }: Component) {
-  const session = await auth();
-  const isAdmin = session?.user.role === "ADMIN";
   const dataProduct = await getProductsList();
 
   if (type === "text" && textContent && tag) {
@@ -73,8 +71,7 @@ export async function RenderComponent({
         <PrimaryButton
           id={id}
           key={id}
-          href={isAdmin ? undefined : href}
-          disabled={isAdmin}
+          href={href}
           className=""
           textContent={textContent}
           style={outerStyles as React.CSSProperties}

@@ -90,7 +90,6 @@ export function CreateProduct() {
         // Отправка файла на сервер и получение ответа
         const { success: successFile, fileName } = await uploadImage(
           dataImage,
-          "protected",
           userId,
         );
         //-----------------------------------------------------------------------------

@@ -15,6 +15,7 @@ import { SectionTools } from "./section-tools/section-tools";
 
 import { Button } from "@/shared/ui/button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/shared/ui/drawer";
+import { useDrawerHelper } from '../hooks/use-drawer-helper'
 
 type DrawerToolsProps = {};
 
@@ -26,7 +27,7 @@ export function DrawerTools({}: DrawerToolsProps) {
 
   const { editableElement, editableTrigger } = editableGroup;
 
-  useEffect(() => contentDrawerDivRef.current?.focus(), [editableGroup]);
+  // useEffect(() => contentDrawerDivRef.current?.focus(), [editableGroup]);
 
   useEffect(() => {
     if (isOpenDrawerTools) {
@@ -37,14 +38,19 @@ export function DrawerTools({}: DrawerToolsProps) {
   }, [editableTrigger, isOpenDrawerTools]);
 
   useOutsideClick(
-    contentDrawerDivRef,
+    isOpenDrawerTools,
     () => {
       (editableElement as HTMLElement)?.style.setProperty("outline", "none");
       setIsOpenDrawerTools(false);
     },
-    "[data-radix-popper-content-wrapper]",
-    "data-trigger-tools",
+    ["[vaul-drawer]", "[data-radix-popper-content-wrapper]"],
   );
+
+  useDrawerHelper(isOpenDrawerTools, () => {
+
+    (editableElement as HTMLElement)?.style.setProperty("outline", "none");
+
+  })
 
   return (
     <Drawer open={isOpenDrawerTools}>
@@ -56,7 +62,7 @@ export function DrawerTools({}: DrawerToolsProps) {
           Open Drawer
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent ref={contentDrawerDivRef} >
         <div className="flex flex-wrap items-center justify-center p-10">
           {typeOpen === "text" && <TextTools />}
 

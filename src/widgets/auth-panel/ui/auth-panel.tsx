@@ -16,17 +16,17 @@ export function AuthPanel({}: AuthPanelProps) {
   const [valueAccordion, setValueAccordion] = useState("");
 
   useOutsideClick(
-    generalPanelDivRef,
+    !!valueAccordion,
     () => {
       setGeneralPanel("login");
       setValueAccordion("");
     },
-    "[data-general-panel]",
+    ['[data-general-panel]']
   );
 
   return (
     <div className="order-2 flex h-full items-center justify-center sm:order-2 sm:self-end md:order-1">
-      <div data-general-panel ref={generalPanelDivRef} className="">
+      <div data-general-panel className="">
         {generalPanel === "login" && (
           <LoginForm
             setGeneralPanel={setGeneralPanel}

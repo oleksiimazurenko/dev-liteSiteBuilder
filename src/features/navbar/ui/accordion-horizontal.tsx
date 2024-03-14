@@ -1,5 +1,9 @@
 "use client";
 
+import { useInitDictionary } from "@/shared/dictionary/hooks/use-init-dictionary";
+import { useDictionaryStore } from "@/shared/dictionary/store/dictionary-store";
+import { useInitFontFamily } from "@/shared/hooks/use-init-font-family";
+import { useInitTheme } from "@/shared/hooks/use-init-theme";
 import { useOutsideClick } from "@/shared/hooks/use-outside-click";
 import { useCurrentUser } from "@/shared/lib/auth/hooks/use-current-user";
 import {
@@ -27,13 +31,19 @@ export function AccordionHorizontal({
 }: AccordionHorizontalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
+  useInitDictionary();
+
+  const { language: lang } = useDictionaryStore();
+
+  useInitFontFamily(lang);
+  useInitTheme();
 
   useOutsideClick(
-    ref,
+    isOpen,
     () => {
       setIsOpen(false);
     },
-    "[data-accordion-wrapper]",
+    ["[data-accordion-wrapper]"],
   );
 
   const onHandleClick = () => {

@@ -24,6 +24,7 @@ import { toast } from "sonner";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Arrow } from "@radix-ui/react-popover";
+import { useSession } from 'next-auth/react'
 
 //---------------------------------------------------------------
 // Инициализация схемы валидации
@@ -58,6 +59,7 @@ export function ChangeBackgroundImage({
   const [fileName, setFileName] = useState<JSX.Element | string>("");
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const pathName = usePathname();
+  const userId = useSession().data?.user?.id;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -67,7 +69,7 @@ export function ChangeBackgroundImage({
   // Функция для отправки файла на сервер и изменения Background
   //---------------------------------------------------------------
   const onSubmit = async ({ file }: z.infer<typeof formSchema>) => {
-    if (file && file instanceof File) {
+    if (file && file instanceof File && userId) {
       try {
         // Создание объекта FormData для отправки на сервер и добавление в него файла
         const data = new FormData();
@@ -75,7 +77,7 @@ export function ChangeBackgroundImage({
         //-----------------------------------------------------------------------------
 
         // Отправка файла на сервер и получение ответа
-        const { success, fileName } = await uploadImage(data, "public");
+        const { success, fileName } = await uploadImage(data, userId);
         //-----------------------------------------------------------------------------
 
         // Изменение имени файла в модальном окне
@@ -88,7 +90,7 @@ export function ChangeBackgroundImage({
         if (currentElement)
           (currentElement as HTMLElement).style.setProperty(
             "background-image",
-            `url(/${fileName})`,
+            `url(/images/users/${userId}/${fileName})`,
           );
         //-----------------------------------------------------------------------------
 
