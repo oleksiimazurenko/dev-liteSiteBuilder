@@ -22,12 +22,14 @@ type AccordionHorizontalProps = {
   LangSwitch: ({ className }: LangSwitchProps) => JSX.Element;
   ThemeSwitch: ({ className }: ThemeSwitchProps) => JSX.Element;
   LogOut: ({ className }: LogOutProps) => JSX.Element;
+  currentUser: string | null | undefined;
 };
 
 export function AccordionHorizontal({
   LangSwitch,
   ThemeSwitch,
   LogOut,
+  currentUser,
 }: AccordionHorizontalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
@@ -57,8 +59,17 @@ export function AccordionHorizontal({
       className="relative flex items-center justify-center space-x-3"
       ref={ref}
     >
+      <div className="overflow-hidden">
+        <div
+          className={cn("mr-[-250px] transition-all font-light text-neutral-500", {
+            ["!mr-3"]: !isOpen,
+          })}
+        >
+          {currentUser}
+        </div>
+      </div>
       <Button
-        className="cursor-pointer rounded-full p-0"
+        className="!ml-0 cursor-pointer rounded-full p-0"
         onClick={onHandleClick}
       >
         <Avatar className="shadow-xl transition-all hover:scale-105">

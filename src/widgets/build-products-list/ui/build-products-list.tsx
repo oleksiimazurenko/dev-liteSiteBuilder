@@ -24,8 +24,6 @@ export async function BuildProductsList({
   innerStyles,
   ProductCard,
 }: BuildProductsListProps) {
-  const session = await auth();
-  const isAdmin = session?.user.role === "ADMIN";
 
   return (
     <div
@@ -44,10 +42,10 @@ export async function BuildProductsList({
               image={image}
               type={type}
             />
-            {isAdmin && <DeleteProductTrigger idProduct={id} />}
+            <DeleteProductTrigger idProduct={id} />
           </div>
         ))}
-      {isAdmin && <CreateProductTrigger componentId={id} />}
+      <CreateProductTrigger componentId={id} />
     </div>
   );
 }

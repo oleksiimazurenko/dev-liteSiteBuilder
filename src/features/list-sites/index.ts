@@ -1,3 +1,3 @@
 export { DataTable } from "./ui/data-table"
-export { columns } from "./ui/columns"
-export type { Site } from "./ui/columns"
+export { columns } from "./ui/columns/columns"
+export type { Site } from "./ui/columns/columns"

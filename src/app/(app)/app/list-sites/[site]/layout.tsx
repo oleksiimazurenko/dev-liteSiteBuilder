@@ -5,6 +5,7 @@ import { BuildFooter } from "@/widgets/build-footer";
 import { BuildHeader } from "@/widgets/build-header";
 import cn from "classnames";
 import { JetBrains_Mono } from "next/font/google";
+import Link from "next/link";
 
 const merienda = JetBrains_Mono({ subsets: ["latin"] });
 
@@ -43,9 +44,20 @@ export default async function Layout({
 
   if (!data)
     return (
-      <div className="flex h-screen items-center justify-center bg-red-400">
-        Site URL not found in database. Notice in:
-        src/app/(app)/app/list-sites/[site]/layout.tsx
+      <div className="flex h-screen flex-col items-center justify-center space-y-4 bg-red-400">
+        <p>
+          {" "}
+          Site URL not found in database. Notice in:
+          src/app/(app)/app/list-sites/[site]/layout.tsx
+        </p>
+        <Link
+          href="/app/list-sites"
+          className={cn(
+            "rounded-md p-2 text-white underline underline-offset-4 transition-all hover:scale-105 dark:text-black",
+          )}
+        >
+          Go back
+        </Link>
       </div>
     );
 

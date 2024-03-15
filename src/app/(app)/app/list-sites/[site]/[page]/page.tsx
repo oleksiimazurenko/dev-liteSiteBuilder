@@ -3,7 +3,10 @@ import { RenderSection, sortPosition } from "@/generator";
 import { getPageByUrl } from "@/shared/actions/page/get/get-page-by-url";
 import { getPages } from "@/shared/actions/page/get/get-pages";
 import { getSiteById } from "@/shared/actions/site/get/get-site-by-id";
+import { auth } from "@/shared/lib/auth/model/auth";
 import { Component, Page, Section, Site } from "@prisma/client";
+import { revalidatePath } from 'next/cache'
+import { redirect, useRouter } from "next/navigation";
 
 type SectionWithComponents = {
   components: Component[];
@@ -39,19 +42,20 @@ export async function generateMetadata({
 }
 
 export default async function Page({
-  params: { page },
+  params: { page: pageUrl },
 }: {
   params: { page: string };
 }) {
-  const { data } = await getPageByUrl(page);
+  const session = await auth();
+  const currentUserId = session?.user?.id;
 
-  const siteId = data?.siteId;
+  const { data: page } = await getPageByUrl(pageUrl);
+  const siteId = page?.siteId;
 
-  if (!data || !siteId) {
+  if (!page || !siteId || !currentUserId) {
     return (
       <div className="flex h-screen items-center justify-center bg-gradient-to-r from-slate-800 via-teal-800 to-slate-800 text-[20px] text-slate-50">
-        Partition data not found in database. Error in file:
-        src/app/(protected)/sites/[site]/page.tsx
+        Error in file: src/app/(protected)/sites/[site]/page.tsx
       </div>
     );
   }
@@ -59,8 +63,12 @@ export default async function Page({
   const { data: site } = await getSiteById(siteId);
   const userId = site?.userId;
 
+  if (userId !== currentUserId) {
+    redirect("/app/list-sites");
+  }
+
   // Берем секции первой страницы новосозданного сайта
-  const sections = data?.sections;
+  const sections = page?.sections;
 
   const promisesSections = sections.sort(sortPosition).map(RenderSection);
   const renderedSections = await Promise.all(promisesSections);

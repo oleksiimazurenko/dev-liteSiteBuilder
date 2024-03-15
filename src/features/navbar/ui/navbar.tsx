@@ -10,8 +10,10 @@ import {
   ThemeSwitchProps,
 } from "@/shared/types/props";
 import { Button } from "@/shared/ui/button";
+import { ScrollArea, ScrollBar } from "@/shared/ui/scroll-area";
 import cn from "classnames";
 import { UserButton } from "./user-button";
+import { Desktop } from './desktop'
 
 type NavbarProps = {
   className?: string;
@@ -26,9 +28,8 @@ export const Navbar = ({
   ThemeSwitch,
   LogOut,
 }: NavbarProps) => {
-  const pathname = usePathname();
 
-  const session = useSession();
+
 
   const buttonArray = [
     { name: "Info profil", link: "/app/info-profil" },
@@ -42,38 +43,7 @@ export const Navbar = ({
         [className as string]: className,
       })}
     >
-      <div className="flex items-center gap-x-2">
-        {buttonArray.map(({ name, link }) => (
-          <Button
-            key={link}
-            asChild
-            className={cn(
-              "button-white dark:button-dark shadow-xl transition-all hover:scale-105 dark:border-none",
-            )}
-          >
-            <Link
-              href={link}
-              className={cn("text-white dark:text-black", {
-                ["!border-[1.5px] !border-solid !border-white"]:
-                  pathname === link,
-              })}
-            >
-              {name}
-            </Link>
-          </Button>
-        ))}
-
-        <div className="flex flex-1 items-center justify-center">
-          <div className="ml-auto mr-4 block font-light text-neutral-500">
-            {session?.data?.user?.name}
-          </div>
-          <UserButton
-            LangSwitch={LangSwitch}
-            ThemeSwitch={ThemeSwitch}
-            LogOut={LogOut}
-          />
-        </div>
-      </div>
+      <Desktop className='' LangSwitch={LangSwitch} ThemeSwitch={ThemeSwitch} LogOut={LogOut} buttonArray={buttonArray}/>
     </nav>
   );
 };

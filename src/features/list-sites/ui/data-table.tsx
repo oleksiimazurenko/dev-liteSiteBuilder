@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   ColumnDef,
@@ -21,7 +21,7 @@ import {
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-}
+};
 
 export function DataTable<TData, TValue>({
   columns,
@@ -34,11 +34,11 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="h-full w-full rounded-lg border">
+    <div className="h-full w-full rounded-lg border bg-white/10">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="p-0 [&>th]:text-center">
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
@@ -60,6 +60,7 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                className="[&>td]:!px-1 [&>td]:!py-[4px]"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

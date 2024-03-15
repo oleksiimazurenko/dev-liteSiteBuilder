@@ -72,7 +72,7 @@
   }
 
   .button-white {
-    @apply border-[0.5px] !bg-neutral-400/30;
+    @apply !border-[0.5px] !border-white !bg-neutral-400/30;
   }
 
   /* ----------------------------------------------------------------------- */

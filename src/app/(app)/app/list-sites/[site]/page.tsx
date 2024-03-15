@@ -1,8 +1,11 @@
 import { DNDSection } from "@/features/drawer-tools";
 import { RenderSection, sortPosition } from "@/generator";
+import { getSiteById } from '@/shared/actions/site/get/get-site-by-id'
 import { getSiteByUrl } from "@/shared/actions/site/get/get-site-by-url";
 import { getSites } from "@/shared/actions/site/get/get-sites";
 import { auth } from "@/shared/lib/auth/model/auth";
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export async function generateStaticParams() {
   const { data } = await getSites();
@@ -26,21 +29,22 @@ export async function generateMetadata({
 }
 
 export default async function Site({
-  params: { site },
+  params: { site: siteUrl },
 }: {
   params: { site: string };
 }) {
-  const { data } = await getSiteByUrl(site);
-  const session = await await auth();
+  const session = await auth();
+  const currentUserId = session?.user?.id;
 
-  const userId = session?.user.id;
+  const { data: site } = await getSiteByUrl(siteUrl);
+  const userId = site?.userId;
 
-  const isEditable = data?.userId === userId;
+  userId !== currentUserId && redirect("/app/list-sites");
 
   // Берем секции первой страницы новосозданного сайта
-  const sections = data?.pages[0].sections;
+  const sections = site?.pages[0].sections;
 
-  if (!data || !sections) {
+  if (!site || !sections) {
     return (
       <div className="flex h-screen items-center justify-center bg-red-400">
         Partition data not found in database. Notice in:
@@ -52,10 +56,5 @@ export default async function Site({
   const promisesSections = sections.sort(sortPosition).map(RenderSection);
   const renderedSections = await Promise.all(promisesSections);
 
-  return (
-    <>
-      {isEditable && <DNDSection items={renderedSections} />}
-      {!isEditable && renderedSections.map(({ content }) => content)}
-    </>
-  );
+  return <DNDSection items={renderedSections} />;
 }

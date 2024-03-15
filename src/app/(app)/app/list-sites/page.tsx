@@ -31,14 +31,10 @@ export default async function ListSites() {
           </>
         )}
 
-        <Button
-          className={cn(
-            "button-white dark:button-dark p-0 transition-all hover:scale-105 dark:border-none",
-          )}
-        >
+        <Button variant="link" className={cn("p-0 h-auto")}>
           <Link
             href="/app/create-site"
-            className="flex h-full items-center p-3"
+            className=""
           >
             Створити новий сайт
           </Link>

@@ -4,6 +4,7 @@ import {
   ThemeSwitchProps,
 } from "@/shared/types/props";
 import { AccordionHorizontal } from "./accordion-horizontal";
+import { useSession } from 'next-auth/react'
 
 type UserButtonProps = {
   LangSwitch: ({ className }: LangSwitchProps) => JSX.Element;
@@ -17,11 +18,14 @@ export const UserButton = ({
   LogOut,
 }: UserButtonProps) => {
 
+  const currentUser = useSession().data?.user?.name
+
   return (
     <AccordionHorizontal
       LangSwitch={LangSwitch}
       ThemeSwitch={ThemeSwitch}
       LogOut={LogOut}
+      currentUser={currentUser}
     />
   );
 };

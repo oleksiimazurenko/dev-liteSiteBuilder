@@ -4,7 +4,6 @@ import {
   Dictionary,
   useDictionaryStore,
 } from "@/shared/dictionary/store/dictionary-store";
-import { useWindowSize } from '@/shared/hooks/use-window-size'
 import { useCurrentProfessionStore } from "@/shared/store/current-profession";
 import { ProfessionObject } from "@/shared/types/dectionary";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
@@ -59,20 +58,20 @@ export function CarouselProfessions({
             stopOnInteraction: false,
           }),
         ]}
-        className={cn("[&>div]:h-full md:block hidden", {
+        className={cn("hidden md:block [&>div]:h-full", {
           ["horizontal-mask"]: type === "general-preview",
         })}
       >
         <CarouselContent
           className={cn("flex", {
-            ["h-[calc(100svh-72px)] flex-col"]: type === "list-sites",
+            ["h-[calc(100svh-56px)] flex-col"]: type === "list-sites",
           })}
         >
           {professions.map(({ profession, imagePreview }, i) => (
             <CarouselItem
               key={profession}
               className={cn(
-                "text-neutral-500 relative flex-shrink flex-grow basis-auto cursor-pointer !bg-transparent text-center",
+                "relative flex-shrink flex-grow basis-auto cursor-pointer !bg-transparent text-center text-neutral-500",
                 {
                   ["!text-neutral-900"]: profession === currentProfession,
                   ["p-0"]: type === "list-sites",
