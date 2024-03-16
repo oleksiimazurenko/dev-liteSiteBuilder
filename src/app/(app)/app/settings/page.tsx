@@ -15,7 +15,9 @@ const SettingsPage = () => {
         </div>
 
         <SettingAccordion className="md:hidden" />
-        <ScrollArea className=""></ScrollArea>
+        <ScrollArea className="">
+          
+        </ScrollArea>
       </div>
     </div>
   );

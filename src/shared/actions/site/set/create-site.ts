@@ -5,8 +5,8 @@ import { componentStyles } from "@/shared/styles/initial/style-component";
 import { sectionStyles } from "@/shared/styles/initial/style-section";
 import { getErrorMessage } from "@/shared/utils/extract-error-message";
 import { revalidatePath } from "next/cache";
-import { uploadImage } from "../../user/set/upload-image";
 import { deleteImage } from "../../user/set/delete-image";
+import { uploadImage } from "../../user/set/upload-image";
 
 type ImageObject = {
   data: FormData;
@@ -28,16 +28,15 @@ const createSite = async (
   let imageFileName: string = "";
 
   try {
-
     if (imageObject) {
       const { data, nameFolder } = imageObject;
       const { success, fileName, message } = await uploadImage(
         data,
         nameFolder,
       );
-      
+
       if (!success) throw new Error(message);
-      
+
       isImageWasUploaded = true;
       if (fileName) imageFileName = fileName;
     }
@@ -100,7 +99,7 @@ const createSite = async (
       return { page, section, component };
     });
 
-    revalidatePath("/list-sites/[siteId]", "layout");
+    revalidatePath("/home/[siteId]", "layout");
 
     return { success: true, data: transactionResult };
   } catch (error) {

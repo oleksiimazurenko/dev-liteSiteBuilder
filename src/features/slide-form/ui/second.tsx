@@ -88,7 +88,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
           if (success) {
             toast.success("The site was successfully created");
 
-            router.push(`list-sites/${firstValues?.url}`);
+            router.push(`home/${firstValues?.url}`);
 
             secondForm.reset();
             resetImage();

@@ -7,7 +7,6 @@ import {
   LogOutProps,
   ThemeSwitchProps,
 } from "@/shared/types/props";
-import { Button } from "@/shared/ui/button";
 import cn from "classnames";
 import { usePathname } from "next/navigation";
 import { UserButton } from "./user-button";
@@ -36,30 +35,27 @@ export function Desktop({
 
   return (
     <div
-      className={cn("items-center gap-x-2", {
+      className={cn("items-center space-x-6 pl-5", {
         [className as string]: className,
       })}
     >
       {buttonArray.map(({ name, link }) => {
-        if(name === 'Create site') return
+        if (name === "Create site") return;
         return (
-          <Button
+          <Link
             key={link}
-            asChild
+            href={link}
             className={cn(
-              "button-white dark:button-dark shadow-xl transition-all hover:scale-105 dark:border-none",
+              "font-[200] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300",
+              {
+                ["dark:!text-white"]: pathname === link,
+                ["!text-neutral-950"]: pathname === link,
+
+              },
             )}
           >
-            <Link
-              href={link}
-              className={cn("text-white dark:text-black", {
-                ["!border-[1.5px] !border-solid !border-white"]:
-                  pathname === link,
-              })}
-            >
-              {name}
-            </Link>
-          </Button>
+            {name}
+          </Link>
         );
       })}
 

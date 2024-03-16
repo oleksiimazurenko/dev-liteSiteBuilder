@@ -5,8 +5,7 @@ import { getPages } from "@/shared/actions/page/get/get-pages";
 import { getSiteById } from "@/shared/actions/site/get/get-site-by-id";
 import { auth } from "@/shared/lib/auth/model/auth";
 import { Component, Page, Section, Site } from "@prisma/client";
-import { revalidatePath } from 'next/cache'
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 type SectionWithComponents = {
   components: Component[];
@@ -64,7 +63,7 @@ export default async function Page({
   const userId = site?.userId;
 
   if (userId !== currentUserId) {
-    redirect("/app/list-sites");
+    redirect("/app/home");
   }
 
   // Берем секции первой страницы новосозданного сайта

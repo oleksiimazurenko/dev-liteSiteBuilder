@@ -15,7 +15,7 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import Image from "next/image";
 
 type CarouselProfessionsProps = {
-  type: "general-preview" | "list-sites";
+  type: "general-preview" | "home";
   professionsList: ProfessionObject[];
 };
 
@@ -64,7 +64,7 @@ export function CarouselProfessions({
       >
         <CarouselContent
           className={cn("flex", {
-            ["h-[calc(100svh-56px)] flex-col"]: type === "list-sites",
+            ["h-[calc(100svh-56px)] flex-col"]: type === "home",
           })}
         >
           {professions.map(({ profession, imagePreview }, i) => (
@@ -74,7 +74,7 @@ export function CarouselProfessions({
                 "relative flex-shrink flex-grow basis-auto cursor-pointer !bg-transparent text-center text-neutral-500",
                 {
                   ["!text-neutral-900"]: profession === currentProfession,
-                  ["p-0"]: type === "list-sites",
+                  ["p-0"]: type === "home",
                 },
               )}
               onClick={() => setCurrentProfession(profession)}

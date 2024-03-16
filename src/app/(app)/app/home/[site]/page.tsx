@@ -1,11 +1,9 @@
 import { DNDSection } from "@/features/drawer-tools";
 import { RenderSection, sortPosition } from "@/generator";
-import { getSiteById } from '@/shared/actions/site/get/get-site-by-id'
 import { getSiteByUrl } from "@/shared/actions/site/get/get-site-by-url";
 import { getSites } from "@/shared/actions/site/get/get-sites";
 import { auth } from "@/shared/lib/auth/model/auth";
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
+import { redirect } from "next/navigation";
 
 export async function generateStaticParams() {
   const { data } = await getSites();
@@ -39,7 +37,7 @@ export default async function Site({
   const { data: site } = await getSiteByUrl(siteUrl);
   const userId = site?.userId;
 
-  userId !== currentUserId && redirect("/app/list-sites");
+  userId !== currentUserId && redirect("/app/home");
 
   // Берем секции первой страницы новосозданного сайта
   const sections = site?.pages[0].sections;

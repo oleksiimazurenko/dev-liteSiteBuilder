@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   const session = await auth();
 
-  if (session) redirect("/app/list-sites");
+  if (session) redirect("/app/home");
 
   return (
     <div className="third-gradient-white dark:third-gradient-dark relative grid min-h-screen min-w-[300px] grid-cols-[1fr] grid-rows-[6fr_1fr] items-baseline justify-center p-[20px] md:grid-cols-[1fr_2fr] md:grid-rows-1">

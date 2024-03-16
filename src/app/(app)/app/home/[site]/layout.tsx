@@ -48,10 +48,10 @@ export default async function Layout({
         <p>
           {" "}
           Site URL not found in database. Notice in:
-          src/app/(app)/app/list-sites/[site]/layout.tsx
+          src/app/(app)/app/home/[site]/layout.tsx
         </p>
         <Link
-          href="/app/list-sites"
+          href="/app/home"
           className={cn(
             "rounded-md p-2 text-white underline underline-offset-4 transition-all hover:scale-105 dark:text-black",
           )}

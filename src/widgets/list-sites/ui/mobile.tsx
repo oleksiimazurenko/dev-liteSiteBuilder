@@ -71,7 +71,7 @@ export default function Mobile({ sites }: MobileProps) {
                 >
                   <AccordionTrigger
                     className={cn(
-                      "relative h-[20px] overflow-hidden rounded-sm p-0 [&>svg]:dark:stroke-white [&>svg]:ml-2",
+                      "relative h-[20px] overflow-hidden rounded-sm p-0 [&>svg]:ml-2 [&>svg]:dark:stroke-white",
                     )}
                   >
                     <Badge

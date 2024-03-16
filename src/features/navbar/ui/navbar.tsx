@@ -6,9 +6,9 @@ import {
   ThemeSwitchProps,
 } from "@/shared/types/props";
 import cn from "classnames";
+import { BarChart4, FileText, Home, PencilRuler, Settings } from "lucide-react";
 import { Desktop } from "./desktop";
 import { Mobile } from "./mobile";
-import { BarChart4, FileText, Home, PencilRuler, Settings } from "lucide-react";
 
 type NavbarProps = {
   className?: string;
@@ -25,8 +25,8 @@ export const Navbar = ({
 }: NavbarProps) => {
   const buttonArray = [
     {
-      name: "Main page",
-      link: "/app/list-sites",
+      name: "Home",
+      link: "/app/home",
       icon: <Home strokeWidth={1} />,
     },
     {
@@ -37,7 +37,7 @@ export const Navbar = ({
     {
       name: "Create site",
       link: "/app/create-site",
-      icon: <PencilRuler strokeWidth={1} />
+      icon: <PencilRuler strokeWidth={1} />,
     },
     {
       name: "Forms",

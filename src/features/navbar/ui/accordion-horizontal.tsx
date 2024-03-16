@@ -61,7 +61,7 @@ export function AccordionHorizontal({
     >
       <div className="overflow-hidden">
         <div
-          className={cn("mr-[-250px] transition-all font-light text-neutral-500", {
+          className={cn("mr-[-250px] transition-all text-neutral-500 font-[200]", {
             ["!mr-3"]: !isOpen,
           })}
         >

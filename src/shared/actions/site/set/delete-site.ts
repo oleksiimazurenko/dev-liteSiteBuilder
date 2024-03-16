@@ -54,7 +54,7 @@ const deleteSite = async (id: string) => {
       });
     });
 
-    revalidatePath("/list-sites/[siteId]", "layout");
+    revalidatePath("/home/[siteId]", "layout");
 
     return { success: true, data: transactionResult };
   } catch (error) {

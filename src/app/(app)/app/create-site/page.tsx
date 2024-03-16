@@ -6,16 +6,13 @@ export default async function CreateSite() {
   const professionsList = await getProfessionList();
 
   return (
-    <div className="grid h-full w-full md:grid-cols-[1fr,1fr] grid-cols-[1fr] overflow-y-scroll">
+    <div className="grid h-full w-full grid-cols-[1fr] overflow-y-scroll md:grid-cols-[1fr,1fr]">
       <div className="m-auto flex h-full items-center justify-center p-2">
         <SlideForm professionsList={professionsList} />
       </div>
 
       <div className="vertical-mask grid h-full w-full grid-cols-[1fr,1fr]">
-        <CarouselProfessions
-          type="list-sites"
-          professionsList={professionsList}
-        />
+        <CarouselProfessions type="home" professionsList={professionsList} />
       </div>
     </div>
   );
