@@ -1,3 +1,5 @@
+'use client'
+
 import { getIdSiteByUrl } from "@/shared/actions/site/get/get-id-site-by-url";
 import { deleteSite } from "@/shared/actions/site/set/delete-site";
 import { Button } from "@/shared/ui/button";
@@ -6,28 +8,23 @@ import { Trash2 } from "lucide-react";
 import { useTransition } from "react";
 import { toast } from "sonner";
 
-export type Site = {
-  id: string;
-  status?: boolean | null;
-  name: string;
-  views?: number | null;
-  url?: string | null;
-};
+type DeleteCellProps = {
+  value: unknown;
+}
 
-const DeleteCell = ({ info }: { info: CellContext<Site, unknown> }) => {
-  const url = info.row.original.url;
+const DeleteCell = ({ value }: DeleteCellProps) => {
   const [isPending, startTransition] = useTransition();
 
   const handleClick = async () => {
     startTransition(async () => {
-      if (!url) {
+      if (!value) {
         toast.error(
           "URL is not defined, error in file: src/features/list-sites/ui/columns.tsx",
         );
         return;
       }
 
-      const { data: idSite } = await getIdSiteByUrl(url);
+      const { data: idSite } = await getIdSiteByUrl(value as string);
 
       if (!idSite) {
         toast.error(

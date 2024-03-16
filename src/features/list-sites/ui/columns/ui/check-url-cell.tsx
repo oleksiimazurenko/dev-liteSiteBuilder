@@ -8,16 +8,11 @@ import {
 import { CellContext } from "@tanstack/react-table";
 import cn from "classnames";
 
-export type Site = {
-  id: string;
-  status?: boolean | null;
-  name: string;
-  views?: number | null;
-  url?: string | null;
-};
+type CheckUrlCellProps = {
+  value: unknown;
+}
 
-const CheckUrlCell = ({ info }: { info: CellContext<Site, unknown> }) => {
-  const cellValue = info.row.original.url;
+const CheckUrlCell = ({ value }: CheckUrlCellProps ) => {
 
   const isRegisteredDomain = false;
 
@@ -28,14 +23,14 @@ const CheckUrlCell = ({ info }: { info: CellContext<Site, unknown> }) => {
           <TooltipTrigger asChild>
             <p
               className={cn(
-                "rounded-md px-[10px] py-[3px] text-xs font-semibold text-foreground",
+                "rounded-md px-[10px] py-[3px] text-xs font-semibold text-foreground text-center",
                 {
                   ["bg-green-300/50"]: isRegisteredDomain,
                   ["bg-red-300/50"]: !isRegisteredDomain,
                 },
               )}
             >
-              {cellValue}
+              {value as string}
             </p>
           </TooltipTrigger>
           <TooltipContent>

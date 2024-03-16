@@ -25,26 +25,26 @@ export const columns: ColumnDef<Site>[] = [
   {
     accessorKey: "name",
     header: "Name",
-    cell: (info) => <NameCell info={info} />,
+    cell: (info) => <NameCell value={info.getValue()} />,
   },
   {
     accessorKey: "url",
     header: "URL",
-    cell: (info) => <CheckUrlCell info={info} />,
+    cell: (info) => <CheckUrlCell value={info.getValue()} />,
   },
   {
     accessorKey: "views",
     header: "Views",
-    cell: (info) => <ViewsCell info={info} />,
+    cell: (info) => <ViewsCell value={info.getValue()} />,
   },
   {
     accessorKey: "view",
     header: "View",
-    cell: (info) => <ViewCell info={info} />,
+    cell: (info) => <ViewCell value={info.getValue()} />,
   },
   {
     accessorKey: "trash",
     header: "Trash",
-    cell: (info) => <DeleteCell info={info} />,
+    cell: (info) => <DeleteCell value={info.getValue()} />,
   },
 ];

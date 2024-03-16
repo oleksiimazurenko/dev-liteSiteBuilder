@@ -1,26 +1,22 @@
-import { DataTable, columns } from "@/features/list-sites";
 import { getSites } from "@/shared/actions/site/get/get-sites";
 import { auth } from "@/shared/lib/auth/model/auth";
 import { Button } from "@/shared/ui/button";
-import { ScrollArea } from "@/shared/ui/scroll-area";
+import { ListSites } from "@/widgets/list-sites";
 import cn from "classnames";
 import Link from "next/link";
 
-export default async function ListSites() {
+export default async function Page() {
   const userId = await auth();
   const { data } = await getSites();
   const sites = data?.filter((site) => site.userId === userId?.user?.id);
 
   return (
-    <div className="flex h-full w-full overflow-y-scroll">
-      <div className="container relative m-auto flex w-full flex-col items-center justify-center space-y-5 overflow-hidden rounded-lg p-5">
-        {sites && sites.length > 0 && (
-          <ScrollArea>
-            <DataTable columns={columns} data={sites} />
-          </ScrollArea>
-        )}
+    <div className={cn("flex h-full w-full overflow-y-scroll", {})}>
+      <div className="container relative m-auto flex w-full flex-col items-center justify-center space-y-5 overflow-hidden rounded-lg md:p-5 p-0">
+        
+        <ListSites />
 
-        {(!data || data.length === 0) && (
+        {(!sites || sites.length === 0) && (
           <>
             <div className="text-white-2 dark:text-dark-2 md:text-[30px]">
               Ваш перший сайт
@@ -31,11 +27,8 @@ export default async function ListSites() {
           </>
         )}
 
-        <Button variant="link" className={cn("p-0 h-auto")}>
-          <Link
-            href="/app/create-site"
-            className=""
-          >
+        <Button variant="link" className={cn("hidden h-auto p-0 md:block text-neutral-400")}>
+          <Link href="/app/create-site" className="">
             Створити новий сайт
           </Link>
         </Button>

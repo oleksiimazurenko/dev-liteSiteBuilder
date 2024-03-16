@@ -29,6 +29,6 @@
 		"**/*.tsx",
 		".next/types/**/*.ts",
 		"tailwind.config.ts"
-	],
+, "src/app/(app)/app/list-sites/[site]/page.tsx"	],
 	"exclude": ["node_modules"]
 }

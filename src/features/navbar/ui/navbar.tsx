@@ -1,19 +1,14 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-
 import {
   LangSwitchProps,
   LogOutProps,
   ThemeSwitchProps,
 } from "@/shared/types/props";
-import { Button } from "@/shared/ui/button";
-import { ScrollArea, ScrollBar } from "@/shared/ui/scroll-area";
 import cn from "classnames";
-import { UserButton } from "./user-button";
-import { Desktop } from './desktop'
+import { Desktop } from "./desktop";
+import { Mobile } from "./mobile";
+import { BarChart4, FileText, Home, PencilRuler, Settings } from "lucide-react";
 
 type NavbarProps = {
   className?: string;
@@ -28,13 +23,32 @@ export const Navbar = ({
   ThemeSwitch,
   LogOut,
 }: NavbarProps) => {
-
-
-
   const buttonArray = [
-    { name: "Info profil", link: "/app/info-profil" },
-    { name: "Settings", link: "/app/settings" },
-    { name: "List sites", link: "/app/list-sites" },
+    {
+      name: "Main page",
+      link: "/app/list-sites",
+      icon: <Home strokeWidth={1} />,
+    },
+    {
+      name: "Settings",
+      link: "/app/settings",
+      icon: <Settings strokeWidth={1} />,
+    },
+    {
+      name: "Create site",
+      link: "/app/create-site",
+      icon: <PencilRuler strokeWidth={1} />
+    },
+    {
+      name: "Forms",
+      link: "/app/sett",
+      icon: <FileText strokeWidth={1} />,
+    },
+    {
+      name: "Analytics",
+      link: "/app/analytics",
+      icon: <BarChart4 strokeWidth={1} />,
+    },
   ];
 
   return (
@@ -43,7 +57,20 @@ export const Navbar = ({
         [className as string]: className,
       })}
     >
-      <Desktop className='' LangSwitch={LangSwitch} ThemeSwitch={ThemeSwitch} LogOut={LogOut} buttonArray={buttonArray}/>
+      <Desktop
+        className="hidden md:flex"
+        LangSwitch={LangSwitch}
+        ThemeSwitch={ThemeSwitch}
+        LogOut={LogOut}
+        buttonArray={buttonArray}
+      />
+      <Mobile
+        className="flex md:hidden"
+        LangSwitch={LangSwitch}
+        ThemeSwitch={ThemeSwitch}
+        LogOut={LogOut}
+        buttonArray={buttonArray}
+      />
     </nav>
   );
 };

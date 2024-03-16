@@ -3,20 +3,16 @@ import { CellContext } from "@tanstack/react-table";
 import { Eye } from 'lucide-react'
 import { usePathname, useRouter } from "next/navigation";
 
-export type Site = {
-  id: string;
-  status?: boolean | null;
-  name: string;
-  views?: number | null;
-  url?: string | null;
-};
+type ViewCellProps = {
+  value: unknown;
+}
 
-const ViewCell = ({ info }: { info: CellContext<Site, unknown> }) => {
+const ViewCell = ({ value }: ViewCellProps) => {
   const pathName = usePathname();
   const router = useRouter();
 
   const handleClick = () => {
-    const url = info.row.original.url;
+    const url = value as string;
     router.push(`${pathName}/${url}`);
   };
 

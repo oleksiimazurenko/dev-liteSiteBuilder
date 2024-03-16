@@ -1,21 +1,17 @@
 import { Badge } from "@/shared/ui/badge";
 import { CellContext } from "@tanstack/react-table";
 
-export type Site = {
-  id: string;
-  status?: boolean | null;
-  name: string;
-  views?: number | null;
-  url?: string | null;
-};
+type NameCellProps = {
+  value: unknown;
+}
 
-const NameCell = ({ info }: { info: CellContext<Site, unknown> }) => {
-  const cellValue = info.row.original.name;
+const NameCell = ({ value }: NameCellProps) => {
+  // const cellValue = info.row.original.name;
 
   return (
     <div className="flex h-full w-full items-center justify-center">
       <Badge variant="outline" className="rounded-md bg-neutral-200 dark:text-black">
-        {cellValue}
+        {value as string}
       </Badge>
     </div>
   );

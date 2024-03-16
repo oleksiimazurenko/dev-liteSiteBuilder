@@ -9,49 +9,59 @@ import {
 } from "@/shared/types/props";
 import { Button } from "@/shared/ui/button";
 import cn from "classnames";
+import { usePathname } from "next/navigation";
 import { UserButton } from "./user-button";
-import { usePathname } from 'next/navigation'
 
 type ButtonArray = {
-	name: string;
-	link: string;
-}[]
+  name: string;
+  link: string;
+}[];
 
 type NavbarProps = {
-	className?: string;
+  className?: string;
   LangSwitch: ({ className }: LangSwitchProps) => JSX.Element;
   ThemeSwitch: ({ className }: ThemeSwitchProps) => JSX.Element;
   LogOut: ({ className }: LogOutProps) => JSX.Element;
-	buttonArray: ButtonArray;
+  buttonArray: ButtonArray;
 };
 
-export function Desktop({ className, LangSwitch, ThemeSwitch, LogOut, buttonArray }: NavbarProps) {
-
-	const pathname = usePathname();
+export function Desktop({
+  className,
+  LangSwitch,
+  ThemeSwitch,
+  LogOut,
+  buttonArray,
+}: NavbarProps) {
+  const pathname = usePathname();
 
   return (
-    <div className={cn('flex items-center gap-x-2', {
-			[className as string]: className,
-		})}>
-      {buttonArray.map(({ name, link }) => (
-        <Button
-          key={link}
-          asChild
-          className={cn(
-            "button-white dark:button-dark shadow-xl transition-all hover:scale-105 dark:border-none",
-          )}
-        >
-          <Link
-            href={link}
-            className={cn("text-white dark:text-black", {
-              ["!border-[1.5px] !border-solid !border-white"]:
-                pathname === link,
-            })}
+    <div
+      className={cn("items-center gap-x-2", {
+        [className as string]: className,
+      })}
+    >
+      {buttonArray.map(({ name, link }) => {
+        if(name === 'Create site') return
+        return (
+          <Button
+            key={link}
+            asChild
+            className={cn(
+              "button-white dark:button-dark shadow-xl transition-all hover:scale-105 dark:border-none",
+            )}
           >
-            {name}
-          </Link>
-        </Button>
-      ))}
+            <Link
+              href={link}
+              className={cn("text-white dark:text-black", {
+                ["!border-[1.5px] !border-solid !border-white"]:
+                  pathname === link,
+              })}
+            >
+              {name}
+            </Link>
+          </Button>
+        );
+      })}
 
       <div className="flex flex-1 items-center justify-end">
         <UserButton
