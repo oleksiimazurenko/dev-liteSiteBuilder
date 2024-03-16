@@ -5,16 +5,12 @@ import { ExtendedUser } from "BASE_URL/next-auth";
 
 type UserInfoProps = {
   user?: ExtendedUser;
-  label: string;
 };
 
-export const UserInfo = ({ user, label }: UserInfoProps) => {
+export const UserInfo = ({ user }: UserInfoProps) => {
   return (
     <Card className="w-[300px] border-none bg-transparent shadow-none md:w-[500px]">
-      <CardHeader>
-        <p className="text-center text-2xl font-semibold">{label}</p>
-      </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 p-0">
         <div className="flex flex-row items-center justify-between rounded-lg border-[0.5px] border-white p-3 shadow-sm">
           <p className="text-sm font-medium">ID</p>
           <ScrollArea className="max-w-[180px] rounded-md bg-slate-100 p-1 font-mono text-xs dark:text-black">

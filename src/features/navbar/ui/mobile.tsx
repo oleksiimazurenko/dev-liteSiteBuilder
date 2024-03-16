@@ -22,8 +22,6 @@ type NavbarProps = {
 };
 
 export function Mobile({ className, buttonArray }: NavbarProps) {
-  const pathname = usePathname();
-
   return (
     <div
       className={cn("items-center justify-evenly gap-x-2 pb-1", {
@@ -41,7 +39,7 @@ export function Mobile({ className, buttonArray }: NavbarProps) {
           <Link
             href={link}
             className={cn("flex flex-col items-center justify-center !p-0", {
-              ["dark:button-dark bg-white absolute bottom-1/2 left-1/2 h-[75px] w-[75px] -translate-x-1/2 translate-y-[30px] transform !rounded-full !border-[0.5px] !border-solid !border-white"]:
+              ["absolute bottom-1/2 left-1/2 h-[75px] w-[75px] -translate-x-1/2 translate-y-[30px] transform !rounded-full !border-[0.5px] !border-solid !border-white bg-white"]:
                 name === "Create site",
             })}
           >

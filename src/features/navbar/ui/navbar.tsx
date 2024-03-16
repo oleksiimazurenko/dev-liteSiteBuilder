@@ -41,7 +41,7 @@ export const Navbar = ({
     },
     {
       name: "Forms",
-      link: "/app/sett",
+      link: "/app/forms",
       icon: <FileText strokeWidth={1} />,
     },
     {

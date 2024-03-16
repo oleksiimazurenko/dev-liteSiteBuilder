@@ -1,6 +1,12 @@
 "use client";
 
-import { CheckUrlCell, DeleteCell, SwitchCell, ViewCell, ViewsCell } from "@/features/list-sites";
+import {
+  CheckUrlCell,
+  DeleteCell,
+  SwitchCell,
+  ViewCell,
+  ViewsCell,
+} from "@/features/list-sites";
 import { useOutsideClick } from "@/shared/hooks/use-outside-click";
 import {
   Accordion,
@@ -65,11 +71,7 @@ export default function Mobile({ sites }: MobileProps) {
                 >
                   <AccordionTrigger
                     className={cn(
-                      "relative h-[20px] overflow-hidden rounded-sm p-0",
-                      {
-                        ["[&>svg]:absolute [&>svg]:left-[-16px] [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:rotate-180 [&>svg]:transform [&>svg]:stroke-neutral-200 [&>svg]:data-[state=open]:!rotate-0 [&>svg]:dark:stroke-neutral-200/50 md:[&>svg]:rotate-0 md:[&>svg]:data-[state=open]:!rotate-180"]:
-                          true,
-                      },
+                      "relative h-[20px] overflow-hidden rounded-sm p-0 [&>svg]:dark:stroke-white [&>svg]:ml-2",
                     )}
                   >
                     <Badge
@@ -79,7 +81,7 @@ export default function Mobile({ sites }: MobileProps) {
                       {name}
                     </Badge>
                   </AccordionTrigger>
-                  <AccordionContent className="mt-1 ">
+                  <AccordionContent className="mt-1 p-0">
                     <div className="space-y-2 rounded-md border-[0.5px] border-white/50 p-2 dark:bg-neutral-500/50">
                       <div className="flex items-center justify-between">
                         <div className="text-[12px]">STATUS - </div>

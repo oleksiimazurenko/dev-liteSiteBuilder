@@ -93,7 +93,7 @@ export function AccordionHorizontal({
             <LangSwitch className="button-white dark:button-dark rounded-full md:h-[40px] md:w-[40px] " />
           </div>
           <div className="flex justify-evenly">
-            <ThemeSwitch className="button-white dark:button-dark rounded-full md:h-[40px] md:w-[40px]" />
+            <ThemeSwitch className="button-white dark:button-dark rounded-full md:h-[40px] md:w-[40px] p-0" />
           </div>
           <div className="flex justify-evenly">
             <LogOut className="button-white dark:button-dark rounded-full md:h-[40px] md:w-[40px]" />

@@ -28,7 +28,7 @@ export function ThemeSwitch({ className }: ThemeSwitchProps) {
   return (
     <Button
       className={cn(
-        "bottom-0 left-0 flex items-center justify-center p-0 shadow-2xl backdrop-blur-[0.5rem] transition-all hover:scale-[1.07] hover:bg-neutral-400 active:scale-105",
+        "bottom-0 left-0 flex items-center justify-center shadow-2xl backdrop-blur-[0.5rem] transition-all hover:scale-[1.07] hover:bg-neutral-400 active:scale-105",
         {
           [className as string]: className,
         },
