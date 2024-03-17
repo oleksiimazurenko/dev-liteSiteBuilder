@@ -1,8 +1,8 @@
-import { DrawerTools } from "@/features/drawer-tools";
+import { DrawerTools } from "@/features/main/drawer-tools";
 import { getSiteByUrl } from "@/shared/actions/site/get/get-site-by-url";
 import { getSites } from "@/shared/actions/site/get/get-sites";
-import { BuildFooter } from "@/widgets/build-footer";
-import { BuildHeader } from "@/widgets/build-header";
+import { EditorFooter } from "@/widgets/editor/editor-footer";
+import { EditorHeader } from "@/widgets/editor/editor-header";
 import cn from "classnames";
 import { JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
@@ -67,10 +67,10 @@ export default async function Layout({
         [merienda.className]: true,
       })}
     >
-      <BuildHeader className="m-auto max-w-[2400px]" siteId={data.id} />
-      {children}
+      <EditorHeader siteId={data.id} />
+      <main>{children}</main>
       <DrawerTools />
-      <BuildFooter className="m-auto max-w-[2400px]" />
+      <EditorFooter />
     </div>
   );
 }

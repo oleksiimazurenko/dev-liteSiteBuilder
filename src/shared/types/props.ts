@@ -12,12 +12,14 @@ export type ProductCardProps = {} & Omit<ProductItem, "id" | "componentId">;
 
 export type LangSwitchProps = {
   className?: string;
+  svgClassName?: string;
 };
 
 //-------------------------------------------------------------------------------------------
 
 export type ThemeSwitchProps = {
   className?: string;
+  svgClassName?: string;
 };
 
 //-------------------------------------------------------------------------------------------
@@ -25,6 +27,7 @@ export type ThemeSwitchProps = {
 
 export type LogOutProps = {
 	className?: string
+  svgClassName?: string;
 }
 
 //-------------------------------------------------------------------------------------------

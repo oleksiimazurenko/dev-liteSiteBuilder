@@ -1,1 +1,0 @@
-export { BuildProductsList } from './ui/build-products-list'

@@ -1,4 +1,4 @@
-import { DNDSection } from "@/features/drawer-tools";
+import { DNDSection } from "@/features/main/drawer-tools";
 import { RenderSection, sortPosition } from "@/generator";
 import { getPageByUrl } from "@/shared/actions/page/get/get-page-by-url";
 import { getPages } from "@/shared/actions/page/get/get-pages";

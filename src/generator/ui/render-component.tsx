@@ -1,15 +1,14 @@
-import { ProductCard } from "@/entities/product-card";
-import { PrimaryButton } from "@/features/primary-button";
-import { TextEditor } from "@/features/text-editor";
+import { ProductCard } from "@/entities/editor/editor-product-card";
+import { PrimaryButton } from "@/features/main/primary-button";
+import { TextEditor } from "@/features/main/text-editor";
 import { getProductsList } from "@/shared/actions/product/get/get-products-list";
-import { auth } from "@/shared/lib/auth/model/auth";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/shared/ui/accordion";
-import { BuildProductsList } from '@/widgets/build-products-list'
+import { EditorProductsList } from "@/widgets/editor/editor-products-list";
 import { Component } from "@prisma/client";
 import Image from "next/image";
 
@@ -84,7 +83,7 @@ export async function RenderComponent({
     return {
       id,
       content: (
-        <BuildProductsList
+        <EditorProductsList
           id={id}
           key={id}
           products={dataProduct}

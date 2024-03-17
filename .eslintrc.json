@@ -14,19 +14,34 @@
         "pattern": "app"
       },
       {
-        "type": "widgets",
-        "pattern": "widgets/*",
-        "capture": ["widget"]
+        "type": "widgets-editor",
+        "pattern": "widgets/editor/*",
+        "capture": ["widget-editor"]
       },
       {
-        "type": "features",
-        "pattern": "features/*",
-        "capture": ["feature"]
+        "type": "widgets-main",
+        "pattern": "widgets/main/*",
+        "capture": ["widget-main"]
       },
       {
-        "type": "entities",
-        "pattern": "entities/*",
-        "capture": ["entity"]
+        "type": "features-editor",
+        "pattern": "features/editor/*",
+        "capture": ["feature-editor"]
+      },
+      {
+        "type": "features-main",
+        "pattern": "features/main/*",
+        "capture": ["feature-main"]
+      },
+      {
+        "type": "entities-editor",
+        "pattern": "entities/editor/*",
+        "capture": ["entity-editor"]
+      },
+      {
+        "type": "entities-main",
+        "pattern": "entities/main/*",
+        "capture": ["entity-main"]
       },
       {
         "type": "shared",
@@ -65,7 +80,15 @@
             "allow": ["**/*.css"]
           },
           {
-            "target": ["widgets", "features", "entities"],
+            "target": [
+              "app",
+              "widgets-main",
+              "widgets-editor",
+              "features-main",
+              "features-editor",
+              "entities-main",
+              "entities-editor"
+            ],
             "allow": "index.(ts|tsx)"
           }
         ]
@@ -79,20 +102,39 @@
         "rules": [
           {
             "from": ["shared"],
-            "disallow": ["app", "widgets", "features", "entities"],
+            "disallow": [
+              "app",
+              "widgets-main",
+              "widget-editor",
+              "features-main",
+              "features-editor",
+              "entities-main",
+              "entities-editor"
+            ],
             "message": "Shared module must not import upper layers (${dependency.type})"
           },
           {
-            "from": ["entities"],
-            "message": "Entity must not import upper layers (${dependency.type})",
-            "disallow": ["app", "widgets", "features"]
+            "from": ["entities-main"],
+            "message": "Entity-main must not import upper layers (${dependency.type})",
+            "disallow": ["app", "widgets-main", "features-main"]
           },
           {
-            "from": ["entities"],
+            "from": ["entities-editor"],
+            "message": "Entity-editor must not import upper layers (${dependency.type})",
+            "disallow": ["app", "widgets-editor", "features-editor"]
+          },
+          {
+            "from": ["entities-main", "entities-editor"],
             "message": "Entity must not import other entity",
             "disallow": [
               [
-                "entities",
+                "entities-main",
+                {
+                  "entity": "!${entity}"
+                }
+              ],
+              [
+                "entities-editor",
                 {
                   "entity": "!${entity}"
                 }
@@ -100,16 +142,27 @@
             ]
           },
           {
-            "from": ["features"],
+            "from": ["features-main"],
             "message": "Feature must not import upper layers (${dependency.type})",
-            "disallow": ["app", "widgets"]
+            "disallow": ["app", "widgets-main"]
           },
           {
-            "from": ["features"],
+            "from": ["features-editor"],
+            "message": "Feature must not import upper layers (${dependency.type})",
+            "disallow": ["app", "widgets-editor"]
+          },
+          {
+            "from": ["features-main", "features-editor"],
             "message": "Feature must not import other feature",
             "disallow": [
               [
-                "features",
+                "features-main",
+                {
+                  "feature": "!${feature}"
+                }
+              ],
+              [
+                "features-editor",
                 {
                   "feature": "!${feature}"
                 }
@@ -117,16 +170,27 @@
             ]
           },
           {
-            "from": ["widgets"],
+            "from": ["widgets-main"],
             "message": "Widgets must not import upper layers (${dependency.type})",
             "disallow": ["app"]
           },
           {
-            "from": ["widgets"],
+            "from": ["widgets-editor"],
+            "message": "Widgets must not import upper layers (${dependency.type})",
+            "disallow": ["app"]
+          },
+          {
+            "from": ["widgets-main", "widgets-editor"],
             "message": "Widget must not import other widget",
             "disallow": [
               [
-                "widgets",
+                "widgets-main",
+                {
+                  "widget": "!${widget}"
+                }
+              ],
+              [
+                "widgets-editor",
                 {
                   "widget": "!${widget}"
                 }

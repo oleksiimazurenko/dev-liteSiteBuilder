@@ -1,4 +1,4 @@
-import { DNDComponent } from "@/features/drawer-tools";
+import { DNDComponent } from "@/features/main/drawer-tools";
 import { auth } from "@/shared/lib/auth/model/auth";
 import { Component, Section } from "@prisma/client";
 import { sortPosition } from "../utils/sortPosition";

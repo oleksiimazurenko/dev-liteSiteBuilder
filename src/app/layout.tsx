@@ -1,9 +1,9 @@
-import { LangSwitch } from "@/features/lang-switch";
-import { ThemeSwitch } from "@/features/theme-switch";
 import { auth } from "@/shared/lib/auth/model/auth";
 import { SessionProvider } from "@/shared/providers/session-provider/session-provider";
 import "@/shared/styles/globals.css";
 import { Toaster } from "@/shared/ui/sonner";
+import { Footer } from "@/widgets/main/footer";
+import { Header } from "@/widgets/main/header";
 import cn from "classnames";
 import type { Metadata } from "next";
 
@@ -17,19 +17,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
-
   return (
     <SessionProvider>
       <html lang="en">
-        <body className={cn("m-auto max-w-[2400px]")}>
-          <main>{children}</main>
-          {!session && (
-            <ThemeSwitch className="dark:second-gradient-dark second-gradient-white hidden md:fixed md:bottom-5 md:left-5 md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
-          )}
-          {!session && (
-            <LangSwitch className="dark:second-gradient-dark second-gradient-white hidden md:fixed md:left-5 md:top-5 md:flex md:h-[3rem] md:w-[3rem] md:rounded-full md:px-[16px] md:py-[16px]" />
-          )}
+        <body className={cn("m-auto max-w-[2400px] third-gradient-white dark:third-gradient-dark")}>
+          <Header />
+          <main className=''>{children}</main>
+          <Footer />
           <Toaster />
         </body>
       </html>

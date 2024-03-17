@@ -1,5 +1,5 @@
-import { CarouselProfessions } from "@/features/carousel-professions";
-import { SlideForm } from "@/features/slide-form";
+import { CarouselProfessions } from "@/features/main/carousel-professions";
+import { SlideForm } from "@/features/main/slide-form";
 import { getProfessionList } from "@/shared/dictionary/helpers/get-profession-list";
 
 export default async function CreateSite() {
