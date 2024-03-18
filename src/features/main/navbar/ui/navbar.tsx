@@ -14,9 +14,9 @@ import {
   PencilRuler,
   Settings,
 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { NavDesktop } from "./nav-desktop";
 import { NavMobile } from "./nav-mobile";
-import { useSession } from 'next-auth/react'
 
 type NavbarProps = {
   className?: string;
@@ -32,11 +32,11 @@ export const Navbar = ({
   LogOut,
 }: NavbarProps) => {
   const session = useSession();
-  
+
   const buttonArray = [
     {
-      name: "Home editor",
-      link: "/app/home-editor",
+      name: "Editor",
+      link: "/app/editor",
       icon: <Home strokeWidth={1} />,
       isPublic: false,
     },
@@ -48,7 +48,7 @@ export const Navbar = ({
     },
     {
       name: "Create site",
-      link: "/app/home-editor/create-site",
+      link: "/app/editor/create-site",
       icon: <PencilRuler strokeWidth={1} />,
       isPublic: false,
     },
@@ -78,21 +78,30 @@ export const Navbar = ({
     },
   ];
 
-  
-
   return (
     <nav
       className={cn("", {
         [className as string]: className,
       })}
     >
-      <NavDesktop className="hidden md:flex" buttonArray={session.status === 'authenticated' ? buttonArray : buttonArray.filter(({ isPublic }) => isPublic === true)} />
+      <NavDesktop
+        className="hidden md:flex"
+        buttonArray={
+          session.status === "authenticated"
+            ? buttonArray
+            : buttonArray.filter(({ isPublic }) => isPublic === true)
+        }
+      />
       <NavMobile
         className="flex md:hidden"
         LangSwitch={LangSwitch}
         ThemeSwitch={ThemeSwitch}
         LogOut={LogOut}
-        buttonArray={session.status === 'authenticated' ? buttonArray.filter((button) => !button.isPublic) : buttonArray.filter((button) => button.isPublic)}
+        buttonArray={
+          session.status === "authenticated"
+            ? buttonArray.filter((button) => !button.isPublic)
+            : buttonArray.filter((button) => button.isPublic)
+        }
       />
     </nav>
   );

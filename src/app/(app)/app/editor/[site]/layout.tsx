@@ -63,7 +63,7 @@ export default async function Layout({
 
   return (
     <div
-      className={cn("m-auto max-w-[2400px]", {
+      className={cn("m-auto max-w-[2400px] col-span-2 w-full", {
         [merienda.className]: true,
       })}
     >

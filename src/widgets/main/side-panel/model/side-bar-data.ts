@@ -10,8 +10,8 @@ export type SideBarData = {
 
 export const sideBarData = {
   homeEditor: [
-    { name: "Home Editor", url: "/app/home-editor" },
-    { name: "List Sites", url: "/app/home-editor/list-sites" },
+    { name: "Home Editor", url: "/app/editor" },
+    { name: "List Sites", url: "/app/editor/list-sites" },
   ],
   setting: [
     { name: "Info profil", url: "/info-profil" },

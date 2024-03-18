@@ -14,7 +14,7 @@ export async function EditorHeader({ className, siteId }: EditorHeaderProps) {
   return (
     <header
       className={cn(
-        "absolute left-1/2 top-0 z-50 w-full -translate-x-1/2 transform bg-neutral-300/10 py-[10px] backdrop-blur-sm",
+        "absolute left-1/2 top-0 z-40 w-full -translate-x-1/2 transform bg-neutral-300/10 py-[10px] backdrop-blur-sm",
         {
           [className as string]: className,
         },

@@ -67,7 +67,11 @@ export function DNDSection({ items }: DNDProps) {
       {isMounted ? (
         <Droppable droppableId="droppable">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              
+            >
               {currentItems.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided) => (

@@ -3,7 +3,7 @@ import { getSites } from "@/shared/actions/site/get/get-sites";
 import { auth } from "@/shared/lib/auth/model/auth";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 
-export default async function Desktop() {
+export default async function ListSitesDesktop() {
   const userId = await auth();
   const { data } = await getSites();
   const sites = data?.filter((site) => site.userId === userId?.user?.id);

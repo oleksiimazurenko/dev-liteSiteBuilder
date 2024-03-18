@@ -34,11 +34,11 @@ type Site = {
   userId: string;
 };
 
-type MobileProps = {
+type ListSitesMobileProps = {
   sites: Site[];
 };
 
-export default function Mobile({ sites }: MobileProps) {
+export default function ListSitesMobile({ sites }: ListSitesMobileProps) {
   const [valueAccordion, setValueAccordion] = useState("");
 
   useOutsideClick(

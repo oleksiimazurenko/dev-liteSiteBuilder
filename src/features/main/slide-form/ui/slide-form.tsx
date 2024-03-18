@@ -56,7 +56,7 @@ export function SlideForm({ professionsList }: SlideFormProps) {
       opts={{
         watchDrag: false,
       }}
-      className="second-gradient-white dark:second-gradient-dark overflow-hidden rounded-2xl shadow-xl"
+      className="rounded-2xl border-border/20 bg-background/95 shadow-xl backdrop-blur-[2px] supports-[backdrop-filter]:bg-background/10"
     >
       <CarouselContent className="!ml-0 max-w-[450px] space-x-0">
         <CarouselItem className="flex flex-col items-center justify-center space-y-5 p-0">
@@ -65,7 +65,7 @@ export function SlideForm({ professionsList }: SlideFormProps) {
           <First embla={embla} setFirstValues={setFirstValues} />
 
           <Button variant="link" className="!mt-2 p-0">
-            <Link href="/app/home-editor/list-sites" className="text-neutral-500">
+            <Link href="/app/editor/list-sites" className="text-neutral-500">
               Відміна
             </Link>
           </Button>

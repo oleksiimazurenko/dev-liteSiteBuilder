@@ -13,7 +13,7 @@ const ViewCell = ({ value }: ViewCellProps) => {
 
   const handleClick = () => {
     const url = value as string;
-    router.push(`${pathName}/${url}`);
+    router.push(url);
   };
 
   return (

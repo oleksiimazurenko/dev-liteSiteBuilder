@@ -204,8 +204,3 @@
     transparent
   );
 }
-
-.bottom-mask {
-  -webkit-mask-image: linear-gradient(to top, transparent, black 99%, black 1%);
-  mask-image: linear-gradient(to top, transparent, black 99%, black 1%);
-}

@@ -1,8 +1,8 @@
 import { getSites } from "@/shared/actions/site/get/get-sites";
 import { auth } from "@/shared/lib/auth/model/auth";
 import cn from "classnames";
-import Desktop from "./desktop";
-import Mobile from "./mobile";
+import ListSitesDesktop from "./list-sites-desktop";
+import ListSitesMobile from "./list-sites-mobile";
 
 export async function ListSites() {
   const userId = await auth();
@@ -20,8 +20,8 @@ export async function ListSites() {
             },
           )}
         >
-          <Desktop />
-          <Mobile sites={sites} />
+          <ListSitesDesktop />
+          <ListSitesMobile sites={sites} />
         </div>
       )}
     </>

@@ -8,7 +8,7 @@ export default async function Login() {
   if (session) redirect("/app/home");
 
   return (
-    <div className="flex justify-center items-center min-h-[100svh]">
+    <div className="flex justify-center items-center min-h-[calc(100svh-59.5px)]">
       <LoginPanel />
     </div>
   );

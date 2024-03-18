@@ -12,7 +12,7 @@ export default async function Page() {
   const sites = data?.filter((site) => site.userId === userId?.user?.id);
 
   return (
-    <div className={cn("flex h-full w-full overflow-y-scroll", {})}>
+    <div className={cn("flex min-h-[calc(100svh-59.5px)] w-full overflow-y-scroll", {})}>
       <div className="container relative m-auto flex w-full flex-col items-center justify-center space-y-5 overflow-hidden rounded-lg p-9 md:p-5">
         <ListSites />
 
@@ -33,7 +33,7 @@ export default async function Page() {
           className={cn("hidden h-auto p-0 text-neutral-400 md:block")}
         >
           <Link
-            href="/app/home-editor/create-site"
+            href="/app/editor/create-site"
             className="flex items-center justify-center font-[200] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300"
           >
             Створити новий сайт

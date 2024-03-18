@@ -1,1 +1,0 @@
-export { SettingAccordion } from './ui/setting-accordion'
