@@ -65,7 +65,7 @@ export function SlideForm({ professionsList }: SlideFormProps) {
           <First embla={embla} setFirstValues={setFirstValues} />
 
           <Button variant="link" className="!mt-2 p-0">
-            <Link href="/app/home" className="text-neutral-500">
+            <Link href="/app/home-editor/list-sites" className="text-neutral-500">
               Відміна
             </Link>
           </Button>

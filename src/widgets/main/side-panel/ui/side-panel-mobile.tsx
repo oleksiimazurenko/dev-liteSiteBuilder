@@ -4,21 +4,23 @@ import { ScrollArea } from "@/shared/ui/scroll-area";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/shared/ui/sheet";
-import Link from "next/link";
 import cn from "classnames";
-import { SideBarItems } from '../model/side-bar-data'
+import Link from "next/link";
+import { SideBarItems } from "../model/side-bar-data";
 
-type MobileProps = {
+type SidePanelMobileProps = {
   className?: string;
   menuItems: SideBarItems[];
 };
 
-export default function Mobile({ className, menuItems }: MobileProps) {
+export default function SidePanelMobile({
+  className,
+  menuItems,
+}: SidePanelMobileProps) {
   return (
     <Sheet>
       <SheetTrigger className="md:hidden">Open</SheetTrigger>

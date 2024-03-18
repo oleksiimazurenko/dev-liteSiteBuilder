@@ -61,9 +61,12 @@ export function NavAccordionHorizontal({
     >
       <div className="overflow-hidden">
         <div
-          className={cn("mr-[-250px] transition-all text-neutral-500 font-[200]", {
-            ["!mr-3"]: !isOpen,
-          })}
+          className={cn(
+            "mr-[-250px] font-[200] text-neutral-500 transition-all",
+            {
+              ["!mr-3"]: !isOpen,
+            },
+          )}
         >
           {currentUser}
         </div>
@@ -76,7 +79,7 @@ export function NavAccordionHorizontal({
           <AvatarImage
             src={user?.image ? user.image : "https://github.com/shadcn.png"}
           />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback className="text-[10px]">empty</AvatarFallback>
         </Avatar>
       </Button>
 
@@ -89,15 +92,15 @@ export function NavAccordionHorizontal({
             },
           )}
         >
-          <div className="flex justify-evenly">
-            <LangSwitch className="button-white dark:button-dark rounded-full md:h-[40px] md:w-[40px] " />
-          </div>
-          <div className="flex justify-evenly">
-            <ThemeSwitch className="button-white dark:button-dark rounded-full md:h-[40px] md:w-[40px] p-0" />
-          </div>
-          <div className="flex justify-evenly">
-            <LogOut className="button-white dark:button-dark rounded-full md:h-[40px] md:w-[40px]" />
-          </div>
+          <LangSwitch className="h-[35px] w-[35px] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300" />
+          <ThemeSwitch
+            className="h-[35px] w-[35px] p-0"
+            svgClassName="w-full h-full !fill-neutral-500 transition-all hover:!fill-neutral-600 dark:!fill-neutral-400 dark:hover:!fill-neutral-300 !p-[10.7px]"
+          />
+          <LogOut
+            className="h-[35px] w-[35px] p-0"
+            svgClassName="w-full h-full !stroke-neutral-500 transition-all hover:!stroke-neutral-600 dark:!stroke-neutral-400 dark:hover:!stroke-neutral-300 !p-[10.7px]"
+          />
         </div>
       </div>
     </div>

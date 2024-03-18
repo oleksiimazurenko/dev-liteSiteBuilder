@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -23,7 +23,6 @@ import { Input } from "@/shared/ui/input";
 import { useDictionaryStore } from "@/shared/dictionary/store/dictionary-store";
 import { getLoginSchema } from "@/shared/lib/auth/schemas";
 import { MainPageTranslations } from "@/shared/types/dectionary";
-import { GeneralPanelOptions } from "@/shared/types/types";
 import {
   Accordion,
   AccordionContent,
@@ -34,7 +33,6 @@ import {
 import { LangSwitchProps, ThemeSwitchProps } from "@/shared/types/props";
 import cn from "classnames";
 type LoginFormProps = {
-  setGeneralPanel: Dispatch<SetStateAction<GeneralPanelOptions>>;
   valueAccordion: string;
   setValueAccordion: Dispatch<SetStateAction<string>>;
   LangSwitch: ({ className }: LangSwitchProps) => JSX.Element;
@@ -42,7 +40,6 @@ type LoginFormProps = {
 };
 
 export const LoginForm = ({
-  setGeneralPanel,
   valueAccordion,
   setValueAccordion,
   LangSwitch,
@@ -50,6 +47,7 @@ export const LoginForm = ({
 }: LoginFormProps) => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
+  const route = useRouter();
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
       ? "Email already in use with different provider!"
@@ -114,7 +112,7 @@ export const LoginForm = ({
                 true,
             })}
           ></AccordionTrigger>
-          <AccordionContent className="flex flex-col items-center justify-center space-y-2 p-0">
+          <AccordionContent className="flex flex-col items-center justify-center space-y-4 p-0 pb-4">
             <div className="flex items-center justify-center space-x-2">
               <LangSwitch className="md:hidden" />
               <ThemeSwitch className="md:hidden" />
@@ -122,7 +120,7 @@ export const LoginForm = ({
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="w-full px-1 pb-[20px] pt-1"
+                className="w-full px-1 pt-1"
               >
                 <div className="flex flex-col space-y-4">
                   {showTwoFactor && (
@@ -195,24 +193,6 @@ export const LoginForm = ({
                           ? main_page?.login_panel?.confirm
                           : main_page?.login_panel?.login_button}
                       </Button>
-
-                      <Button
-                        size="sm"
-                        variant="link"
-                        className="m-auto h-5 p-0 font-normal text-neutral-500"
-                        onClick={() => setGeneralPanel("forgot-password")}
-                      >
-                        {main_page?.login_panel?.forgot_password}
-                      </Button>
-
-                      <Button
-                        variant="link"
-                        className="m-auto h-5 p-0 font-normal text-neutral-500"
-                        size="sm"
-                        onClick={() => setGeneralPanel("register")}
-                      >
-                        {main_page?.login_panel?.dont_have_an_account}
-                      </Button>
                     </>
                   )}
                 </div>
@@ -220,6 +200,24 @@ export const LoginForm = ({
                 <FormSuccess message={success} />
               </form>
             </Form>
+
+            <Button
+              size="sm"
+              variant="link"
+              className="m-auto h-5 p-0 font-normal text-neutral-500"
+              onClick={() => route.push("/auth/reset")}
+            >
+              {main_page?.login_panel?.forgot_password}
+            </Button>
+
+            <Button
+              variant="link"
+              className="m-auto h-5 p-0 font-normal text-neutral-500"
+              size="sm"
+              onClick={() => route.push("/auth/register")}
+            >
+              {main_page?.login_panel?.dont_have_an_account}
+            </Button>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

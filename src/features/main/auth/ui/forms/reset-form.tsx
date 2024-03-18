@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Dispatch, SetStateAction, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -12,7 +12,6 @@ import { useDictionaryStore } from "@/shared/dictionary/store/dictionary-store";
 import { reset } from "@/shared/lib/auth/actions/set/reset";
 import { getResetSchema } from "@/shared/lib/auth/schemas";
 import { MainPageTranslations } from "@/shared/types/dectionary";
-import { GeneralPanelOptions } from "@/shared/types/types";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -22,15 +21,16 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
+import { useRouter } from 'next/navigation'
 
-type ResetFormProps = {
-  setGeneralPanel: Dispatch<SetStateAction<GeneralPanelOptions>>;
-};
+type ResetFormProps = {};
 
-export const ResetForm = ({ setGeneralPanel }: ResetFormProps) => {
+export const ResetForm = ({}: ResetFormProps) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+
+  const route = useRouter();
 
   const { dictionary, language } = useDictionaryStore();
   const { main_page } = dictionary as unknown as MainPageTranslations;
@@ -63,7 +63,7 @@ export const ResetForm = ({ setGeneralPanel }: ResetFormProps) => {
           variant="link"
           className="m-auto h-5 p-0 font-normal text-neutral-500 dark:text-neutral-500"
           size="sm"
-          onClick={() => setGeneralPanel("login")}
+          onClick={() => route.push("/auth/login")}
         >
           {main_page?.reset_panel?.back_login}
         </Button>

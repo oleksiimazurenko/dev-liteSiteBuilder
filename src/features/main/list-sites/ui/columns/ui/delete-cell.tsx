@@ -45,11 +45,16 @@ const DeleteCell = ({ value }: DeleteCellProps) => {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <Button
-        className="button-white dark:button-dark h-auto p-1 shadow-xl transition-all hover:scale-105 dark:border-none"
+        variant="link"
+        className="h-auto p-0"
         disabled={isPending as boolean}
         onClick={handleClick}
       >
-        <Trash2 strokeWidth={1} size={20} />
+        <Trash2
+          className="h-full w-full !stroke-neutral-500 !p-[10.7px] transition-all hover:!stroke-neutral-600 dark:!stroke-neutral-400 dark:hover:!stroke-neutral-300"
+          strokeWidth={1}
+          size={20}
+        />
       </Button>
     </div>
   );

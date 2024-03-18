@@ -4,6 +4,7 @@ import { NavUserButton, Navbar } from "@/features/main/navbar";
 import { ThemeSwitch } from "@/features/main/theme-switch";
 import { auth } from "@/shared/lib/auth/model/auth";
 import Link from "next/link";
+import LogInButton from './log-in-button'
 
 export async function Header() {
   const session = await auth();
@@ -25,6 +26,7 @@ export async function Header() {
             LogOut={LogOut}
           />
         </div>
+        
         {!session && (
           <div className="flex items-center justify-center space-x-3">
             
@@ -34,12 +36,7 @@ export async function Header() {
               className="h-[35px] w-[35px] p-0"
               svgClassName="w-full h-full !fill-neutral-500 transition-all hover:!fill-neutral-600 dark:!fill-neutral-400 dark:hover:!fill-neutral-300 !p-[10.7px]"
             />
-            <Link
-              href="/auth"
-              className="text-[13px] font-[200] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300"
-            >
-              Log in
-            </Link>
+            <LogInButton />
           </div>
         )}
         {session && (

@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Dispatch, SetStateAction, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -12,7 +12,6 @@ import { useDictionaryStore } from "@/shared/dictionary/store/dictionary-store";
 import { register } from "@/shared/lib/auth/actions/set/register";
 import { getRegisterSchema } from "@/shared/lib/auth/schemas";
 import { MainPageTranslations } from "@/shared/types/dectionary";
-import { GeneralPanelOptions } from "@/shared/types/types";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -22,12 +21,11 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
+import { useRouter } from 'next/navigation'
 
-type RegisterFormProps = {
-  setGeneralPanel: Dispatch<SetStateAction<GeneralPanelOptions>>;
-};
+type RegisterFormProps = {};
 
-export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
+export const RegisterForm = ({}: RegisterFormProps) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -57,6 +55,8 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
       });
     });
   };
+
+  const route = useRouter();
 
   return (
     <CardWrapper className="py-5">
@@ -132,7 +132,7 @@ export const RegisterForm = ({ setGeneralPanel }: RegisterFormProps) => {
         variant="link"
         className="m-auto mt-3 h-5 w-full p-0 font-normal text-neutral-500 dark:text-neutral-500"
         size="sm"
-        onClick={() => setGeneralPanel("login")}
+        onClick={() => route.push("/auth/login")}
       >
         {main_page?.register_panel?.already_have_an_account}
       </Button>

@@ -4,7 +4,7 @@ import {
   ThemeSwitchProps,
 } from "@/shared/types/props";
 import { NavAccordionHorizontal } from "./nav-accordion-horizontal";
-import { useSession } from 'next-auth/react'
+import { currentUser as getCurrentUser } from '@/shared/lib/auth/actions/get/auth'
 
 type NavUserButtonProps = {
   LangSwitch: ({ className }: LangSwitchProps) => JSX.Element;
@@ -12,20 +12,20 @@ type NavUserButtonProps = {
   LogOut: ({ className }: LogOutProps) => JSX.Element;
 };
 
-export const NavUserButton = ({
+export const NavUserButton = async ({
   LangSwitch,
   ThemeSwitch,
   LogOut,
 }: NavUserButtonProps) => {
 
-  const currentUser = useSession().data?.user?.name
+  const currentUser = await getCurrentUser()
 
   return (
     <NavAccordionHorizontal
       LangSwitch={LangSwitch}
       ThemeSwitch={ThemeSwitch}
       LogOut={LogOut}
-      currentUser={currentUser}
+      currentUser={currentUser?.name}
     />
   );
 };

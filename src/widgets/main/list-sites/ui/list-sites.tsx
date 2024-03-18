@@ -14,7 +14,7 @@ export async function ListSites() {
       {sites && sites.length > 0 && (
         <div
           className={cn(
-            "second-gradient-white dark:second-gradient-dark flex-col items-center justify-center overflow-hidden rounded-2xl p-4 shadow-xl transition-all",
+            "flex-col items-center justify-center bg-transparent rounded-lg overflow-hidden",
             {
               ["space-y-3"]: sites.length > 1,
             },

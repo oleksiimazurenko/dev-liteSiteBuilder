@@ -32,7 +32,10 @@ export default async function Page() {
           variant="link"
           className={cn("hidden h-auto p-0 text-neutral-400 md:block")}
         >
-          <Link href="/app/create-site" className="">
+          <Link
+            href="/app/home-editor/create-site"
+            className="flex items-center justify-center font-[200] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300"
+          >
             Створити новий сайт
           </Link>
         </Button>

@@ -29,7 +29,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "tailwind.config.ts",
-    "src/app/(app)/app/home/[site]/page.tsx"
+    "src/app/(app)/app/home-editor/[site]/page.tsx"
   ],
   "exclude": ["node_modules"]
 }

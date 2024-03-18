@@ -9,10 +9,10 @@ type LayoutProps = {
 };
 
 export default function Layout({ children }: LayoutProps) {
-  const sideBarDataKeys = Object.keys(sideBarData);
+  const sideBarDataUrl = sideBarData.homeEditor.map((item) => item.url);
 
   const pathname = usePathname();
-  const isSite = sideBarDataKeys.some((item) => pathname.endsWith(item));
+  const isSite = sideBarDataUrl.some((item) => pathname.endsWith(item));
 
   return (
     <div
@@ -22,7 +22,7 @@ export default function Layout({ children }: LayoutProps) {
         ["grid-cols-1"]: !isSite,
       })}
     >
-      {isSite && <SidePanel menuItems={sideBarData.home} />}
+      {isSite && <SidePanel menuItems={sideBarData.homeEditor} />}
 
       <div className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
         {children}
