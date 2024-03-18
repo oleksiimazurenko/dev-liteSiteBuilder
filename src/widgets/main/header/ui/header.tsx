@@ -9,7 +9,7 @@ export async function Header() {
   const session = await auth();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/10">
+    <header className="sticky top-0 z-50 w-full border-b-[0.5px] border-border/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/10">
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <div className="mr-4 hidden md:flex">
           <Link
@@ -26,12 +26,20 @@ export async function Header() {
           />
         </div>
         {!session && (
-          <div className="flex space-x-3">
+          <div className="flex items-center justify-center space-x-3">
+            
+
             <LangSwitch className="h-[35px] w-[35px] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300" />
             <ThemeSwitch
               className="h-[35px] w-[35px] p-0"
               svgClassName="w-full h-full !fill-neutral-500 transition-all hover:!fill-neutral-600 dark:!fill-neutral-400 dark:hover:!fill-neutral-300 !p-[10.7px]"
             />
+            <Link
+              href="/auth"
+              className="text-[13px] font-[200] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300"
+            >
+              Log in
+            </Link>
           </div>
         )}
         {session && (
