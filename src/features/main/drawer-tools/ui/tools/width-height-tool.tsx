@@ -1,6 +1,6 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
-import { DimensionsIcon } from "@radix-ui/react-icons";
+import DimensionsIcon from "@/features/main/drawer-tools/svg/dimensions-icon.svg";
 import { Arrow } from "@radix-ui/react-popover";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -75,11 +75,8 @@ export function WidthHeightTool({ currentElement }: WidthHeightToolProps) {
       }
     >
       <PopoverTrigger asChild>
-        <button
-          className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md bg-transparent p-[12px] text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
-          aria-label="Width"
-        >
-          <DimensionsIcon strokeWidth={0.5} />
+        <button className="button-popover-trigger-in-drawer" aria-label="Width">
+          <DimensionsIcon className="svg-icon-fill" />
         </button>
       </PopoverTrigger>
 

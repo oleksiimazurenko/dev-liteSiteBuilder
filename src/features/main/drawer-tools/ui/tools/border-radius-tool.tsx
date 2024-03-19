@@ -2,7 +2,7 @@
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
-import { CornersIcon } from "@radix-ui/react-icons";
+import CornersIcon from "@/features/main/drawer-tools/svg/corners-icon.svg";
 import { Arrow } from "@radix-ui/react-popover";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -45,10 +45,10 @@ export function BorderRadiusTool({ currentElement }: BorderRadiusToolProps) {
     <Popover>
       <PopoverTrigger asChild>
         <button
-          className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md bg-transparent p-[12px] text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+          className="button-popover-trigger-in-drawer"
           aria-label="Font Size"
         >
-          <CornersIcon strokeWidth={0.9} />
+          <CornersIcon className='svg-icon-fill' />
         </button>
       </PopoverTrigger>
 

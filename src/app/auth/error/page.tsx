@@ -1,8 +1,11 @@
-import { CardWrapper } from "@/features/main/auth/ui/card-wrapper/card-wrapper";
-import { ErrorCard } from "@/features/main/auth/ui/response-status/error-card";
+import { CardWrapper, ErrorCard } from "@/features/main/auth";
 
 const AuthErrorPage = () => {
-  return <ErrorCard CardWrapper={CardWrapper} />;
+  return (
+    <div className="flex min-h-[calc(100svh-59.5px)] items-center justify-center">
+      <ErrorCard CardWrapper={CardWrapper} />;
+    </div>
+  );
 };
 
 export default AuthErrorPage;

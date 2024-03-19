@@ -12,8 +12,15 @@ export default async function Page() {
   const sites = data?.filter((site) => site.userId === userId?.user?.id);
 
   return (
-    <div className={cn("flex min-h-[calc(100svh-59.5px)] w-full overflow-y-scroll", {})}>
-      <div className="container relative m-auto flex w-full flex-col items-center justify-center space-y-5 overflow-hidden rounded-lg p-9 md:p-5">
+    <div
+      className={cn("py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]")}
+    >
+      <div
+        className={cn(
+          "flex flex-col items-center justify-center space-y-5",
+          {},
+        )}
+      >
         <ListSites />
 
         {(!sites || sites.length === 0) && (

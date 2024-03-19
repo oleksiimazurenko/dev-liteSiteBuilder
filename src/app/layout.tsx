@@ -1,10 +1,8 @@
-import { auth } from "@/shared/lib/auth/model/auth";
 import { SessionProvider } from "@/shared/providers/session-provider/session-provider";
 import "@/shared/styles/globals.css";
 import { Toaster } from "@/shared/ui/sonner";
 import { Footer } from "@/widgets/main/footer";
 import { Header } from "@/widgets/main/header";
-import cn from "classnames";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,10 +18,13 @@ export default async function RootLayout({
   return (
     <SessionProvider>
       <html lang="en">
-        <body className={cn("m-auto max-w-[2400px] third-gradient-white dark:third-gradient-dark")}>
-          <Header />
-          <main className=''>{children}</main>
-          <Footer />
+        <body className="m-auto max-w-[2400px]">
+          <div className="third-gradient-white dark:third-gradient-dark">
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </div>
+
           <Toaster />
         </body>
       </html>

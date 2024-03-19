@@ -70,10 +70,14 @@ export function BGColorTools({ currentElement }: BGColorToolsProps) {
     <Popover>
       <PopoverTrigger asChild>
         <button
-          className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md bg-transparent p-[12px] text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+          className="button-popover-trigger-in-drawer"
           aria-label="Background color"
         >
-          <PaintBucket size={28} strokeWidth={0.9} />
+          <PaintBucket
+            size={28}
+            strokeWidth={0.9}
+            className="svg-icon-stroke"
+          />
         </button>
       </PopoverTrigger>
 

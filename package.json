@@ -66,6 +66,7 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",

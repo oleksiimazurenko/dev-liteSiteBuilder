@@ -1,18 +1,22 @@
-import { CarouselProfessions } from "@/features/main/carousel-professions";
 import { SlideForm } from "@/features/main/slide-form";
 import { getProfessionList } from "@/shared/dictionary/helpers/get-profession-list";
 import { Preview } from "@/widgets/main/preview";
+import cn from "classnames";
 
 export default async function CreateSite() {
   const professionsList = await getProfessionList();
 
   return (
-    <div className="relative col-span-2 m-auto flex min-h-[calc(100svh-59.5px)] w-full">
-      <div className="absolute left-1/4 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 transform">
-        <SlideForm professionsList={professionsList} />
-      </div>
-      <div className="container h-auto">
-        <Preview className="h-full" professionsList={professionsList} />
+    <div
+      className={cn("py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px] m-auto")}
+    >
+      <div className="relative col-span-2 m-auto flex w-full">
+        <div className="absolute left-1/4 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 transform">
+          <SlideForm professionsList={professionsList} />
+        </div>
+        <div className="container h-auto">
+          <Preview className="h-full" professionsList={professionsList} />
+        </div>
       </div>
     </div>
   );

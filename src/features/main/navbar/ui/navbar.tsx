@@ -36,13 +36,13 @@ export const Navbar = ({
   const buttonArray = [
     {
       name: "Editor",
-      link: "/app/editor",
+      link: "/app/editor/list-sites",
       icon: <Home strokeWidth={1} />,
       isPublic: false,
     },
     {
       name: "Settings",
-      link: "/app/settings",
+      link: "/app/settings/info-profil",
       icon: <Settings strokeWidth={1} />,
       isPublic: false,
     },

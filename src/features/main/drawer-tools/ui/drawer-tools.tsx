@@ -15,7 +15,7 @@ import { SectionTools } from "./section-tools/section-tools";
 
 import { Button } from "@/shared/ui/button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/shared/ui/drawer";
-import { useDrawerHelper } from '../hooks/use-drawer-helper'
+import { useDrawerHelper } from "../hooks/use-drawer-helper";
 
 type DrawerToolsProps = {};
 
@@ -47,10 +47,8 @@ export function DrawerTools({}: DrawerToolsProps) {
   );
 
   useDrawerHelper(isOpenDrawerTools, () => {
-
     (editableElement as HTMLElement)?.style.setProperty("outline", "none");
-
-  })
+  });
 
   return (
     <Drawer open={isOpenDrawerTools}>
@@ -62,8 +60,11 @@ export function DrawerTools({}: DrawerToolsProps) {
           Open Drawer
         </Button>
       </DrawerTrigger>
-      <DrawerContent ref={contentDrawerDivRef} className='bg-white dark:bg-white'>
-        <div className="flex flex-wrap items-center justify-center p-10">
+      <DrawerContent
+        ref={contentDrawerDivRef}
+        className="border-none backdrop-blur-[2px] dark:bg-neutral-50/20 dark:[&>div]:bg-neutral-200/10"
+      >
+        <span className="flex flex-wrap items-center justify-center p-10">
           {typeOpen === "text" && <TextTools />}
 
           {typeOpen === "section" && <SectionTools />}
@@ -79,7 +80,7 @@ export function DrawerTools({}: DrawerToolsProps) {
           {typeOpen === "create-element" && <CreateElementTools />}
 
           {typeOpen === "create-section" && <CreateSection />}
-        </div>
+        </span>
       </DrawerContent>
     </Drawer>
   );

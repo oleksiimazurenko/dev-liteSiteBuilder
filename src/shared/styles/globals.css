@@ -118,6 +118,21 @@
   .text-white-2 {
     @apply !font-light !text-neutral-500;
   }
+
+  /* ----------------------------------------------------------------------- */
+
+  .button-popover-trigger-in-drawer {
+    @apply inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md p-[12px] hover:bg-neutral-400/20 hover:dark:bg-neutral-950/20 focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .svg-icon-stroke {
+    @apply dark:stroke-neutral-200  stroke-neutral-700;
+  }
+
+  .svg-icon-fill {
+    @apply dark:fill-neutral-200 fill-neutral-700;
+  }
+
 }
 
 /* ----------------------------------------------------------------------- */

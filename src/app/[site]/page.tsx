@@ -37,14 +37,14 @@ export default async function Site({
   const { data: site } = await getSiteByUrl(siteUrl);
   const userId = site?.userId;
 
-  userId !== currentUserId && redirect("/app/home");
+  userId !== currentUserId && redirect("/app/editor/list-sites");
 
   // Берем секции первой страницы новосозданного сайта
   const sections = site?.pages[0].sections;
 
   if (!site || !sections) {
     return (
-      <div className="flex h-screen items-center justify-center bg-red-400">
+      <div className="flex items-center justify-center bg-red-400">
         Partition data not found in database. Notice in:
         src/app/(protected)/sites/[site]/page.tsx
       </div>

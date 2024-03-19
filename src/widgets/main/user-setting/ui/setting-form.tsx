@@ -25,7 +25,7 @@ import { Input } from "@/shared/ui/input";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Switch } from "@/shared/ui/switch";
 
-export default function SettingForm() {
+export function SettingForm() {
   const user = useCurrentUser();
 
   const [error, setError] = useState<string | undefined>();
@@ -61,8 +61,8 @@ export default function SettingForm() {
     });
   };
   return (
-    <Card className="w-[300px] border-none bg-transparent shadow-none md:w-[500px]">
-      <CardContent>
+    <Card className="flex w-full justify-center border-none bg-transparent p-3 shadow-none ">
+      <CardContent className="w-[300px] rounded-lg bg-background/95 py-5 supports-[backdrop-filter]:bg-background/10">
         <ScrollArea>
           <Form {...form}>
             <form

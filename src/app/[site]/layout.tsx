@@ -44,26 +44,24 @@ export default async function Layout({
 
   if (!data)
     return (
-      <div className="flex h-screen flex-col items-center justify-center space-y-4 bg-red-400">
+      <div className="flex min-h-[calc(100svh-59.5px)] w-full flex-col items-center justify-center space-y-4 bg-red-500/20">
         <p>
-          {" "}
-          Site URL not found in database. Notice in:
-          src/app/(app)/app/home/[site]/layout.tsx
+          Site URL not found in database. Notice in: src/app/[site]/layout.tsx
         </p>
         <Link
-          href="/app/home"
+          href="/"
           className={cn(
             "rounded-md p-2 text-white underline underline-offset-4 transition-all hover:scale-105 dark:text-black",
           )}
         >
-          Go back
+          BACK HOME PAGE
         </Link>
       </div>
     );
 
   return (
     <div
-      className={cn("m-auto max-w-[2400px] col-span-2 w-full", {
+      className={cn("relative min-h-[calc(100svh-59.5px)]", {
         [merienda.className]: true,
       })}
     >

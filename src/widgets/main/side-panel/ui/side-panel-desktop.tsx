@@ -9,11 +9,13 @@ import { usePathname } from "next/navigation";
 type SidePanelDesktopProps = {
   className?: string;
   menuItems: SideBarItems[];
+  titleMenu: string;
 };
 
 export default function SidePanelDesktop({
   className,
   menuItems,
+  titleMenu
 }: SidePanelDesktopProps) {
   const pathname = usePathname();
 
@@ -25,7 +27,7 @@ export default function SidePanelDesktop({
     >
       <div className="w-full space-y-3">
         <h3 className="mb-1 rounded-md px-2 py-1 text-sm font-semibold text-black dark:text-white/70">
-          Sub Menu
+          {titleMenu}
         </h3>
         <div className="grid grid-flow-row auto-rows-max text-sm">
           {menuItems.map(({ name, url }) => (

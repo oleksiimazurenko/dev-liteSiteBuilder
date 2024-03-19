@@ -18,6 +18,16 @@ type NavDesktopProps = {
 export function NavDesktop({ className, buttonArray }: NavDesktopProps) {
   const pathname = usePathname();
 
+  const pathComparison = (firstPath: string, secondPath: string) => {
+    const firstArray = firstPath.split("/")
+    const secondArray = secondPath.split("/");
+
+    const a = [firstArray[1], firstArray[2]].join("/")
+    const b = [secondArray[1], secondArray[2]].join("/")
+
+    return a === b
+  }
+
   return (
     <div
       className={cn("items-center space-x-6 pl-5", {
@@ -33,8 +43,8 @@ export function NavDesktop({ className, buttonArray }: NavDesktopProps) {
             className={cn(
               "font-[200] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300",
               {
-                ["dark:!text-neutral-200"]: pathname === link,
-                ["!text-neutral-700"]: pathname === link,
+                ["dark:!text-neutral-200"]: pathComparison(link, pathname), 
+                ["!text-neutral-700"]: pathComparison(link, pathname)
               },
             )}
           >

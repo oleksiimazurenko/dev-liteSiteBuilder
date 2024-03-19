@@ -24,7 +24,7 @@ import { toast } from "sonner";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Arrow } from "@radix-ui/react-popover";
-import { useSession } from 'next-auth/react'
+import { useSession } from "next-auth/react";
 
 //---------------------------------------------------------------
 // Инициализация схемы валидации
@@ -148,7 +148,7 @@ export function ChangeBackgroundImage({
       <PopoverTrigger asChild>
         <button ref={buttonRef}>
           <Image
-            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md bg-transparent p-[12px] text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+            className="button-popover-trigger-in-drawer"
             aria-label="Background image"
             size={28}
             strokeWidth={0.9}

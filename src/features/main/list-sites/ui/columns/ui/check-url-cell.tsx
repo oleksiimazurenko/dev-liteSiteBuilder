@@ -22,11 +22,11 @@ const CheckUrlCell = ({ value }: CheckUrlCellProps) => {
           <TooltipTrigger asChild>
             <p
               className={cn(
-                "rounded-md px-[10px] py-[2px] text-center text-xs font-[200] text-foreground text-neutral-500 transition-all dark:text-neutral-400",
+                "rounded-md px-[10px] py-[2px] text-center text-xs font-[200] text-foreground text-neutral-700 transition-all dark:text-neutral-400",
                 {
-                  ["bg-green-300/95 backdrop-blur supports-[backdrop-filter]:bg-green-300/20"]:
+                  ["bg-green-500/40 backdrop-blur supports-[backdrop-filter]:bg-green-500/40"]:
                     isRegisteredDomain,
-                  ["bg-red-300/95 backdrop-blur supports-[backdrop-filter]:bg-red-300/20"]:
+                  ["bg-red-500/40 backdrop-blur supports-[backdrop-filter]:bg-red-500/40"]:
                     !isRegisteredDomain,
                 },
               )}
