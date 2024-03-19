@@ -45,7 +45,7 @@ export function DeleteSection({ currentElement }: RemoveSectionProps) {
           aria-label="Trash"
           ref={buttonRef}
         >
-          <Trash2 strokeWidth={0.9} />
+          <Trash2 strokeWidth={0.9} className="svg-icon-stroke" />
         </button>
       </PopoverTrigger>
 

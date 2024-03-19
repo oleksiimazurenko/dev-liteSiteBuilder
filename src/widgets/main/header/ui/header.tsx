@@ -4,13 +4,13 @@ import { NavUserButton, Navbar } from "@/features/main/navbar";
 import { ThemeSwitch } from "@/features/main/theme-switch";
 import { auth } from "@/shared/lib/auth/model/auth";
 import Link from "next/link";
-import LogInButton from './log-in-button'
+import LogInButton from "./log-in-button";
 
 export async function Header() {
   const session = await auth();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b-[0.5px] border-border/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/10">
+    <header className="sticky top-0 z-50 w-full border-b-[0.5px] border-border/20 bg-background/95 backdrop-blur-[5px] supports-[backdrop-filter]:bg-background/10">
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <div className="mr-4 hidden md:flex">
           <Link
@@ -26,11 +26,9 @@ export async function Header() {
             LogOut={LogOut}
           />
         </div>
-        
+
         {!session && (
           <div className="flex items-center justify-center space-x-3">
-            
-
             <LangSwitch className="h-[35px] w-[35px] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300" />
             <ThemeSwitch
               className="h-[35px] w-[35px] p-0"

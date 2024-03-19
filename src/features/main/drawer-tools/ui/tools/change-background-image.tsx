@@ -146,13 +146,12 @@ export function ChangeBackgroundImage({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button ref={buttonRef}>
-          <Image
-            className="button-popover-trigger-in-drawer"
-            aria-label="Background image"
-            size={28}
-            strokeWidth={0.9}
-          />
+        <button
+          ref={buttonRef}
+          className="button-popover-trigger-in-drawer"
+          aria-label="Background image"
+        >
+          <Image className="svg-icon-stroke" size={28} strokeWidth={0.9} />
         </button>
       </PopoverTrigger>
 
