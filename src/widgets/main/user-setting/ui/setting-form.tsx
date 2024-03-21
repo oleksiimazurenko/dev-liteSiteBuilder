@@ -61,8 +61,8 @@ export function SettingForm() {
     });
   };
   return (
-    <Card className="flex w-full justify-center border-none bg-transparent p-3 shadow-none ">
-      <CardContent className="w-[300px] rounded-lg bg-background/95 py-5 supports-[backdrop-filter]:bg-background/10">
+    <Card className="flex w-full justify-center border-none p-3 shadow-none">
+      <CardContent className="w-[300px] rounded-lg py-5 bg-glass">
         <ScrollArea>
           <Form {...form}>
             <form
@@ -75,13 +75,13 @@ export function SettingForm() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
+                      <FormLabel className='text-primary'>Name</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           placeholder={user?.name ? user?.name : undefined}
                           disabled={isPending}
-                          className="input-white dark:input-dark "
+                          className="input-primary"
                         />
                       </FormControl>
                       <FormMessage />
@@ -95,14 +95,14 @@ export function SettingForm() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
+                          <FormLabel className='text-primary'>Email</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
                               placeholder="john.doe@example.com"
                               type="email"
                               disabled={isPending}
-                              className="input-white dark:input-dark "
+                              className="input-primary"
                             />
                           </FormControl>
                           <FormMessage />
@@ -114,14 +114,14 @@ export function SettingForm() {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel className='text-primary'>Password</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
                               placeholder="******"
                               type="password"
                               disabled={isPending}
-                              className="input-white dark:input-dark "
+                              className="input-primary"
                             />
                           </FormControl>
                           <FormMessage />
@@ -133,14 +133,14 @@ export function SettingForm() {
                       name="newPassword"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>New Password</FormLabel>
+                          <FormLabel className='text-primary'>New Password</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
                               placeholder="******"
                               type="password"
                               disabled={isPending}
-                              className="input-white dark:input-dark "
+                              className="input-primary"
                             />
                           </FormControl>
                           <FormMessage />
@@ -156,7 +156,7 @@ export function SettingForm() {
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                         <div className="space-y-0.5">
-                          <FormLabel>Two Factor Authentication</FormLabel>
+                          <FormLabel className='text-primary'>Two Factor Authentication</FormLabel>
                           <FormDescription>
                             Enable two factor authentication for your account
                           </FormDescription>
@@ -178,7 +178,7 @@ export function SettingForm() {
               <Button
                 disabled={isPending}
                 type="submit"
-                className="button-white dark:button-dark shadow-xl transition-all hover:scale-105 dark:border-none"
+                className="button-primary transition-all hover:scale-105 dark:border-none"
               >
                 Save
               </Button>

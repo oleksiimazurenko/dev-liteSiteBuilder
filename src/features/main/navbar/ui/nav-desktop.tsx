@@ -19,18 +19,18 @@ export function NavDesktop({ className, buttonArray }: NavDesktopProps) {
   const pathname = usePathname();
 
   const pathComparison = (firstPath: string, secondPath: string) => {
-    const firstArray = firstPath.split("/")
+    const firstArray = firstPath.split("/");
     const secondArray = secondPath.split("/");
 
-    const a = [firstArray[1], firstArray[2]].join("/")
-    const b = [secondArray[1], secondArray[2]].join("/")
+    const a = [firstArray[1], firstArray[2]].join("/");
+    const b = [secondArray[1], secondArray[2]].join("/");
 
-    return a === b
-  }
+    return a === b;
+  };
 
   return (
     <div
-      className={cn("items-center space-x-6 pl-5", {
+      className={cn("items-center space-x-6 pl-2", {
         [className as string]: className,
       })}
     >
@@ -40,13 +40,10 @@ export function NavDesktop({ className, buttonArray }: NavDesktopProps) {
           <Link
             key={link}
             href={link}
-            className={cn(
-              "font-[200] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300",
-              {
-                ["dark:!text-neutral-200"]: pathComparison(link, pathname), 
-                ["!text-neutral-700"]: pathComparison(link, pathname)
-              },
-            )}
+            className={cn("text-primary hover-color-primary", {
+              ["dark:!text-neutral-200"]: pathComparison(link, pathname),
+              ["!text-neutral-700"]: pathComparison(link, pathname),
+            })}
           >
             {name}
           </Link>

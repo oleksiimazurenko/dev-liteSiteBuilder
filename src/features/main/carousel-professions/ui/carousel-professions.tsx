@@ -71,9 +71,9 @@ export function CarouselProfessions({
             <CarouselItem
               key={profession}
               className={cn(
-                "relative flex-shrink flex-grow basis-auto cursor-pointer !bg-transparent text-center text-neutral-500",
+                "relative flex-shrink flex-grow basis-auto cursor-pointer !bg-transparent text-center text-primary",
                 {
-                  ["!text-neutral-900"]: profession === currentProfession,
+                  ["!text-yellow-700/50"]: profession === currentProfession,
                   ["p-0"]: type === "home",
                 },
               )}
@@ -90,7 +90,7 @@ export function CarouselProfessions({
                     fill={true}
                     objectFit="cover"
                   />
-                  <div className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 -transform bg-neutral-950/50 text-[20px] font-bold text-white/30">
+                  <div className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 -transform text-[20px]">
                     {profession}
                   </div>
                 </>

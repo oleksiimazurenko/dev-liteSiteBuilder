@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 type RegisterFormProps = {};
 
@@ -73,7 +73,7 @@ export const RegisterForm = ({}: RegisterFormProps) => {
                       {...field}
                       disabled={isPending}
                       placeholder={main_page?.register_panel?.name_placeholder}
-                      className="input-white dark:input-dark "
+                      className="input-primary"
                     />
                   </FormControl>
                   <FormMessage />
@@ -91,7 +91,7 @@ export const RegisterForm = ({}: RegisterFormProps) => {
                       disabled={isPending}
                       placeholder={main_page?.register_panel?.email_placeholder}
                       type="email"
-                      className="input-white dark:input-dark "
+                      className="input-primary"
                     />
                   </FormControl>
                   <FormMessage />
@@ -108,7 +108,7 @@ export const RegisterForm = ({}: RegisterFormProps) => {
                       {...field}
                       disabled={isPending}
                       placeholder="******"
-                      className="input-white dark:input-dark "
+                      className="input-primary"
                       type="password"
                     />
                   </FormControl>
@@ -122,15 +122,16 @@ export const RegisterForm = ({}: RegisterFormProps) => {
           <Button
             disabled={isPending}
             type="submit"
-            className="button-white dark:button-dark w-full text-white transition-all duration-300 ease-in-out hover:scale-[1.02] dark:text-black"
+            className="button-primary w-full text-white transition-all duration-300 ease-in-out hover:scale-[1.02] dark:text-black"
           >
             {main_page?.register_panel?.register_button}
           </Button>
         </form>
       </Form>
+
       <Button
         variant="link"
-        className="m-auto mt-3 h-5 w-full p-0 font-normal text-neutral-500 dark:text-neutral-500"
+        className="text-secondary mt-5 flex h-5 p-0 mx-auto"
         size="sm"
         onClick={() => route.push("/auth/login")}
       >

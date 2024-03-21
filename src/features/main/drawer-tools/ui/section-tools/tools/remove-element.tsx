@@ -5,7 +5,7 @@ import { Button } from "@/shared/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Arrow } from "@radix-ui/react-popover";
 import { Trash2 } from "lucide-react";
-import { deleteElement } from "../../../../../../shared/actions/element/set/delete-element";
+import { deleteElement } from "@/shared/actions/element/set/delete-element";
 
 type RemoveElementProps = {
   currentElement: HTMLElement | Element | undefined | null;

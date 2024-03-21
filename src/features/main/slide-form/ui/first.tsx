@@ -52,7 +52,7 @@ export function First({ embla, setFirstValues }: FirstProps) {
                     {...field}
                     placeholder="Ваша назва сайту"
                     type="text"
-                    className="input-white dark:input-dark "
+                    className="input-primary"
                   />
                 </FormControl>
                 <FormMessage className="text-[12px]" />
@@ -70,7 +70,7 @@ export function First({ embla, setFirstValues }: FirstProps) {
                     {...field}
                     placeholder="Ваше посилання на сайт"
                     type="text"
-                    className="input-white dark:input-dark "
+                    className="input-primary"
                   />
                 </FormControl>
                 <FormMessage className="text-[12px]" />
@@ -80,7 +80,7 @@ export function First({ embla, setFirstValues }: FirstProps) {
 
           <Button
             type="submit"
-            className="button-white dark:button-dark text-white-1 dark:text-dark-1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+            className="button-primary text-white-1 dark:text-dark-1 w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
             Наступний крок
           </Button>

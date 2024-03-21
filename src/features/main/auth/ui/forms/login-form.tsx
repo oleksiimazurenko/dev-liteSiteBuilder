@@ -108,19 +108,19 @@ export const LoginForm = ({
         <AccordionItem value="item-1" className="!border-none">
           <AccordionTrigger
             className={cn("relative h-[20px] rounded-sm p-0", {
-              ["[&>svg]:absolute [&>svg]:left-[-16px] [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:rotate-180 [&>svg]:transform [&>svg]:stroke-neutral-200 [&>svg]:data-[state=open]:!rotate-0 [&>svg]:dark:stroke-neutral-200/50 md:[&>svg]:rotate-0 md:[&>svg]:data-[state=open]:!rotate-180"]:
+              ["[&>svg]:absolute [&>svg]:left-[-16px] [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:rotate-180 [&>svg]:transform [&>svg]:stroke-neutral-300 [&>svg]:data-[state=open]:!rotate-0 [&>svg]:dark:stroke-neutral-500/50 md:[&>svg]:rotate-0 md:[&>svg]:data-[state=open]:!rotate-180"]:
                 true,
             })}
           ></AccordionTrigger>
           <AccordionContent className="flex flex-col items-center justify-center space-y-4 p-0 pb-4">
-            <div className="flex items-center justify-center space-x-2">
+            <div className="md:hidden flex items-center justify-center space-x-2">
               <LangSwitch className="md:hidden" />
               <ThemeSwitch className="md:hidden" />
             </div>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="w-full px-1 pt-1"
+                className="w-full px-1 pt-1 !mt-0"
               >
                 <div className="flex flex-col space-y-4">
                   {showTwoFactor && (
@@ -134,7 +134,7 @@ export const LoginForm = ({
                               {...field}
                               disabled={isPending}
                               placeholder="123456"
-                              className="input-white dark:input-dark "
+                              className="input-primary"
                             />
                           </FormControl>
                           <FormMessage />
@@ -157,7 +157,7 @@ export const LoginForm = ({
                                   main_page?.login_panel?.email_placeholder
                                 }
                                 type="email"
-                                className="input-white dark:input-dark "
+                                className="input-primary"
                               />
                             </FormControl>
                             <FormMessage />
@@ -176,7 +176,7 @@ export const LoginForm = ({
                                 disabled={isPending}
                                 placeholder="******"
                                 type="password"
-                                className="input-white dark:input-dark "
+                                className="input-primary"
                               />
                             </FormControl>
                             <FormMessage />
@@ -187,7 +187,7 @@ export const LoginForm = ({
                       <Button
                         disabled={isPending}
                         type="submit"
-                        className="button-white dark:button-dark w-full text-white transition-all duration-300 ease-in-out hover:scale-[1.02] dark:text-black"
+                        className="button-primary w-full text-white transition-all duration-300 ease-in-out hover:scale-[1.02] dark:text-black"
                       >
                         {showTwoFactor
                           ? main_page?.login_panel?.confirm
@@ -204,7 +204,7 @@ export const LoginForm = ({
             <Button
               size="sm"
               variant="link"
-              className="m-auto h-5 p-0 font-normal text-neutral-500"
+              className="text-secondary m-auto h-5 p-0"
               onClick={() => route.push("/auth/reset")}
             >
               {main_page?.login_panel?.forgot_password}
@@ -212,7 +212,7 @@ export const LoginForm = ({
 
             <Button
               variant="link"
-              className="m-auto h-5 p-0 font-normal text-neutral-500"
+              className="text-secondary m-auto h-5 p-0"
               size="sm"
               onClick={() => route.push("/auth/register")}
             >

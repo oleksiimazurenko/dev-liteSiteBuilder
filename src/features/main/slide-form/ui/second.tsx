@@ -164,6 +164,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                           height={100}
                           src="/img-icon.svg"
                           alt="image-icon"
+                          className="dark:opacity-80 dark:brightness-50"
                         />
                       )}
                     </div>
@@ -172,9 +173,9 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                       <label
                         htmlFor="image-site"
                         className={cn(
-                          "button-white dark:button-dark text-white-1 dark:text-dark-1 w-full cursor-pointer rounded-md p-2 text-center transition-all duration-300 ease-in-out hover:scale-[1.02]",
+                          "button-primary w-full cursor-pointer rounded-md p-2 text-center transition-all duration-300 ease-in-out hover:scale-[1.02]",
                           {
-                            ["pointer-events-none text-neutral-400 contrast-50"]:
+                            ["pointer-events-none text-neutral-400 opacity-50"]:
                               previewUrl,
                           },
                         )}
@@ -183,9 +184,9 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                       </label>
                       <div
                         className={cn(
-                          "button-white dark:button-dark text-white-1 dark:text-dark-1 w-full cursor-pointer rounded-md p-2 text-center transition-all duration-300 ease-in-out hover:scale-[1.02]",
+                          "button-primary w-full cursor-pointer rounded-md p-2 text-center transition-all duration-300 ease-in-out hover:scale-[1.02]",
                           {
-                            ["pointer-events-none text-neutral-400 contrast-50"]:
+                            ["pointer-events-none text-neutral-400 opacity-50"]:
                               !previewUrl,
                           },
                         )}
@@ -212,7 +213,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                     disabled={isPending}
                     placeholder="Заголовок"
                     type="text"
-                    className="input-white dark:input-dark "
+                    className="input-primary"
                   />
                 </FormControl>
                 <FormMessage className="!mt-[3px] text-[12px]" />
@@ -231,7 +232,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                     disabled={isPending}
                     placeholder="Підзаголовок"
                     type="text"
-                    className="input-white dark:input-dark "
+                    className="input-primary"
                   />
                 </FormControl>
                 <FormMessage className="!mt-[3px] text-[12px]" />
@@ -250,7 +251,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
                     disabled={isPending}
                     placeholder="Про мене"
                     type="text"
-                    className="input-white dark:input-dark "
+                    className="input-primary"
                   />
                 </FormControl>
                 <FormMessage className="!mt-[3px] text-[12px]" />
@@ -261,20 +262,20 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
           <Button
             disabled={isPending}
             type="submit"
-            className="button-white dark:button-dark text-white-1 dark:text-dark-1 relative w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
+            className="button-primary text-white-1 dark:text-dark-1 relative w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
-            {!isPending ? (
+            {/* {!isPending ? (
               "Створити сайт!"
-            ) : (
-              <span className="relative flex h-4 w-4">
-                <span
-                  className={cn(
-                    "dark:second-gradient-dark second-gradient-white absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",
-                  )}
-                ></span>
-                <span className="dark:second-gradient-dark second-gradient-white relative inline-flex h-4 w-4 rounded-full"></span>
-              </span>
-            )}
+            ) : ( */}
+            <span className="relative flex h-4 w-4">
+              <span
+                className={cn(
+                  " bg-primary absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",
+                )}
+              ></span>
+              <span className="bg-primary relative inline-flex h-4 w-4 rounded-full opacity-55"></span>
+            </span>
+            {/* )} */}
           </Button>
 
           <Button
@@ -282,7 +283,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
             disabled={isPending}
             type="button"
             variant="link"
-            className="text-white-2 dark:text-dark-2 m-auto h-5 p-0 font-normal"
+            className="text-primary m-auto h-5 p-0 font-normal"
             onClick={onPrevStep}
           >
             Повернутися на попередній крок

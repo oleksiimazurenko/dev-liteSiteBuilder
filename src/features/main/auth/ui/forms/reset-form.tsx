@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 type ResetFormProps = {};
 
@@ -61,7 +61,7 @@ export const ResetForm = ({}: ResetFormProps) => {
       <div className="flex w-full flex-col">
         <Button
           variant="link"
-          className="m-auto h-5 p-0 font-normal text-neutral-500 dark:text-neutral-500"
+          className="m-auto h-5 p-0 text-secondary"
           size="sm"
           onClick={() => route.push("/auth/login")}
         >
@@ -82,7 +82,7 @@ export const ResetForm = ({}: ResetFormProps) => {
                       disabled={isPending}
                       placeholder={main_page?.reset_panel?.email_placeholder}
                       type="email"
-                      className="input-white dark:input-dark "
+                      className="input-primary"
                     />
                   </FormControl>
                   <FormMessage />
@@ -95,7 +95,7 @@ export const ResetForm = ({}: ResetFormProps) => {
           <Button
             disabled={isPending}
             type="submit"
-            className="button-white dark:button-dark w-full text-white transition-all duration-300 ease-in-out hover:scale-[1.02] dark:text-black"
+            className="button-primary w-full text-white transition-all duration-300 ease-in-out hover:scale-[1.02] dark:text-black"
           >
             {main_page?.reset_panel?.reset_button}
           </Button>

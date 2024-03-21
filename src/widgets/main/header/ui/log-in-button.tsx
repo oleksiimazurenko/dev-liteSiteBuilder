@@ -11,10 +11,7 @@ export default function LogInButton() {
   return (
     <>
       {!endPath && (
-        <Link
-          href="/auth/login"
-          className="text-[13px] font-[200] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300"
-        >
+        <Link href="/auth/login" className="text-primary text-[13px]">
           Log in
         </Link>
       )}

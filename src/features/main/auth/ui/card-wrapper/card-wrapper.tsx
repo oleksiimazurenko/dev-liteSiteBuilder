@@ -21,7 +21,7 @@ export const CardWrapper = ({
   return (
     <Card
       className={cn(
-        "flex w-[300px] flex-col border-b-[0.2px] border-border/20 bg-background/95 px-5 shadow-xl backdrop-blur supports-[backdrop-filter]:bg-background/10",
+        "card-primary flex w-[300px] flex-col px-5 shadow-xl",
         {
           [className as string]: className,
         },

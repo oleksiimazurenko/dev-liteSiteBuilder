@@ -5,20 +5,25 @@ import { ThemeSwitch } from "@/features/main/theme-switch";
 import { auth } from "@/shared/lib/auth/model/auth";
 import Link from "next/link";
 import LogInButton from "./log-in-button";
+import { Slash } from "lucide-react";
 
 export async function Header() {
   const session = await auth();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b-[0.5px] border-border/20 bg-background/95 backdrop-blur-[5px] supports-[backdrop-filter]:bg-background/10">
+    <header className="bg-glass sticky top-0 z-50 w-full border-b border-neutral-950/10 dark:border-neutral-50/10">
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <div className="mr-4 hidden md:flex">
           <Link
             href="/"
-            className="mr-6 flex items-center space-x-2 font-[600] text-neutral-500"
+            className="mr-2 flex items-center space-x-2 font-[400] dark:text-neutral-400 text-neutral-500"
           >
             Landee
           </Link>
+          <Slash
+            strokeWidth={1}
+            className="rotate-[155deg] stroke-neutral-500"
+          />
           <Navbar
             className="flex items-center gap-6 text-sm"
             LangSwitch={LangSwitch}

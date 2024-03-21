@@ -6,7 +6,6 @@ import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
 import { useState } from "react";
 
 import { type CarouselApi } from "@/shared/ui/carousel";
-import Link from "next/link";
 
 import {
   Dictionary,
@@ -17,6 +16,7 @@ import { useCurrentProfessionStore } from "@/shared/store/current-profession";
 import { ProfessionObject } from "@/shared/types/dectionary";
 import { isProfessionObjectArray } from "@/shared/utils/is-profession-object-array";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { FirstSchema } from "../model/schema";
 import { First } from "./first";
@@ -33,6 +33,8 @@ export function SlideForm({ professionsList }: SlideFormProps) {
   > | null>(null);
 
   const { width } = useWindowSize();
+
+  const rout = useRouter();
 
   const { currentProfession, setCurrentProfession } =
     useCurrentProfessionStore();
@@ -56,18 +58,20 @@ export function SlideForm({ professionsList }: SlideFormProps) {
       opts={{
         watchDrag: false,
       }}
-      className="rounded-2xl border-border/20 bg-background/95 shadow-xl backdrop-blur-[2px] supports-[backdrop-filter]:bg-background/10"
+      className="bg-glass rounded-2xl shadow-xl"
     >
       <CarouselContent className="!ml-0 max-w-[450px] space-x-0">
         <CarouselItem className="flex flex-col items-center justify-center space-y-5 p-0">
-          <h2 className="text-neutral-500">Створення нового сайту</h2>
+          <h2 className="text-primary">Створення нового сайту</h2>
 
           <First embla={embla} setFirstValues={setFirstValues} />
 
-          <Button variant="link" className="!mt-2 p-0">
-            <Link href="/app/editor/list-sites" className="text-neutral-500">
-              Відміна
-            </Link>
+          <Button
+            variant="link"
+            className="!mt-2 p-0 text-primary"
+            onClick={() => rout.push("/app/editor/list-sites")}
+          >
+            Відміна
           </Button>
         </CarouselItem>
 
@@ -75,7 +79,7 @@ export function SlideForm({ professionsList }: SlideFormProps) {
           <Carousel className="!overflow-hidden">
             <CarouselContent className="!ml-0 max-h-[650px] max-w-[450px]">
               <CarouselItem className="relative flex w-[400px] flex-col items-center justify-center space-y-2 p-0 md:p-4">
-                <h2 className="text-neutral-500">Оберіть шаблон для сайту</h2>
+                <h2 className="text-primary">Оберіть шаблон для сайту</h2>
                 <Second
                   embla={embla}
                   setEmbla={setEmbla}

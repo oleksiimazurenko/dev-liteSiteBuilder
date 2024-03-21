@@ -12,6 +12,7 @@ type SidePanelProps = {
 };
 
 export function SidePanel({ menuItems, titleMenu }: SidePanelProps) {
+  
   // const pathname = usePathname();
 
   // const isVisible = menuItems.some((item) => item.url === pathname);

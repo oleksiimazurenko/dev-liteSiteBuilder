@@ -62,7 +62,7 @@ export function DrawerTools({}: DrawerToolsProps) {
       </DrawerTrigger>
       <DrawerContent
         ref={contentDrawerDivRef}
-        className="border-none backdrop-blur-[2px] dark:bg-neutral-50/20 dark:[&>div]:bg-neutral-200/10"
+        className="bg-glass"
       >
         <span className="flex flex-wrap items-center justify-center p-10">
           {typeOpen === "text" && <TextTools />}

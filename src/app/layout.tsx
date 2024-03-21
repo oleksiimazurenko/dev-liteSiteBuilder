@@ -18,8 +18,8 @@ export default async function RootLayout({
   return (
     <SessionProvider>
       <html lang="en">
-        <body className="m-auto max-w-[2400px]">
-          <div className="third-gradient-white dark:third-gradient-dark">
+        <body className="bg-primary m-auto max-w-[2400px]">
+          <div>
             <Header />
             <main>{children}</main>
             <Footer />

@@ -35,7 +35,7 @@ export default function SidePanelDesktop({
               key={url}
               href={url}
               className={cn(
-                "group flex w-full items-center rounded-md border border-transparent px-2 py-1 text-sm font-[200] text-neutral-500 transition-all hover:!text-neutral-600 hover:underline dark:text-neutral-400 dark:hover:!text-neutral-300",
+                "group flex w-full items-center rounded-md border border-transparent px-2 py-1 text-sm text-primary transition-all hover:!text-neutral-600 hover:underline dark:hover:!text-neutral-300",
                 {
                   ["font-medium text-black/90 dark:text-white/90"]: pathname.endsWith(url),
                 },

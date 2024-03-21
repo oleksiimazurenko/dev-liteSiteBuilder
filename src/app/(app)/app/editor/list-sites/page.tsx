@@ -41,7 +41,7 @@ export default async function Page() {
         >
           <Link
             href="/app/editor/create-site"
-            className="flex items-center justify-center font-[200] text-neutral-500 transition-all hover:!text-neutral-600 dark:text-neutral-400 dark:hover:!text-neutral-300"
+            className="text-primary flex items-center justify-center"
           >
             Створити новий сайт
           </Link>
