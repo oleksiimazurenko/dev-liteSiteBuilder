@@ -89,10 +89,7 @@ export function TextStrokeTools({ currentElement }: TextStrokeToolsProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button
-          className="button-popover-trigger-in-drawer"
-          aria-label="Text Stroke"
-        >
+        <button className="toggle-popover" aria-label="Text Stroke">
           <PenTool strokeWidth={1} className="svg-icon-stroke" />
         </button>
       </PopoverTrigger>
@@ -107,11 +104,14 @@ export function TextStrokeTools({ currentElement }: TextStrokeToolsProps) {
           )
         }
       >
-        <Arrow width={10} height={5} />
+        <Arrow
+          width={100}
+          height={5}
+          className="fill-neutral-200/50 dark:fill-neutral-800/50"
+        />
 
-        <div className="absolute top-0 z-20 w-[300px]">
+        <div className="bg-glass absolute top-0 z-20 w-[300px] rounded-full">
           <span className="text-black-stroke-thin pointer-events-none absolute top-1/2 z-30 w-full -translate-y-1/2 transform text-center text-slate-50">
-            {" "}
             Text Stroke - <span>{text}px</span>
           </span>
           <Slider
@@ -120,11 +120,11 @@ export function TextStrokeTools({ currentElement }: TextStrokeToolsProps) {
             min={0}
             max={10}
             step={0.5}
-            className="[&>span:first-child]:h-[50px] [&>span:nth-child(2)>span]:h-[50px] [&>span:nth-child(2)>span]:h-[50px] [&>span:nth-child(2)>span]:w-[50px]"
+            className="[&>span:first-child]:h-[50px] [&>span:nth-child(2)>span]:h-[50px] [&>span:nth-child(2)>span]:w-[50px]"
           />
         </div>
 
-        <div className="absolute right-[-1px] top-0 z-10 h-[50px] w-[50px] cursor-pointer overflow-hidden rounded-br-[25px] rounded-tr-[25px] transition hover:scale-105">
+        <div className="absolute right-[-1px] top-0 z-10 h-[50px] w-[50px] cursor-pointer overflow-hidden rounded-[25px] transition hover:scale-105">
           <div
             className="relative left-1/2 top-1/2 h-[50px] w-[50px] -translate-x-1/2 -translate-y-1/2 transform overflow-hidden rounded-md"
             onClick={() => inputSingleColorRef.current?.click()}

@@ -40,24 +40,24 @@ export function DeleteSection({ currentElement }: RemoveSectionProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button
-          className="button-popover-trigger-in-drawer"
-          aria-label="Trash"
-          ref={buttonRef}
-        >
+        <button className="toggle-popover" aria-label="Trash" ref={buttonRef}>
           <Trash2 strokeWidth={0.9} className="svg-icon-stroke" />
         </button>
       </PopoverTrigger>
 
-      <PopoverContent>
-        <Arrow width={10} height={5} />
+      <PopoverContent className="bg-glass border-none">
+        <Arrow
+          width={100}
+          height={5}
+          className="fill-neutral-200/50 dark:fill-neutral-800/50"
+        />
         <div className="flex flex-col items-center justify-center">
-          <div className="text-center">
+          <div className="text-tertiary text-center">
             Are you sure you want to delete the section?
           </div>
 
           <Button
-            className="mt-2 bg-red-400 hover:bg-red-500"
+            className="mt-3 bg-red-400 font-[200] text-neutral-800 hover:bg-red-500"
             onClick={onRemoveSection}
           >
             Delete

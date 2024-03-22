@@ -1,8 +1,8 @@
 "use client";
+import CornersIcon from "@/features/main/drawer-tools/svg/corners-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
-import CornersIcon from "@/features/main/drawer-tools/svg/corners-icon.svg";
 import { Arrow } from "@radix-ui/react-popover";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -44,21 +44,22 @@ export function BorderRadiusTool({ currentElement }: BorderRadiusToolProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button
-          className="button-popover-trigger-in-drawer"
-          aria-label="Font Size"
-        >
-          <CornersIcon className='svg-icon-fill' />
+        <button className="toggle-popover" aria-label="Font Size">
+          <CornersIcon className="svg-icon-fill" />
         </button>
       </PopoverTrigger>
 
       <PopoverContent
-        className="relative h-[50px] w-80 rounded-[25px] border-none p-0"
+        className="bg-glass relative h-[50px] w-80 rounded-[25px] border-none p-0"
         onBlur={() =>
           updateInlineStyles(currentElement as HTMLElement, pathName, "rounded")
         }
       >
-        <Arrow width={10} height={5} />
+        <Arrow
+          width={100}
+          height={5}
+          className="fill-neutral-200/50 dark:fill-neutral-800/50"
+        />
 
         <div className="absolute top-0 z-20 w-[320px]">
           <span className="text-black-stroke-thin pointer-events-none absolute top-1/2 z-30 w-full -translate-y-1/2 transform text-center text-slate-50">

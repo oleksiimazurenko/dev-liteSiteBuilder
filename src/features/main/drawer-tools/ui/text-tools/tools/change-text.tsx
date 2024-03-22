@@ -24,16 +24,13 @@ export function ChangeText({ currentElement }: ChangeTextProps) {
       }
     >
       <PopoverTrigger asChild>
-        <button
-          className="button-popover-trigger-in-drawer"
-          aria-label="Change text"
-        >
+        <button className="toggle-popover" aria-label="Change text">
           <TextCursor className="svg-icon-stroke" size={15} strokeWidth={1.3} />
         </button>
       </PopoverTrigger>
 
       <PopoverContent
-        className="w-80 p-2"
+        className="bg-glass w-80 rounded-lg p-0"
         onBlur={() =>
           updateTextContent(
             currentElement as HTMLElement,
@@ -42,9 +39,13 @@ export function ChangeText({ currentElement }: ChangeTextProps) {
           )
         }
       >
-        <Arrow width={10} height={5} />
+        <Arrow
+          width={100}
+          height={5}
+          className="fill-neutral-200/50 dark:fill-neutral-800/50"
+        />
         <Textarea
-          className="resize-none"
+          className="text-tertiary resize-none border-none bg-transparent"
           defaultValue={textareaValue}
           onChange={(e) => {
             if (currentElement) {

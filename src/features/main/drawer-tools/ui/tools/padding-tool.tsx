@@ -1,5 +1,6 @@
 "use client";
 
+import PaddingIcon from "@/features/main/drawer-tools/svg/padding-icon.svg";
 import { getIdFirstSection } from "@/shared/actions/section/get/get-id-first-section";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
@@ -8,7 +9,6 @@ import { Arrow } from "@radix-ui/react-popover";
 import cn from "classnames";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import PaddingIcon from "@/features/main/drawer-tools/svg/padding-icon.svg";
 
 type PaddingToolProps = {
   currentElement: HTMLElement | Element | undefined | null;
@@ -94,18 +94,19 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
       }
     >
       <PopoverTrigger asChild>
-        <button
-          className="button-popover-trigger-in-drawer"
-          aria-label="Padding"
-        >
+        <button className="toggle-popover" aria-label="Padding">
           <PaddingIcon className="svg-icon-fill" />
         </button>
       </PopoverTrigger>
 
-      <PopoverContent className="flex flex-col items-center justify-around">
-        <Arrow width={10} height={5} />
+      <PopoverContent className="text-primary bg-glass flex flex-col items-center justify-around border-none">
+        <Arrow
+          width={100}
+          height={5}
+          className="fill-neutral-200/50 dark:fill-neutral-800/50"
+        />
 
-        <span className="">PADDING</span>
+        <span>PADDING</span>
 
         <div className="mt-[10px] flex w-[100%] items-center justify-around">
           <div
@@ -123,7 +124,7 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
               disabled={isDisabled}
               onValueChange={(n) => onSetPadding(n, 0)}
               defaultValue={getDefaultValue(0)}
-              className="h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              className="input-slider h-[200px] w-[5px] rounded-md [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{paddingValues[0]}px</span>
@@ -135,7 +136,7 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
               step={1}
               onValueChange={(n) => onSetPadding(n, 1)}
               defaultValue={getDefaultValue(1)}
-              className="h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              className="input-slider h-[200px] w-[5px] rounded-md [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{paddingValues[1]}px</span>
@@ -147,7 +148,7 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
               step={1}
               onValueChange={(n) => onSetPadding(n, 2)}
               defaultValue={getDefaultValue(2)}
-              className="h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              className="input-slider h-[200px] w-[5px] rounded-md [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{paddingValues[2]}px</span>
@@ -159,7 +160,7 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
               step={1}
               onValueChange={(n) => onSetPadding(n, 3)}
               defaultValue={getDefaultValue(3)}
-              className="h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              className="input-slider h-[200px] w-[5px] rounded-md [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{paddingValues[3]}px</span>

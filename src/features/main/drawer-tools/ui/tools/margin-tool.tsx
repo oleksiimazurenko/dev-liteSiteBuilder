@@ -79,18 +79,19 @@ export function MarginTool({ currentElement }: MarginToolProps) {
       }
     >
       <PopoverTrigger asChild>
-        <button
-          className="button-popover-trigger-in-drawer"
-          aria-label="Margin"
-        >
-          <MarginIcon className='svg-icon-fill'/>
+        <button className="toggle-popover" aria-label="Margin">
+          <MarginIcon className="svg-icon-fill" />
         </button>
       </PopoverTrigger>
 
-      <PopoverContent className="flex flex-col items-center justify-around">
-        <Arrow width={10} height={5} />
+      <PopoverContent className="bg-glass text-primary flex flex-col items-center justify-around border-none">
+        <Arrow
+          width={100}
+          height={5}
+          className="fill-neutral-200/50 dark:fill-neutral-800/50"
+        />
 
-        <span className="">MARGIN</span>
+        <span>MARGIN</span>
 
         <div className="mt-[10px] flex w-[100%] items-center justify-around">
           <div className="flex h-[200px] w-[50px] flex-col items-center justify-center">
@@ -100,7 +101,7 @@ export function MarginTool({ currentElement }: MarginToolProps) {
               step={1}
               onValueChange={(n) => onSetMargin(n, 0)}
               defaultValue={getDefaultValue(0)}
-              className="h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              className="input-slider h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{marginValues[0]}px</span>
@@ -112,7 +113,7 @@ export function MarginTool({ currentElement }: MarginToolProps) {
               step={1}
               onValueChange={(n) => onSetMargin(n, 1)}
               defaultValue={getDefaultValue(1)}
-              className="h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              className="input-slider h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{marginValues[1]}px</span>
@@ -124,7 +125,7 @@ export function MarginTool({ currentElement }: MarginToolProps) {
               step={1}
               onValueChange={(n) => onSetMargin(n, 2)}
               defaultValue={getDefaultValue(2)}
-              className="h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              className="input-slider h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{marginValues[2]}px</span>
@@ -136,7 +137,7 @@ export function MarginTool({ currentElement }: MarginToolProps) {
               step={1}
               onValueChange={(n) => onSetMargin(n, 3)}
               defaultValue={getDefaultValue(3)}
-              className="h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              className="input-slider h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{marginValues[3]}px</span>

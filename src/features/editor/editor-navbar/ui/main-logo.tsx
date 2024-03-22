@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 type MainLogoProps = {
-  siteUrl: string | undefined;
+  siteUrl?: string | undefined;
   imagePath: string | undefined;
 };
 

@@ -1,6 +1,6 @@
+import DimensionsIcon from "@/features/main/drawer-tools/svg/dimensions-icon.svg";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
-import DimensionsIcon from "@/features/main/drawer-tools/svg/dimensions-icon.svg";
 import { Arrow } from "@radix-ui/react-popover";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -75,13 +75,17 @@ export function WidthHeightTool({ currentElement }: WidthHeightToolProps) {
       }
     >
       <PopoverTrigger asChild>
-        <button className="button-popover-trigger-in-drawer" aria-label="Width">
+        <button className="toggle-popover" aria-label="Width">
           <DimensionsIcon className="svg-icon-fill" />
         </button>
       </PopoverTrigger>
 
-      <PopoverContent className="flex flex-col items-center justify-around">
-        <Arrow width={10} height={5} />
+      <PopoverContent className="text-primary bg-glass flex flex-col items-center justify-around border-none">
+        <Arrow
+          width={100}
+          height={5}
+          className="fill-neutral-200/50 dark:fill-neutral-800/50"
+        />
         WIDTH & HEIGHT
         <div className="mt-[10px] flex w-[100%] items-center justify-around">
           <div className="flex h-[200px] w-[50px] flex-col items-center justify-center">
@@ -92,7 +96,7 @@ export function WidthHeightTool({ currentElement }: WidthHeightToolProps) {
               step={1}
               onValueChange={(n) => onSetWH(n, 0)}
               defaultValue={getDefaultValue(0)}
-              className="h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              className="input-slider h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{whValues[0]}px</span>
@@ -105,7 +109,7 @@ export function WidthHeightTool({ currentElement }: WidthHeightToolProps) {
               step={1}
               onValueChange={(n) => onSetWH(n, 1)}
               defaultValue={getDefaultValue(1)}
-              className="h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              className="input-slider h-[200px] w-[5px] [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{whValues[1]}px</span>

@@ -1,11 +1,12 @@
+import { MainLogo } from "@/features/editor/editor-navbar";
 import { DrawerTools } from "@/features/main/drawer-tools";
 import { getSiteByUrl } from "@/shared/actions/site/get/get-site-by-url";
 import { getSites } from "@/shared/actions/site/get/get-sites";
 import { EditorFooter } from "@/widgets/editor/editor-footer";
-import { EditorHeader } from "@/widgets/editor/editor-header";
 import cn from "classnames";
 import { JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
+import { join } from "path";
 
 const merienda = JetBrains_Mono({ subsets: ["latin"] });
 
@@ -38,11 +39,11 @@ type LayoutProps = {
 
 export default async function Layout({
   children,
-  params: { site },
+  params: { site: url },
 }: LayoutProps) {
-  const { data } = await getSiteByUrl(site);
+  const { data: site } = await getSiteByUrl(url);
 
-  if (!data)
+  if (!site) {
     return (
       <div className="flex min-h-[calc(100svh-59.5px)] w-full flex-col items-center justify-center space-y-4 bg-red-500/20">
         <p>
@@ -58,6 +59,9 @@ export default async function Layout({
         </Link>
       </div>
     );
+  }
+
+  const imagePath = join("/images/users", site.userId, site.imageName);
 
   return (
     <div
@@ -65,7 +69,8 @@ export default async function Layout({
         [merienda.className]: true,
       })}
     >
-      <EditorHeader siteId={data.id} />
+      {/* <EditorHeader siteId={data.id} /> */}
+      {/* <MainLogo imagePath={imagePath} /> */}
       <main>{children}</main>
       <DrawerTools />
       <EditorFooter />

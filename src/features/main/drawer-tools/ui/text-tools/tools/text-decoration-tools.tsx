@@ -1,13 +1,11 @@
 "use client";
 
+import FontBoldIcon from "@/features/main/drawer-tools/svg/font-bold-icon.svg";
+import FontItalicIcon from "@/features/main/drawer-tools/svg/font-italic-icon.svg";
+import UnderlineIcon from "@/features/main/drawer-tools/svg/underline-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/toggle-group";
-import {
-  FontBoldIcon,
-  FontItalicIcon,
-  UnderlineIcon,
-} from "@radix-ui/react-icons";
 import { Arrow } from "@radix-ui/react-popover";
 import { Baseline } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -103,16 +101,17 @@ export function TextDecorationTools({
       }
     >
       <PopoverTrigger asChild>
-        <button
-          className="button-popover-trigger-in-drawer"
-          aria-label="Font Size"
-        >
+        <button className="toggle-popover" aria-label="Font Size">
           <Baseline strokeWidth={1} className="svg-icon-stroke" />
         </button>
       </PopoverTrigger>
 
-      <PopoverContent className="relative w-80">
-        <Arrow width={10} height={5} />
+      <PopoverContent className="bg-glass relative w-80 border-none">
+        <Arrow
+          width={100}
+          height={5}
+          className="fill-neutral-200/50 dark:fill-neutral-800/50"
+        />
 
         <ToggleGroup
           type="multiple"
@@ -121,16 +120,28 @@ export function TextDecorationTools({
           value={values ? values : undefined}
           onValueChange={onHandleValueChange}
         >
-          <ToggleGroupItem value="bold" aria-label="Toggle bold">
-            <FontBoldIcon className="h-4 w-4" />
+          <ToggleGroupItem
+            value="bold"
+            aria-label="Toggle bold"
+            className="toggle-single"
+          >
+            <FontBoldIcon className="svg-icon-fill h-4 w-4" />
           </ToggleGroupItem>
 
-          <ToggleGroupItem value="italic" aria-label="Toggle italic">
-            <FontItalicIcon className="h-4 w-4" />
+          <ToggleGroupItem
+            value="italic"
+            aria-label="Toggle italic"
+            className="toggle-single"
+          >
+            <FontItalicIcon className="svg-icon-fill h-4 w-4" />
           </ToggleGroupItem>
 
-          <ToggleGroupItem value="underline" aria-label="Toggle underline">
-            <UnderlineIcon className="h-4 w-4" />
+          <ToggleGroupItem
+            value="underline"
+            aria-label="Toggle underline"
+            className="toggle-single"
+          >
+            <UnderlineIcon className="svg-icon-fill h-4 w-4" />
           </ToggleGroupItem>
         </ToggleGroup>
       </PopoverContent>

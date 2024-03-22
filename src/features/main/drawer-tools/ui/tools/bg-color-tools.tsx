@@ -69,10 +69,7 @@ export function BGColorTools({ currentElement }: BGColorToolsProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button
-          className="button-popover-trigger-in-drawer"
-          aria-label="Background color"
-        >
+        <button className="toggle-popover" aria-label="Background color">
           <PaintBucket
             size={28}
             strokeWidth={0.9}
@@ -97,7 +94,7 @@ export function BGColorTools({ currentElement }: BGColorToolsProps) {
             <CarouselItem>
               <div className="relative h-[200px] w-full overflow-hidden">
                 <button
-                  className="absolute right-0 top-0 z-30 inline-flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-bl-md bg-slate-100 p-[12px] text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+                  className="ring-offset-background hover:bg-muted hover:text-muted-foreground focus-visible:ring-ring data-[state=on]:bg-accent data-[state=on]:text-accent-foreground absolute right-0 top-0 z-30 inline-flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-bl-md bg-slate-100 p-[12px] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                   aria-label="Change text"
                   onClick={onResetBackgroundColor}
                 >
@@ -129,7 +126,7 @@ export function BGColorTools({ currentElement }: BGColorToolsProps) {
             <CarouselItem>
               <div className="relative h-[200px] w-full overflow-hidden">
                 <button
-                  className="absolute right-0 top-0 z-30 inline-flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-bl-md bg-slate-100 p-[12px] text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+                  className="ring-offset-background hover:bg-muted hover:text-muted-foreground focus-visible:ring-ring data-[state=on]:bg-accent data-[state=on]:text-accent-foreground absolute right-0 top-0 z-30 inline-flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-bl-md bg-slate-100 p-[12px] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                   aria-label="Change text"
                   onClick={onResetBackgroundColor}
                   tabIndex={1}

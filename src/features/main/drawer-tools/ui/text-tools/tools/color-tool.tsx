@@ -28,10 +28,7 @@ export function ColorTool({ currentElement }: ColorToolProps) {
   };
 
   return (
-    <button
-      className="button-popover-trigger-in-drawer !p-0"
-      aria-label="Color"
-    >
+    <button className="toggle-popover !p-0" aria-label="Color">
       <Input
         onChange={(e) => onChangeColor(e.target.value)}
         type="color"

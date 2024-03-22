@@ -85,6 +85,15 @@
     @apply !font-[200] transition-all;
   }
 
+  .text-tertiary {
+    /* white */
+    @apply text-neutral-100;
+    /* dark */
+    @apply dark:text-neutral-500;
+    /* main */
+    @apply !font-[200] transition-all;
+  }
+
   /* fourth level: color  */
 
   /* other level: color  */
@@ -95,13 +104,35 @@
     /* dark */
     @apply dark:hover:!text-neutral-300;
   }
+
+  .input-slider {
+    /* white */
+    @apply bg-neutral-500;
+    /* dark */
+    @apply dark:bg-neutral-400;
+    /* main */
+    @apply border-none border-neutral-950/10 last:[&>span>span]:focus-visible:!outline-none last:[&>span>span]:focus-visible:!ring-[0.1px] last:[&>span>span]:border-none last:[&>span>span]:bg-neutral-600/50 last:[&>span>span]:backdrop-blur-[2px];
+  }
+
+  /* in drawer  */
+  .toggle-single {
+    /* white */
+    @apply hover:bg-neutral-600/20 data-[state=on]:bg-neutral-600/20;
+    /* dark */
+    @apply hover:dark:bg-neutral-950/20 data-[state=on]:dark:bg-neutral-950/20;
+  }
+
+  .toggle-popover {
+    /* white */
+    @apply hover:bg-neutral-600/20;
+    /* dark */
+    @apply hover:dark:bg-neutral-950/20;
+    /* main */
+    @apply inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md p-[12px]  focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50;
+  }
 }
 
 @layer base {
-  .button-popover-trigger-in-drawer {
-    @apply inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md p-[12px] hover:bg-neutral-500/20 focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 hover:dark:bg-neutral-950/20;
-  }
-
   .svg-icon-stroke {
     @apply stroke-neutral-700  dark:stroke-neutral-200;
   }

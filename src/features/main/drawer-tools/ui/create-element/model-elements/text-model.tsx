@@ -37,7 +37,7 @@ export function TextModel({ id }: TextElementProps) {
   return (
     <>
       <button
-        className="button-popover-trigger-in-drawer"
+        className="toggle-popover"
         aria-label="Padding"
         onClick={() => onHandleClick()}
       >

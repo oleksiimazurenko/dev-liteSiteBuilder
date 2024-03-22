@@ -148,17 +148,17 @@ export function ChangeBackgroundImage({
       <PopoverTrigger asChild>
         <button
           ref={buttonRef}
-          className="button-popover-trigger-in-drawer"
+          className="toggle-popover"
           aria-label="Background image"
         >
           <Image className="svg-icon-stroke" size={28} strokeWidth={0.9} />
         </button>
       </PopoverTrigger>
 
-      <PopoverContent className={`max-w-[300px] px-[10px] py-[5px]`}>
-        <Arrow width={100} height={5} className="fill-slate-200 " />
+      <PopoverContent className="bg-glass max-w-[300px] border-none px-[10px] py-[5px]">
+        <Arrow width={100} height={5} className="dark:fill-neutral-800/50 fill-neutral-200/50" />
 
-        <div className="text-center leading-7">
+        <div className="text-tertiary text-center leading-7">
           Are you want change background?
         </div>
 
@@ -187,19 +187,12 @@ export function ChangeBackgroundImage({
                       />
                       <label
                         htmlFor="fileImageChangeBackground"
-                        className="flex cursor-pointer flex-col items-center justify-center text-center"
+                        className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-[0.8px] border-dashed px-[30px] py-[30px] text-center"
                       >
                         {fileName ? (
-                          <>{fileName}</>
+                          <span className="text-primary">{fileName}</span>
                         ) : (
-                          <>
-                            <ImagePlus
-                              className="transition-all hover:scale-125"
-                              size={48}
-                              strokeWidth={0.5}
-                              absoluteStrokeWidth
-                            />
-                          </>
+                          <span className="text-primary">Select file</span>
                         )}
                       </label>
                     </div>
@@ -208,7 +201,12 @@ export function ChangeBackgroundImage({
                 </FormItem>
               )}
             />
-            <Button type="submit">choose new background</Button>
+            <Button
+              type="submit"
+              className="button-primary transition-all hover:scale-[1.02]"
+            >
+              chagne!
+            </Button>
           </form>
         </Form>
       </PopoverContent>

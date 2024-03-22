@@ -1,18 +1,16 @@
 "use client";
 
+import TextAlignCenterIcon from "@/features/main/drawer-tools/svg/text-align-center-icon.svg";
+import TextAlignJustifyIcon from "@/features/main/drawer-tools/svg/text-align-justify-icon.svg";
+import TextAlignLeftIcon from "@/features/main/drawer-tools/svg/text-align-left-icon.svg";
+import TextAlignRightIcon from "@/features/main/drawer-tools/svg/text-align-right-icon.svg";
+import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/toggle-group";
-import {
-  TextAlignCenterIcon,
-  TextAlignJustifyIcon,
-  TextAlignLeftIcon,
-  TextAlignRightIcon,
-} from "@radix-ui/react-icons";
 import { Arrow } from "@radix-ui/react-popover";
 import { ArrowLeftRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { updateInlineStyles } from "../../../../../../shared/helpers/update-inline-styles";
 
 type TextAlignToolsProps = {
   currentElement: HTMLElement | Element | undefined | null;
@@ -37,16 +35,17 @@ export function TextAlignTools({ currentElement }: TextAlignToolsProps) {
       }
     >
       <PopoverTrigger asChild>
-        <button
-          className="button-popover-trigger-in-drawer"
-          aria-label="Text Align"
-        >
+        <button className="toggle-popover" aria-label="Text Align">
           <ArrowLeftRight strokeWidth={1} className="svg-icon-stroke" />
         </button>
       </PopoverTrigger>
 
-      <PopoverContent className="relative w-80">
-        <Arrow width={10} height={5} />
+      <PopoverContent className="bg-glass relative w-80 border-none">
+        <Arrow
+          width={100}
+          height={5}
+          className="fill-neutral-200/50 dark:fill-neutral-800/50"
+        />
 
         <ToggleGroup
           type="single"
@@ -60,20 +59,36 @@ export function TextAlignTools({ currentElement }: TextAlignToolsProps) {
             }
           }}
         >
-          <ToggleGroupItem value="left" aria-label="Toggle textalignleft">
-            <TextAlignLeftIcon className="h-4 w-4" />
+          <ToggleGroupItem
+            value="left"
+            aria-label="Toggle textalignleft"
+            className="toggle-single"
+          >
+            <TextAlignLeftIcon className="svg-icon-fill h-4 w-4" />
           </ToggleGroupItem>
 
-          <ToggleGroupItem value="center" aria-label="Toggle textaligncenter">
-            <TextAlignCenterIcon className="h-4 w-4" />
+          <ToggleGroupItem
+            value="center"
+            aria-label="Toggle textaligncenter"
+            className="toggle-single"
+          >
+            <TextAlignCenterIcon className="svg-icon-fill h-4 w-4" />
           </ToggleGroupItem>
 
-          <ToggleGroupItem value="justify" aria-label="Toggle textalignjustify">
-            <TextAlignJustifyIcon className="h-4 w-4" />
+          <ToggleGroupItem
+            value="justify"
+            aria-label="Toggle textalignjustify"
+            className="toggle-single"
+          >
+            <TextAlignJustifyIcon className="svg-icon-fill h-4 w-4" />
           </ToggleGroupItem>
 
-          <ToggleGroupItem value="right" aria-label="Toggle textalignright">
-            <TextAlignRightIcon className="h-4 w-4" />
+          <ToggleGroupItem
+            value="right"
+            aria-label="Toggle textalignright"
+            className="toggle-single"
+          >
+            <TextAlignRightIcon className="svg-icon-fill h-4 w-4" />
           </ToggleGroupItem>
         </ToggleGroup>
       </PopoverContent>

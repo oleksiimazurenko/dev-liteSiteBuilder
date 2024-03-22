@@ -54,15 +54,13 @@ export function DrawerTools({}: DrawerToolsProps) {
     <Drawer open={isOpenDrawerTools}>
       <DrawerTrigger
         asChild
-        className="fixed bottom-[-48px] left-1/2 -translate-x-1/2 transform "
+        className="fixed bottom-[-48px] left-1/2 hidden -translate-x-1/2 transform "
       >
-        <Button variant="outline" className="opacity-50">
-          Open Drawer
-        </Button>
+        <Button variant="outline"></Button>
       </DrawerTrigger>
       <DrawerContent
         ref={contentDrawerDivRef}
-        className="bg-glass"
+        className="bg-glass border-none dark:[&>div]:bg-neutral-950/30 [&>div]:bg-neutral-50/30"
       >
         <span className="flex flex-wrap items-center justify-center p-10">
           {typeOpen === "text" && <TextTools />}
