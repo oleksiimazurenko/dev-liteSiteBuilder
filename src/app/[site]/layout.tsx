@@ -1,12 +1,9 @@
-import { MainLogo } from "@/features/editor/editor-navbar";
-import { DrawerTools } from "@/features/main/drawer-tools";
+import { DrawerTools } from "@/features/editor/drawer-tools";
 import { getSiteByUrl } from "@/shared/actions/site/get/get-site-by-url";
 import { getSites } from "@/shared/actions/site/get/get-sites";
-import { EditorFooter } from "@/widgets/editor/editor-footer";
 import cn from "classnames";
 import { JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
-import { join } from "path";
 
 const merienda = JetBrains_Mono({ subsets: ["latin"] });
 
@@ -61,19 +58,16 @@ export default async function Layout({
     );
   }
 
-  const imagePath = join("/images/users", site.userId, site.imageName);
-
   return (
     <div
       className={cn("relative min-h-[calc(100svh-59.5px)]", {
         [merienda.className]: true,
       })}
     >
-      {/* <EditorHeader siteId={data.id} /> */}
-      {/* <MainLogo imagePath={imagePath} /> */}
+      {/* <EditorHeader siteId={site.id} /> */}
       <main>{children}</main>
       <DrawerTools />
-      <EditorFooter />
+      {/* <EditorFooter /> */}
     </div>
   );
 }

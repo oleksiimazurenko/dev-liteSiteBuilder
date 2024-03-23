@@ -88,7 +88,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
           if (success) {
             toast.success("The site was successfully created");
 
-            router.push(firstValues?.url);
+            router.push('/' + firstValues.url);
 
             secondForm.reset();
             resetImage();
@@ -264,9 +264,9 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
             type="submit"
             className="button-primary text-white-1 dark:text-dark-1 relative w-full transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
-            {/* {!isPending ? (
+            {!isPending ? (
               "Створити сайт!"
-            ) : ( */}
+            ) : (
             <span className="relative flex h-4 w-4">
               <span
                 className={cn(
@@ -275,7 +275,7 @@ export function Second({ embla, setEmbla, firstValues }: SecondProps) {
               ></span>
               <span className="bg-primary relative inline-flex h-4 w-4 rounded-full opacity-55"></span>
             </span>
-            {/* )} */}
+            )}
           </Button>
 
           <Button

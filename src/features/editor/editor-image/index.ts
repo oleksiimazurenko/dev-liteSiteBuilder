@@ -1,0 +1,1 @@
+export { EditorImage } from "./ui/editor-image";

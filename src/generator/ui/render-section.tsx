@@ -1,5 +1,4 @@
-import { DNDComponent } from "@/features/main/drawer-tools";
-import { auth } from "@/shared/lib/auth/model/auth";
+import { DNDComponent } from "@/features/editor/drawer-tools";
 import { Component, Section } from "@prisma/client";
 import { sortPosition } from "../utils/sortPosition";
 import { RenderComponent } from "./render-component";
@@ -14,7 +13,7 @@ export async function RenderSection({
   containerStyles,
   components,
 }: RenderSectionType) {
-  const session = await auth();
+  // const session = await auth();
 
   const promisesComponents = components.sort(sortPosition).map(RenderComponent);
   const renderedComponents = await Promise.all(promisesComponents);

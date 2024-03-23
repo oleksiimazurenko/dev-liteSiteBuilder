@@ -1,6 +1,7 @@
 import { ProductCard } from "@/entities/editor/editor-product-card";
+import { EditorImage } from "@/features/editor/editor-image";
+import { EditorText } from "@/features/editor/editor-text";
 import { PrimaryButton } from "@/features/main/primary-button";
-import { TextEditor } from "@/features/main/text-editor";
 import { getProductsList } from "@/shared/actions/product/get/get-products-list";
 import {
   Accordion,
@@ -10,31 +11,34 @@ import {
 } from "@/shared/ui/accordion";
 import { EditorProductsList } from "@/widgets/editor/editor-products-list";
 import { Component } from "@prisma/client";
-import Image from "next/image";
 
 export async function RenderComponent({
   id,
   type,
-  textContent,
+  parenTag,
+
   outerStyles,
   innerStyles,
-  tag,
-  src,
-  alt,
+
   width,
   height,
+
+  textContent,
+
+  src,
+  alt,
   href,
 }: Component) {
   const dataProduct = await getProductsList();
 
-  if (type === "text" && textContent && tag) {
+  if (type === "text" && textContent && parenTag) {
     return {
       id,
       content: (
-        <TextEditor
+        <EditorText
           id={id}
           key={id}
-          tag={tag as keyof JSX.IntrinsicElements}
+          parenTag={parenTag as keyof JSX.IntrinsicElements}
           textContent={textContent}
           outerStyles={outerStyles as React.CSSProperties}
           innerStyles={innerStyles as React.CSSProperties}
@@ -43,21 +47,20 @@ export async function RenderComponent({
     };
   }
 
-  if (type === "image" && src && alt && width && height) {
+  if (type === "image" && src && alt && width && height && parenTag) {
     return {
       id,
       content: (
-        <Image
-          data-component
-          data-trigger-tools
+        <EditorImage
+          id={id}
           key={id}
-          data-id={id}
-          className=""
-          style={innerStyles as React.CSSProperties}
+          parenTag={parenTag as keyof JSX.IntrinsicElements}
           src={src}
           alt={alt}
           width={width}
           height={height}
+          outerStyles={outerStyles as React.CSSProperties}
+          innerStyles={innerStyles as React.CSSProperties}
         />
       ),
     };

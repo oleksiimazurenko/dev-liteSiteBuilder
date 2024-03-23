@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Quaternary (четвертый уровень)
+Quinary (пятый уровень)
+Senary (шестой уровень)
+Septenary (седьмой уровень)
+Octonary (восьмой уровень)
+Nonary (девятый уровень)
+Denary (десятый уровень) */
+
 @layer base {
   /* first level: color  */
   .bg-primary {
@@ -94,6 +102,15 @@
     @apply !font-[200] transition-all;
   }
 
+  .text-quaternary {
+    /* white */
+    @apply text-neutral-50/45;
+    /* dark */
+    @apply dark:text-neutral-600/45;
+    /* main */
+    @apply !font-[200] transition-all;
+  }
+
   /* fourth level: color  */
 
   /* other level: color  */
@@ -111,7 +128,7 @@
     /* dark */
     @apply dark:bg-neutral-400;
     /* main */
-    @apply border-none border-neutral-950/10 last:[&>span>span]:focus-visible:!outline-none last:[&>span>span]:focus-visible:!ring-[0.1px] last:[&>span>span]:border-none last:[&>span>span]:bg-neutral-600/50 last:[&>span>span]:backdrop-blur-[2px];
+    @apply border-none border-neutral-950/10 last:[&>span>span]:border-none last:[&>span>span]:bg-neutral-600/50 last:[&>span>span]:backdrop-blur-[2px] last:[&>span>span]:focus-visible:!outline-none last:[&>span>span]:focus-visible:!ring-[0.1px];
   }
 
   /* in drawer  */

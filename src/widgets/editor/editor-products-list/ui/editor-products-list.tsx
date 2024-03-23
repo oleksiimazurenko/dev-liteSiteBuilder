@@ -1,7 +1,7 @@
 import {
   CreateProductTrigger,
   DeleteProductTrigger,
-} from "@/features/main/drawer-tools";
+} from "@/features/editor/drawer-tools";
 import {
   ProductCardProps,
   ProductItem,

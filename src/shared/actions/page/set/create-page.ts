@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma-client";
-import { componentStyles } from "@/shared/styles/initial/style-component";
+import { text } from "@/shared/styles/initial/style-component";
 import { sectionStyles } from "@/shared/styles/initial/style-section";
 import { getErrorMessage } from "@/shared/utils/extract-error-message";
 import { revalidatePath } from "next/cache";
@@ -38,9 +38,9 @@ const createPage = async (id: string, name: string, url: string) => {
       const component = await prisma.component.create({
         data: {
           type: "text",
-          tag: "div",
-          innerStyles: componentStyles.innerStyles,
-          outerStyles: componentStyles.outerStyles,
+          parenTag: "div",
+          innerStyles: text.innerStyles,
+          outerStyles: text.outerStyles,
           textContent: section.name,
           sectionId: section.id,
           position: 1,

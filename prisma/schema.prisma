@@ -44,21 +44,28 @@ model Section {
 }
 
 model Component {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  type        String
-  textContent String?
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  type String
+
+  parenTag String?
+  position Int
+
   outerStyles Json?
   innerStyles Json?
-  width       Int?
-  height      Int?
-  src         String?
-  alt         String?
-  href        String?
-  tag         String?
-  products    Product[]
-  section     Section   @relation(fields: [sectionId], references: [id])
-  sectionId   String
-  position    Int
+
+  width  Int?
+  height Int?
+
+  textContent String?
+
+  src  String?
+  alt  String?
+  href String?
+
+  products Product[]
+
+  section   Section @relation(fields: [sectionId], references: [id])
+  sectionId String
 }
 
 model Category {

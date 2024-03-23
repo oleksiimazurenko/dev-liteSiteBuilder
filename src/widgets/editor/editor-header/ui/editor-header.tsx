@@ -1,8 +1,8 @@
-import { EditorNavbar } from "@/features/editor/editor-navbar";
 import {
   CreatePageTrigger,
   DeletePageTrigger,
-} from "@/features/main/drawer-tools";
+} from "@/features/editor/drawer-tools";
+import { EditorNavbar } from "@/features/editor/editor-navbar";
 import cn from "classnames";
 
 type EditorHeaderProps = {

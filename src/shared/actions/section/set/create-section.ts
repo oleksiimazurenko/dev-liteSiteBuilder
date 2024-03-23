@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma-client";
-import { componentStyles } from "@/shared/styles/initial/style-component";
+import { text } from "@/shared/styles/initial/style-component";
 import { sectionStyles } from "@/shared/styles/initial/style-section";
 import { getErrorMessage } from "@/shared/utils/extract-error-message";
 import { getLastUrlSegment } from "@/shared/utils/get-last-url-segment";
@@ -55,8 +55,8 @@ const createSection = async ({
       const responseElement = await prisma.component.create({
         data: {
           type: "text",
-          ...componentStyles,
-          tag: "div",
+          ...text,
+          parenTag: "div",
           textContent: name,
           sectionId: responseSection.id,
           position: 1,
