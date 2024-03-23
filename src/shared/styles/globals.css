@@ -22,9 +22,9 @@ Denary (десятый уровень) */
   /* second level: color  */
   .bg-glass {
     /* white */
-    @apply bg-neutral-200/60 supports-[backdrop-filter]:bg-neutral-200/60;
+    @apply supports-[backdrop-filter]:!bg-neutral-200/60 !bg-neutral-200/60;
     /* dark */
-    @apply dark:bg-neutral-800/60 dark:supports-[backdrop-filter]:bg-neutral-800/60;
+    @apply dark:!bg-neutral-800/60 dark:supports-[backdrop-filter]:!bg-neutral-800/60;
     /* main */
     @apply backdrop-blur-[4px];
   }
@@ -95,18 +95,18 @@ Denary (десятый уровень) */
 
   .text-tertiary {
     /* white */
-    @apply text-neutral-100;
+    @apply !text-neutral-100;
     /* dark */
-    @apply dark:text-neutral-500;
+    @apply dark:!text-neutral-500;
     /* main */
     @apply !font-[200] transition-all;
   }
 
   .text-quaternary {
     /* white */
-    @apply text-neutral-50/45;
+    @apply !text-neutral-50/45;
     /* dark */
-    @apply dark:text-neutral-600/45;
+    @apply dark:!text-neutral-600/45;
     /* main */
     @apply !font-[200] transition-all;
   }

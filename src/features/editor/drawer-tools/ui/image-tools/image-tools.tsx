@@ -4,10 +4,9 @@ import { useDrawerToolsStore } from "@/shared/store/editable-group-store";
 import { RemoveElement } from "../section-tools/tools/remove-element";
 import { BGColorTools } from "../tools/bg-color-tools";
 import { BorderRadiusTool } from "../tools/border-radius-tool";
-import { MarginTool } from "../tools/margin-tool";
 import { PaddingTool } from "../tools/padding-tool";
-import { WidthHeightTool } from "../tools/width-height-tool";
-import { ChangeImage } from './tools/change-image'
+import { HeightTool } from "../tools/height-tool";
+import { ChangeImage } from "./tools/change-image";
 
 type ImageToolsProps = {};
 
@@ -21,8 +20,8 @@ export function ImageTools({}: ImageToolsProps) {
         <h2 className="text-quaternary text-sm">Box Model</h2>
         <div className="flex items-center justify-center">
           <PaddingTool currentElement={currentElement} />
-          <MarginTool currentElement={currentElement} />
-          <WidthHeightTool currentElement={currentElement} />
+          {/* <MarginTool currentElement={currentElement} /> */}
+          <HeightTool currentElement={currentElement} />
         </div>
       </div>
 
@@ -30,7 +29,7 @@ export function ImageTools({}: ImageToolsProps) {
         <h2 className="text-quaternary text-sm">Interactive Actions</h2>
         <div className="flex items-center justify-center">
           <RemoveElement currentElement={currentElement} />
-          <ChangeImage currentElement={currentElement}/>
+          <ChangeImage currentElement={currentElement} />
         </div>
       </div>
 

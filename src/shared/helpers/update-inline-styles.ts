@@ -4,7 +4,7 @@ import { updateElement } from "../actions/element/set/update-element";
 const modelsPrismaArray = ["component", "section"];
 
 const ruleComponentStyles = [
-  { widthAndHeight: "outerStyles" },
+  { height: "outerStyles" },
   { textAlign: "outerStyles" },
   { padding: "innerStyles" },
   { margin: "outerStyles" },

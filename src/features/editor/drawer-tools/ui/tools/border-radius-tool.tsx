@@ -18,7 +18,7 @@ export function BorderRadiusTool({ currentElement }: BorderRadiusToolProps) {
       const borderRadius = window.getComputedStyle(
         currentElement as HTMLElement,
       ).borderRadius;
-      const a = borderRadius.match(/\d+(\.\d+)?(?=px)/);
+      const a = borderRadius.match(/\d+(\.\d+)?(?=%)/);
       const b = a ? a[0] : undefined;
       return b ? [+b] : undefined;
     }
@@ -37,20 +37,20 @@ export function BorderRadiusTool({ currentElement }: BorderRadiusToolProps) {
 
     if (currentElement) {
       (currentElement as HTMLElement).style.borderRadius =
-        `${value[0].toString()}px`;
+        `${value[0].toString()}%`;
     }
   };
 
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="toggle-popover" aria-label="Font Size">
+        <button className="toggle-popover" aria-label="Border Radius">
           <CornersIcon className="svg-icon-fill" />
         </button>
       </PopoverTrigger>
 
       <PopoverContent
-        className="bg-glass relative h-[50px] w-80 rounded-[25px] border-none p-0"
+        className="relative h-[50px] rounded-[25px] border-none p-0"
         onBlur={() =>
           updateInlineStyles(currentElement as HTMLElement, pathName, "rounded")
         }
@@ -61,18 +61,17 @@ export function BorderRadiusTool({ currentElement }: BorderRadiusToolProps) {
           className="fill-neutral-200/50 dark:fill-neutral-800/50"
         />
 
-        <div className="absolute top-0 z-20 w-[320px]">
+        <div className="bg-glass absolute top-0 z-20 w-[300px] rounded-full">
           <span className="text-black-stroke-thin pointer-events-none absolute top-1/2 z-30 w-full -translate-y-1/2 transform text-center text-slate-50">
-            {" "}
-            Text Border Radius - <span>{text}px</span>
+            Text Border Radius - <span>{text}%</span>
           </span>
           <Slider
             onValueChange={(n) => onSetBorderRadius(n)}
             defaultValue={getCurrentNumberFromBorderRadius()}
             min={0}
-            max={30}
-            step={1}
-            className="[&>span:first-child]:h-[50px] [&>span:nth-child(2)>span]:h-[50px] [&>span:nth-child(2)>span]:h-[50px] [&>span:nth-child(2)>span]:w-[50px]"
+            max={50}
+            step={0.2}
+            className="[&>span:first-child]:h-[50px] [&>span:nth-child(2)>span]:h-[50px] [&>span:nth-child(2)>span]:w-[50px]"
           />
         </div>
       </PopoverContent>

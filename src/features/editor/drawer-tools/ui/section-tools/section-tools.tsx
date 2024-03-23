@@ -1,13 +1,13 @@
 "use client";
 
 import { useDrawerToolsStore } from "@/shared/store/editable-group-store";
-import { ToggleGroup } from "@/shared/ui/toggle-group";
 import { BGColorTools } from "../tools/bg-color-tools";
 import { BorderRadiusTool } from "../tools/border-radius-tool";
 import { ChangeBackgroundImage } from "../tools/change-background-image";
 import { PaddingTool } from "../tools/padding-tool";
 import { DeleteSection } from "./modal/delete-section";
 import { ToggleElementDND } from "./tools/toggle-element-dnd";
+import { HeightTool } from '../tools/height-tool'
 
 type SectionToolsProps = {};
 
@@ -21,6 +21,7 @@ export function SectionTools({}: SectionToolsProps) {
         <h2 className="text-quaternary text-sm">Box Model</h2>
         <div className="flex items-center justify-center">
           <PaddingTool currentElement={currentElement} />
+          <HeightTool currentElement={currentElement} />
         </div>
       </div>
 

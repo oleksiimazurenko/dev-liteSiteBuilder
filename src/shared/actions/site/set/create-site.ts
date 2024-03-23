@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma-client";
-import { avatar, text } from "@/shared/styles/initial/style-component";
+import { image, text } from "@/shared/styles/initial/style-component";
 import { sectionStyles } from "@/shared/styles/initial/style-section";
 import { getErrorMessage } from "@/shared/utils/extract-error-message";
 import { revalidatePath } from "next/cache";
@@ -91,8 +91,8 @@ const createSite = async (
           alt: name,
           width: 100,
           height: 100,
-          innerStyles: avatar.innerStyles,
-          outerStyles: avatar.outerStyles,
+          innerStyles: image.innerStyles,
+          outerStyles: image.outerStyles,
           sectionId: section.id,
           position: 1,
         },

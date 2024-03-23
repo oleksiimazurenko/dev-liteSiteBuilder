@@ -62,12 +62,6 @@ export function ChangeBackgroundImage({
         const { success, fileName } = await uploadImage(data, userId);
         //-----------------------------------------------------------------------------
 
-        // Изменение имени файла в модальном окне
-        // setFileName(
-        //   <ImagePlus size={48} strokeWidth={0.5} absoluteStrokeWidth />,
-        // );
-        //-----------------------------------------------------------------------------
-
         // Изменения Background на прямую в DOM структуре
         if (currentElement)
           (currentElement as HTMLElement).style.setProperty(

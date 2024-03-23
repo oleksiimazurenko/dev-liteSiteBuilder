@@ -25,7 +25,7 @@ export default async function RootLayout({
             <Footer />
           </div>
 
-          <Toaster />
+          <Toaster className="[&>li]:bg-glass [&>li]:text-tertiary [&>li]:!border-none" />
         </body>
       </html>
     </SessionProvider>

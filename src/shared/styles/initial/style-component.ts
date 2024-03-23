@@ -1,17 +1,18 @@
 export const text = {
   outerStyles: {
-		marginTop: "20px",
+    width: "100%",
 	},
   innerStyles: {
-		marginTop: "20px",
 		textShadow: "1px 1px 2px rgba(0, 0, 0, 0.75)",
 		fontSize: "1.25rem",
 		color: "#f8fafc",
 		textAlign: "center",
 	},
 };
-export const avatar = {
-  outerStyles: {},
+export const image = {
+  outerStyles: {
+    width: "100%",
+  },
   innerStyles: {
     borderRadius: "100%",
     width: "100px",
@@ -19,8 +20,4 @@ export const avatar = {
     objectFit: "cover",
     objectPosition: "center",
   },
-};
-export const image = {
-  outerStyles: {},
-  innerStyles: {},
 };

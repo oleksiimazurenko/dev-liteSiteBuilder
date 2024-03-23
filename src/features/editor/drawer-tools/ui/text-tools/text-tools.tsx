@@ -4,9 +4,8 @@ import { useDrawerToolsStore } from "@/shared/store/editable-group-store";
 import { RemoveElement } from "../section-tools/tools/remove-element";
 import { BGColorTools } from "../tools/bg-color-tools";
 import { BorderRadiusTool } from "../tools/border-radius-tool";
-import { MarginTool } from "../tools/margin-tool";
 import { PaddingTool } from "../tools/padding-tool";
-import { WidthHeightTool } from "../tools/width-height-tool";
+import { HeightTool } from "../tools/height-tool";
 import { ChangeText } from "./tools/change-text";
 import { ColorTool } from "./tools/color-tool";
 import { FontSizeTool } from "./tools/font-size-tool";
@@ -26,8 +25,7 @@ export function TextTools({}: ToolsTextProps) {
         <h2 className="text-quaternary text-sm">Box Model</h2>
         <div className="flex items-center justify-center">
           <PaddingTool currentElement={currentElement} />
-          <MarginTool currentElement={currentElement} />
-          <WidthHeightTool currentElement={currentElement} />
+          <HeightTool currentElement={currentElement} />
         </div>
       </div>
 
