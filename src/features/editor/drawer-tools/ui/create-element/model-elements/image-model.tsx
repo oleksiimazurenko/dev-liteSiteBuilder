@@ -89,7 +89,7 @@ export function ImageModel({ id }: ImageElementProps) {
 
         // Чтобы опять можно было выбрать тот же файл
         const inputFile = document.querySelector(
-          "#fileImageChangeBackground",
+          "#fileImageInput",
         ) as HTMLInputElement;
         if (inputFile) {
           inputFile.value = "";
@@ -107,8 +107,9 @@ export function ImageModel({ id }: ImageElementProps) {
 
         // Чтобы опять можно было выбрать тот же файл
         const inputFile = document.querySelector(
-          "#fileImageChangeBackground",
+          "#fileImageInput",
         ) as HTMLInputElement;
+
         if (inputFile) {
           inputFile.value = "";
         }
@@ -151,7 +152,7 @@ export function ImageModel({ id }: ImageElementProps) {
                   <FormControl>
                     <div>
                       <input
-                        id="fileImageChangeBackground"
+                        id="fileImageInput"
                         className="hidden"
                         type="file"
                         onChange={(e) => {
@@ -162,7 +163,7 @@ export function ImageModel({ id }: ImageElementProps) {
                         }}
                       />
                       <label
-                        htmlFor="fileImageChangeBackground"
+                        htmlFor="fileImageInput"
                         className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-[0.8px] border-dashed px-[30px] py-[30px] text-center"
                       >
                         {fileName ? (

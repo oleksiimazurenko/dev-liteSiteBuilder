@@ -1,6 +1,8 @@
 export const text = {
   outerStyles: {
     width: "100%",
+    display: "flex",
+    alignItems: "center",
 	},
   innerStyles: {
 		textShadow: "1px 1px 2px rgba(0, 0, 0, 0.75)",

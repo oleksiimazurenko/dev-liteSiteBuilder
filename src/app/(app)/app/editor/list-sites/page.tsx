@@ -25,13 +25,13 @@ export default async function Page() {
 
         {(!sites || sites.length === 0) && (
           <>
-            <div className="text-white-2 dark:text-dark-2 md:text-[30px]">
+            <div className="text-primary md:text-[30px]">
               Ваш перший сайт
             </div>
-            <div className="text-white-2 dark:text-dark-2 text-center md:text-[16px]">
+            <div className="text-primary text-center md:text-[16px]">
               Ви легко можете створити Ваш сайт прямо зараз!
             </div>
-            <MoveDown strokeWidth={0.75} className="mt-10" />
+            <MoveDown strokeWidth={0.75} className="mt-10 svg-icon-stroke" />
           </>
         )}
 

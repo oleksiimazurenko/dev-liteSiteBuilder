@@ -14,6 +14,7 @@ const ruleComponentStyles = [
   { color: "innerStyles" },
   { fontSize: "innerStyles" },
   { textStroke: "innerStyles" },
+  { imageSize: "innerStyles" },
 ];
 
 const ruleSectionStyles = [
@@ -27,11 +28,17 @@ const updateInlineStyles = async (
   pathName: string,
   style: string,
 ) => {
+
+
+
   // Функция для проверки наличия атрибута в элементе
   const hasPrismaAttribute = () =>
     modelsPrismaArray.some((attribute) =>
       element?.hasAttribute(`data-${attribute}`),
     );
+
+
+
 
   // Функция для получения модели
   const getModel = () =>
@@ -39,10 +46,16 @@ const updateInlineStyles = async (
       element?.hasAttribute(`data-${attribute}`),
     ) || "";
 
-  // Функция для преобразования стилей kebab-case в camelCase
+
+
+
+  // Функция для преобразования стилей kebab-case в camelCase (например: text-align -> textAlign)
   const kebabToCamelCase = (string: string): string => {
     return string.replace(/(-\w)/g, (match) => match[1].toUpperCase());
   };
+
+
+
 
   // Функция для сериализации стилей
   const serializeInlineStyles = (
@@ -68,6 +81,53 @@ const updateInlineStyles = async (
     return inlineStyles;
   };
 
+
+
+
+  const getSectionStyles = (element: HTMLElement): CSSStyleDeclaration => {
+    const object = ruleSectionStyles.find(
+      (item) => Object.keys(item)[0] === style,
+    );
+    const isSectionStyles = object
+      ? Object.values(object)[0] === "sectionStyles"
+      : true;
+    return isSectionStyles
+      ? element.style
+      : (element.firstChild as HTMLElement).style;
+  };
+
+
+
+
+  const getComponentStyles = (element: HTMLElement): CSSStyleDeclaration => {
+    const object = ruleComponentStyles.find(
+      (item) => Object.keys(item)[0] === style,
+    );
+    const isOuterStyles = object
+      ? Object.values(object)[0] === "outerStyles"
+      : true;
+    return isOuterStyles
+      ? (element.parentElement as HTMLElement).style
+      : element.style;
+  };
+
+
+
+  // Функция для получения data атрибута
+  const getDataAttribute = (
+    element: HTMLElement,
+    attributeArray: string[],
+  ): string => {
+    for (const attribute of attributeArray) {
+      if (element.hasAttribute(`data-${attribute}`)) {
+        return `data-${attribute}`;
+      }
+    }
+    return "";
+  };
+
+
+
   // Функция для получения редактируемого элемента
   const getCurrentStyles = (element: HTMLElement): CSSStyleDeclaration => {
     const dataAttributeArray = ["component", "section"];
@@ -82,51 +142,18 @@ const updateInlineStyles = async (
     }
   };
 
-  const getDataAttribute = (
-    element: HTMLElement,
-    attributeArray: string[],
-  ): string => {
-    for (const attribute of attributeArray) {
-      if (element.hasAttribute(`data-${attribute}`)) {
-        return `data-${attribute}`;
-      }
-    }
-    return "";
-  };
 
-  const getComponentStyles = (element: HTMLElement): CSSStyleDeclaration => {
-    const object = ruleComponentStyles.find(
-      (item) => Object.keys(item)[0] === style,
-    );
-    const isOuterStyles = object
-      ? Object.values(object)[0] === "outerStyles"
-      : true;
-    return isOuterStyles
-      ? (element.parentElement as HTMLElement).style
-      : element.style;
-  };
 
-  const getSectionStyles = (element: HTMLElement): CSSStyleDeclaration => {
-    const object = ruleSectionStyles.find(
-      (item) => Object.keys(item)[0] === style,
-    );
-    const isSectionStyles = object
-      ? Object.values(object)[0] === "sectionStyles"
-      : true;
-    return isSectionStyles
-      ? element.style
-      : (element.firstChild as HTMLElement).style;
-  };
 
   // Функция для получения ключа с помощью которого мы будем обновлять стили в базе данных
   const getKey = (style: string): string => {
-    const dataAttribureArray = ["component", "section"];
-    const hasDataAttribute = dataAttribureArray.some((attribute) =>
+    const dataAttributeArray = ["component", "section"];
+    const hasDataAttribute = dataAttributeArray.some((attribute) =>
       element?.hasAttribute(`data-${attribute}`),
     );
 
     if (hasDataAttribute) {
-      const dataAttribute = `data-${dataAttribureArray.find((attribute) =>
+      const dataAttribute = `data-${dataAttributeArray.find((attribute) =>
         element?.hasAttribute(`data-${attribute}`),
       )}`;
 
@@ -155,6 +182,7 @@ const updateInlineStyles = async (
       return "Attribute not found";
     }
   };
+
 
   const id = element?.getAttribute("data-id");
   if (!id) {

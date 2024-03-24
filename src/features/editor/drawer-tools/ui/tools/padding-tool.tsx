@@ -6,6 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
 import { Arrow } from "@radix-ui/react-popover";
 import cn from "classnames";
+import { Tally4 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -15,19 +16,14 @@ type PaddingToolProps = {
 
 export function PaddingTool({ currentElement }: PaddingToolProps) {
   const pathName = usePathname();
-  const [isDisabled, setIsDisabled] = useState(false); // Пока не используется, так как пока что нет Header
+  const parentElement = currentElement?.parentElement;
+  const parentHeight = currentElement
+    ? (parentElement as HTMLDivElement).offsetHeight
+    : 0;
 
-  // Блокируем кнопку, если текущий элемент является первым элементом в секции
-  // useEffect(() => {
-  //   (async () => {
-  //     const { data: idFirstSection } = await getIdFirstSection(pathName);
-  //     if (!idFirstSection) return;
-
-  //     if (currentElement?.getAttribute("data-id") === idFirstSection) {
-  //       setIsDisabled(true);
-  //     }
-  //   })();
-  // }, []);
+  const childHeight = currentElement
+    ? (currentElement as HTMLDivElement).offsetHeight
+    : 0;
 
   const getCurrentPaddingNumbers = (): number[] | undefined => {
     if (currentElement) {
@@ -43,10 +39,24 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
     return undefined;
   };
 
+  const [uniformPadding, setUniformPadding] = useState(0);
   const [paddingValues, setPaddingValues] = useState<number[]>(() => {
     const initialPadding = getCurrentPaddingNumbers();
     return initialPadding || [0, 0, 0, 0];
   });
+
+  const setUniformPaddingAllSides = (value: number) => {
+    setUniformPadding(value); // Обновляем состояние равномерного padding
+    setPaddingValues([value, value, value, value]); // Обновляем состояние padding (все стороны равны
+
+    // Применяем равномерный padding ко всем сторонам элемента
+    if (currentElement) {
+      (currentElement as HTMLElement).style.padding = `${value}px`;
+      if (childHeight > parentHeight) {
+        (parentElement as HTMLDivElement).style.height = childHeight + "px";
+      }
+    }
+  };
 
   useEffect(() => {
     setPaddingValues(() => {
@@ -75,7 +85,19 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
       ];
       (currentElement as HTMLElement).style[paddingStyles[index] as any] =
         `${value}px`;
+
+      if (childHeight > parentHeight) {
+        (parentElement as HTMLDivElement).style.height = childHeight + "px";
+      }
     }
+  };
+
+  const isUniformPadding = () => {
+    return (
+      paddingValues[0] === paddingValues[1] &&
+      paddingValues[0] === paddingValues[2] &&
+      paddingValues[0] === paddingValues[3]
+    );
   };
 
   const getDefaultValue = (n: number) => {
@@ -87,10 +109,16 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
 
   return (
     <Popover
-      onOpenChange={(isOpen) =>
+      onOpenChange={(isOpen) => {
         !isOpen &&
-        updateInlineStyles(currentElement as HTMLElement, pathName, "padding")
-      }
+          updateInlineStyles(
+            currentElement as HTMLElement,
+            pathName,
+            "padding",
+          );
+        !isOpen &&
+          updateInlineStyles(currentElement as HTMLElement, pathName, "height");
+      }}
     >
       <PopoverTrigger asChild>
         <button className="toggle-popover" aria-label="Padding">
@@ -111,18 +139,15 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
           <div
             className={cn(
               "flex h-[200px] w-[50px] flex-col items-center justify-center",
-              {
-                ["opacity-[0.4]"]: isDisabled,
-              },
             )}
           >
             <span>T</span>
             <Slider
               max={120}
               step={1}
-              disabled={isDisabled}
               onValueChange={(n) => onSetPadding(n, 0)}
               defaultValue={getDefaultValue(0)}
+              value={isUniformPadding() ? [uniformPadding] : [paddingValues[0]]}
               className="input-slider h-[200px] w-[5px] rounded-md [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
@@ -135,6 +160,7 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
               step={1}
               onValueChange={(n) => onSetPadding(n, 1)}
               defaultValue={getDefaultValue(1)}
+              value={isUniformPadding() ? [uniformPadding] : [paddingValues[1]]}
               className="input-slider h-[200px] w-[5px] rounded-md [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
@@ -147,11 +173,13 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
               step={1}
               onValueChange={(n) => onSetPadding(n, 2)}
               defaultValue={getDefaultValue(2)}
+              value={isUniformPadding() ? [uniformPadding] : [paddingValues[2]]}
               className="input-slider h-[200px] w-[5px] rounded-md [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{paddingValues[2]}px</span>
           </div>
+
           <div className="flex h-[200px] w-[50px] flex-col items-center justify-center">
             <span>L</span>
             <Slider
@@ -159,10 +187,24 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
               step={1}
               onValueChange={(n) => onSetPadding(n, 3)}
               defaultValue={getDefaultValue(3)}
+              value={isUniformPadding() ? [uniformPadding] : [paddingValues[3]]}
               className="input-slider h-[200px] w-[5px] rounded-md [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
               orientation="vertical"
             />
             <span>{paddingValues[3]}px</span>
+          </div>
+
+          <div className="flex flex-col items-center justify-center">
+            <Tally4 strokeWidth={0.75} />
+            <Slider
+              max={120}
+              step={1}
+              onValueChange={(n) => setUniformPaddingAllSides(n[0])}
+              defaultValue={[uniformPadding]}
+              className="input-slider h-[200px] w-[5px] rounded-md [&>span:first-child]:h-[100%] [&>span:first-child]:w-[5px] [&>span:nth-child(2)]:left-[-7.5px]"
+              orientation="vertical"
+            />
+            <span>{isUniformPadding() ? `${uniformPadding}px` : "mix"}</span>
           </div>
         </div>
       </PopoverContent>

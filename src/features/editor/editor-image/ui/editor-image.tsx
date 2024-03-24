@@ -3,7 +3,6 @@
 import { useRef } from "react";
 
 import { useDrawerToolsStore } from "@/shared/store/editable-group-store";
-import Image from "next/image";
 import cn from "classnames";
 
 type EditorImageProps = {
@@ -56,19 +55,34 @@ export function EditorImage({
 
   return (
     <Tag style={outerStyles as React.CSSProperties}>
-      <Image
+      <img
         data-component
         data-trigger-tools
         data-id={id}
-        className={cn("cursor-pointer")}
+        className={cn("!relative cursor-pointer")}
         style={innerStyles as React.CSSProperties}
         src={src}
         alt={alt}
         ref={editorImageRef}
-        width={width}
-        height={height}
         onClick={onHandleClick}
       />
     </Tag>
   );
+}
+
+{
+  /* <Image
+  data-component
+  data-trigger-tools
+  data-id={id}
+  className={cn("!relative cursor-pointer")}
+  style={innerStyles as React.CSSProperties}
+  src={src}
+  alt={alt}
+  quality={100}
+  ref={editorImageRef}
+  width={width}
+  height={height}
+  onClick={onHandleClick}
+/>; */
 }
