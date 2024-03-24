@@ -47,10 +47,11 @@ model Component {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   type String
 
-  parenTag String?
-  position Int
+  parentTag String?
+  position  Int
 
   outerStyles Json?
+  middleStyles Json?
   innerStyles Json?
 
   width  Int?

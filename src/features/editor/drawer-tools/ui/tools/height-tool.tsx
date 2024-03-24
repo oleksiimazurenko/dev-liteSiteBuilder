@@ -1,5 +1,6 @@
 import RowSpacing from "@/features/editor/drawer-tools/svg/height-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
+import { LocationStyles } from '@/shared/types/types'
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
 import { Arrow } from "@radix-ui/react-popover";
@@ -8,9 +9,10 @@ import { useEffect, useState } from "react";
 
 type HeightToolProps = {
   currentElement: HTMLElement | Element | undefined | null;
+  locationStyles: LocationStyles;
 };
 
-export function HeightTool({ currentElement }: HeightToolProps) {
+export function HeightTool({ currentElement, locationStyles }: HeightToolProps) {
   const parentElement = currentElement?.parentElement;
   const pathName = usePathname();
   const minSlider = currentElement ? (currentElement as HTMLDivElement).offsetHeight : 0;
@@ -49,7 +51,7 @@ export function HeightTool({ currentElement }: HeightToolProps) {
     <Popover
       onOpenChange={(isOpen) =>
         !isOpen &&
-        updateInlineStyles(currentElement as HTMLElement, pathName, "height")
+        updateInlineStyles(currentElement as HTMLElement, pathName, locationStyles)
       }
     >
       <PopoverTrigger asChild>

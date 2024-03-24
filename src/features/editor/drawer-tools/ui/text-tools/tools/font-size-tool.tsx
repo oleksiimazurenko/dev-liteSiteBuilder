@@ -1,5 +1,6 @@
 import FontSizeIcon from "@/features/editor/drawer-tools/svg/font-size-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
+import { LocationStyles } from "@/shared/types/types";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
 import { Arrow } from "@radix-ui/react-popover";
@@ -8,9 +9,13 @@ import { useState } from "react";
 
 type FontSizeToolProps = {
   currentElement: HTMLElement | Element | undefined | null;
+  locationStyles: LocationStyles;
 };
 
-export function FontSizeTool({ currentElement }: FontSizeToolProps) {
+export function FontSizeTool({
+  currentElement,
+  locationStyles,
+}: FontSizeToolProps) {
   const pathName = usePathname();
 
   // Получаем текущее значение font size
@@ -39,23 +44,23 @@ export function FontSizeTool({ currentElement }: FontSizeToolProps) {
   };
 
   return (
-    <Popover>
+    <Popover
+      onOpenChange={(isOpen) =>
+        !isOpen &&
+        updateInlineStyles(
+          currentElement as HTMLElement,
+          pathName,
+          locationStyles,
+        )
+      }
+    >
       <PopoverTrigger asChild>
         <button className="toggle-popover" aria-label="Font Size">
           <FontSizeIcon className="svg-icon-fill" />
         </button>
       </PopoverTrigger>
 
-      <PopoverContent
-        className="bg-glass relative h-[50px] w-80 rounded-[25px] border-none p-0"
-        onBlur={() =>
-          updateInlineStyles(
-            currentElement as HTMLElement,
-            pathName,
-            "fontSize",
-          )
-        }
-      >
+      <PopoverContent className="bg-glass relative h-[50px] w-80 rounded-[25px] border-none p-0">
         <Arrow
           width={100}
           height={5}

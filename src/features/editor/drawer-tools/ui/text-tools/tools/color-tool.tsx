@@ -1,14 +1,16 @@
 import { rgbToHex } from "@/shared/helpers/color/rgb-to-hex";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
+import { LocationStyles } from '@/shared/types/types'
 import { Input } from "@/shared/ui/input";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 
 type ColorToolProps = {
   currentElement: HTMLElement | Element | undefined | null;
+  locationStyles: LocationStyles;
 };
 
-export function ColorTool({ currentElement }: ColorToolProps) {
+export function ColorTool({ currentElement, locationStyles }: ColorToolProps) {
   const inputSingleColorRef = useRef<HTMLInputElement>(null);
 
   const pathName = usePathname();
@@ -34,7 +36,7 @@ export function ColorTool({ currentElement }: ColorToolProps) {
         type="color"
         value={color}
         onBlur={() =>
-          updateInlineStyles(currentElement as HTMLElement, pathName, "color")
+          updateInlineStyles(currentElement as HTMLElement, pathName, locationStyles)
         }
         className="h-6 w-5 cursor-pointer border-none bg-transparent p-0"
         tabIndex={-1}

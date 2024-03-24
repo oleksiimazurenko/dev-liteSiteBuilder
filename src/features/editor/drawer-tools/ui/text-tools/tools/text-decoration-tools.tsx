@@ -4,6 +4,7 @@ import FontBoldIcon from "@/features/editor/drawer-tools/svg/font-bold-icon.svg"
 import FontItalicIcon from "@/features/editor/drawer-tools/svg/font-italic-icon.svg";
 import UnderlineIcon from "@/features/editor/drawer-tools/svg/underline-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
+import { LocationStyles } from "@/shared/types/types";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/toggle-group";
 import { Arrow } from "@radix-ui/react-popover";
@@ -13,10 +14,12 @@ import { useEffect, useState } from "react";
 
 type TextDecorationToolsProps = {
   currentElement: HTMLElement | Element | undefined | null;
+  locationStyles: LocationStyles;
 };
 
 export function TextDecorationTools({
   currentElement,
+  locationStyles,
 }: TextDecorationToolsProps) {
   const [values, setValues] = useState<string[] | null>(null);
 
@@ -96,7 +99,7 @@ export function TextDecorationTools({
         updateInlineStyles(
           currentElement as HTMLElement,
           pathName,
-          "textDecoration",
+          locationStyles,
         )
       }
     >

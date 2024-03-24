@@ -15,9 +15,10 @@ import { Component } from "@prisma/client";
 export async function RenderComponent({
   id,
   type,
-  parenTag,
+  parentTag,
 
   outerStyles,
+  middleStyles,
   innerStyles,
 
   width,
@@ -31,30 +32,31 @@ export async function RenderComponent({
 }: Component) {
   const dataProduct = await getProductsList();
 
-  if (type === "text" && textContent && parenTag) {
+  if (type === "text" && textContent && parentTag) {
     return {
       id,
       content: (
         <EditorText
           id={id}
           key={id}
-          parenTag={parenTag as keyof JSX.IntrinsicElements}
+          parentTag={parentTag as keyof JSX.IntrinsicElements}
           textContent={textContent}
           outerStyles={outerStyles as React.CSSProperties}
+          middleStyles={middleStyles as React.CSSProperties}
           innerStyles={innerStyles as React.CSSProperties}
         />
       ),
     };
   }
 
-  if (type === "image" && src && alt && width && height && parenTag) {
+  if (type === "image" && src && alt && width && height && parentTag) {
     return {
       id,
       content: (
         <EditorImage
           id={id}
           key={id}
-          parenTag={parenTag as keyof JSX.IntrinsicElements}
+          parentTag={parentTag as keyof JSX.IntrinsicElements}
           src={src}
           alt={alt}
           width={width}

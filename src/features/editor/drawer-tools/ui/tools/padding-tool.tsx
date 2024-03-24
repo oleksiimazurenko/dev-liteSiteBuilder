@@ -1,33 +1,37 @@
 "use client";
 
-import PaddingIcon from "@/features/editor/drawer-tools/svg/padding-icon.svg";
-import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
-import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
-import { Slider } from "@/shared/ui/slider";
-import { Arrow } from "@radix-ui/react-popover";
-import cn from "classnames";
-import { Tally4 } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import PaddingIcon from "@/features/editor/drawer-tools/svg/padding-icon.svg"
+import { updateInlineStyles } from "@/shared/helpers/update-inline-styles"
+import { LocationStyles } from '@/shared/types/types'
+import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover"
+import { Slider } from "@/shared/ui/slider"
+import { Arrow } from "@radix-ui/react-popover"
+import cn from "classnames"
+import { Tally4 } from "lucide-react"
+import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
 
 type PaddingToolProps = {
   currentElement: HTMLElement | Element | undefined | null;
+  locationStyles: LocationStyles;
 };
 
-export function PaddingTool({ currentElement }: PaddingToolProps) {
+export function PaddingTool({ currentElement, locationStyles }: PaddingToolProps) {
   const pathName = usePathname();
-  const parentElement = currentElement?.parentElement;
-  const parentHeight = currentElement
-    ? (parentElement as HTMLDivElement).offsetHeight
-    : 0;
+  
+  const outerElement = currentElement?.parentElement?.parentElement;
+  const middleElement = currentElement?.parentElement;
 
-  const childHeight = currentElement
-    ? (currentElement as HTMLDivElement).offsetHeight
+  const outerHeight = currentElement
+    ? (outerElement as HTMLDivElement).offsetHeight
+    : 0;
+  const middleHeight = middleElement
+    ? (middleElement as HTMLDivElement).offsetHeight
     : 0;
 
   const getCurrentPaddingNumbers = (): number[] | undefined => {
     if (currentElement) {
-      const style = window.getComputedStyle(currentElement as HTMLElement);
+      const style = window.getComputedStyle((locationStyles === 'middle' ? middleElement : currentElement) as HTMLElement);
       const paddingTop = parseFloat(style.paddingTop);
       const paddingRight = parseFloat(style.paddingRight);
       const paddingBottom = parseFloat(style.paddingBottom);
@@ -51,9 +55,9 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
 
     // Применяем равномерный padding ко всем сторонам элемента
     if (currentElement) {
-      (currentElement as HTMLElement).style.padding = `${value}px`;
-      if (childHeight > parentHeight) {
-        (parentElement as HTMLDivElement).style.height = childHeight + "px";
+      ((locationStyles === 'middle' ? middleElement : currentElement) as HTMLElement).style.padding = `${value}px`;
+      if (middleHeight > outerHeight) {
+        (outerElement as HTMLDivElement).style.height = middleHeight + "px";
       }
     }
   };
@@ -83,11 +87,12 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
         "paddingBottom",
         "paddingLeft",
       ];
-      (currentElement as HTMLElement).style[paddingStyles[index] as any] =
+      (middleElement as HTMLElement).style[paddingStyles[index] as any] =
         `${value}px`;
 
-      if (childHeight > parentHeight) {
-        (parentElement as HTMLDivElement).style.height = childHeight + "px";
+      if (middleHeight > outerHeight) {
+        
+        (outerElement as HTMLDivElement).style.height = middleHeight + "px";
       }
     }
   };
@@ -114,7 +119,7 @@ export function PaddingTool({ currentElement }: PaddingToolProps) {
           updateInlineStyles(
             currentElement as HTMLElement,
             pathName,
-            "padding",
+            locationStyles
           );
         !isOpen &&
           updateInlineStyles(currentElement as HTMLElement, pathName, "height");

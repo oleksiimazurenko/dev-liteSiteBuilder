@@ -69,7 +69,7 @@ export function ImageModel({ id }: ImageElementProps) {
           id,
           type: "image",
           textContent: "Default text",
-          parenTag: "div",
+          parentTag: "div",
           rPath: pathName,
           href: null,
           src: `/images/users/${id}/${fileName}`,

@@ -38,7 +38,7 @@ const createPage = async (id: string, name: string, url: string) => {
       const component = await prisma.component.create({
         data: {
           type: "text",
-          parenTag: "div",
+          parentTag: "div",
           innerStyles: text.innerStyles,
           outerStyles: text.outerStyles,
           textContent: section.name,

@@ -1,5 +1,6 @@
 import Dimensions from "@/features/editor/drawer-tools/svg/dimensions-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
+import { LocationStyles } from '@/shared/types/types'
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
 import { Arrow } from "@radix-ui/react-popover";
@@ -8,9 +9,10 @@ import { useEffect, useState } from "react";
 
 type ImageSizeToolProps = {
   currentElement: HTMLElement | Element | undefined | null;
+  locationStyles: LocationStyles
 };
 
-export function ImageSizeTool({ currentElement }: ImageSizeToolProps) {
+export function ImageSizeTool({ currentElement, locationStyles }: ImageSizeToolProps) {
   const parentElement = currentElement?.parentElement;
   const pathName = usePathname();
   const parentHeight = currentElement
@@ -86,10 +88,10 @@ export function ImageSizeTool({ currentElement }: ImageSizeToolProps) {
           updateInlineStyles(
             currentElement as HTMLElement,
             pathName,
-            "imageSize",
+            locationStyles,
           );
         !isOpen &&
-          updateInlineStyles(currentElement as HTMLElement, pathName, "height");
+          updateInlineStyles(currentElement as HTMLElement, pathName, "outer");
       }}
     >
       <PopoverTrigger asChild>

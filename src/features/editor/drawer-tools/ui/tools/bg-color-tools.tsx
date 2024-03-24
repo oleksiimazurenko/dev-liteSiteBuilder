@@ -3,6 +3,7 @@
 import { getGradientColor } from "@/shared/helpers/color/get-gradient-color";
 import { rgbToHex } from "@/shared/helpers/color/rgb-to-hex";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
+import { LocationStyles } from "@/shared/types/types";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
 import { Input } from "@/shared/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
@@ -13,9 +14,13 @@ import { useRef, useState } from "react";
 
 type BGColorToolsProps = {
   currentElement: HTMLElement | Element | undefined | null;
+  locationStyles: LocationStyles;
 };
 
-export function BGColorTools({ currentElement }: BGColorToolsProps) {
+export function BGColorTools({
+  currentElement,
+  locationStyles,
+}: BGColorToolsProps) {
   const inputSingleColorRef = useRef<HTMLInputElement>(null);
   const inputFirstColorRef = useRef<HTMLInputElement>(null);
   const inputSecondColorRef = useRef<HTMLInputElement>(null);
@@ -67,7 +72,16 @@ export function BGColorTools({ currentElement }: BGColorToolsProps) {
   };
 
   return (
-    <Popover>
+    <Popover
+      onOpenChange={(isOpen) =>
+        !isOpen &&
+        updateInlineStyles(
+          currentElement as HTMLElement,
+          pathName,
+          locationStyles,
+        )
+      }
+    >
       <PopoverTrigger asChild>
         <button className="toggle-popover" aria-label="Background color">
           <PaintBucket
@@ -78,23 +92,14 @@ export function BGColorTools({ currentElement }: BGColorToolsProps) {
         </button>
       </PopoverTrigger>
 
-      <PopoverContent
-        className="w-80 overflow-hidden rounded-md p-0"
-        onBlur={() =>
-          updateInlineStyles(
-            currentElement as HTMLElement,
-            pathName,
-            "background",
-          )
-        }
-      >
+      <PopoverContent className="w-80 overflow-hidden rounded-md p-0">
         <Arrow width={100} height={5} className="fill-slate-200 " />
         <Carousel className="w-full max-w-xs">
           <CarouselContent>
             <CarouselItem>
               <div className="relative h-[200px] w-full overflow-hidden">
                 <button
-                  className="ring-offset-background hover:bg-muted hover:text-muted-foreground focus-visible:ring-ring data-[state=on]:bg-accent data-[state=on]:text-accent-foreground absolute right-0 top-0 z-30 inline-flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-bl-md bg-slate-100 p-[12px] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                  className="toggle-popover"
                   aria-label="Change text"
                   onClick={onResetBackgroundColor}
                 >

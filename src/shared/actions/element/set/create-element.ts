@@ -21,7 +21,7 @@ const createElement = async ({
   src,
   alt,
   href,
-  parenTag,
+  parentTag,
   rPath,
 }: CreateElement) => {
   try {
@@ -49,7 +49,7 @@ const createElement = async ({
         src,
         alt,
         href,
-        parenTag,
+        parentTag,
         sectionId: id,
         position: newPosition,
       },

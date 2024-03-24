@@ -4,32 +4,21 @@ import { updateElement } from "../actions/element/set/update-element";
 const modelsPrismaArray = ["component", "section"];
 
 const ruleComponentStyles = [
-  { height: "outerStyles" },
-  { textAlign: "outerStyles" },
-  { padding: "innerStyles" },
-  { margin: "outerStyles" },
-  { rounded: "innerStyles" },
-  { background: "innerStyles" },
-  { textDecoration: "innerStyles" },
-  { color: "innerStyles" },
-  { fontSize: "innerStyles" },
-  { textStroke: "innerStyles" },
-  { imageSize: "innerStyles" },
+  { outer: "outerStyles" },
+  { middle: "middleStyles" },
+  { inner: "innerStyles" },
 ];
 
 const ruleSectionStyles = [
-  { padding: "sectionStyles" },
-  { rounded: "sectionStyles" },
-  { background: "sectionStyles" },
+  { outer: "sectionStyles" },
+  { inner: "containerStyles" },
 ];
 
 const updateInlineStyles = async (
   element: HTMLElement | SVGSVGElement,
   pathName: string,
-  style: string,
+  locationStyles: string,
 ) => {
-
-
 
   // Функция для проверки наличия атрибута в элементе
   const hasPrismaAttribute = () =>
@@ -85,15 +74,20 @@ const updateInlineStyles = async (
 
 
   const getSectionStyles = (element: HTMLElement): CSSStyleDeclaration => {
+
     const object = ruleSectionStyles.find(
-      (item) => Object.keys(item)[0] === style,
+      (item) => Object.keys(item)[0] === locationStyles,
     );
-    const isSectionStyles = object
-      ? Object.values(object)[0] === "sectionStyles"
-      : true;
-    return isSectionStyles
-      ? element.style
-      : (element.firstChild as HTMLElement).style;
+
+    switch (object && Object.values(object)[0]) {
+      case "sectionStyles": 
+        return (element as HTMLElement).style
+      case "containerStyles":
+        return (element.firstChild as HTMLElement).style;
+      default:
+        return (element as HTMLElement).style
+    }
+
   };
 
 
@@ -101,14 +95,22 @@ const updateInlineStyles = async (
 
   const getComponentStyles = (element: HTMLElement): CSSStyleDeclaration => {
     const object = ruleComponentStyles.find(
-      (item) => Object.keys(item)[0] === style,
+      (item) => Object.keys(item)[0] === locationStyles,
     );
-    const isOuterStyles = object
-      ? Object.values(object)[0] === "outerStyles"
-      : true;
-    return isOuterStyles
-      ? (element.parentElement as HTMLElement).style
-      : element.style;
+
+    switch (object && Object.values(object)[0]) {
+      case "outerStyles":
+        const outer = element.closest('[data-outer]') as HTMLElement;
+        return outer && outer.style
+      case "middleStyles":
+        const middle = element.closest('[data-middle]') as HTMLElement;
+        return middle.style
+      case "innerStyles":
+        const inner = element.closest('[data-inner]') as HTMLElement;
+        return inner && inner.style
+      default:
+        return (element.parentElement?.parentElement as HTMLElement).style
+    }
   };
 
 
@@ -195,7 +197,7 @@ const updateInlineStyles = async (
   }
 
   const model = getModel();
-  const key = getKey(style);
+  const key = getKey(locationStyles);
   const value = serializeInlineStyles(getCurrentStyles(element as HTMLElement));
 
   if (hasPrismaAttribute()) {

@@ -145,7 +145,7 @@ Denary (десятый уровень) */
     /* dark */
     @apply hover:dark:bg-neutral-950/20;
     /* main */
-    @apply inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md p-[12px]  focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50;
+    @apply inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md p-[12px] focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50;
   }
 }
 

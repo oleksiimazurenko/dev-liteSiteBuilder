@@ -1,6 +1,7 @@
 "use client";
 import CornersIcon from "@/features/editor/drawer-tools/svg/corners-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
+import { LocationStyles } from '@/shared/types/types'
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
 import { Arrow } from "@radix-ui/react-popover";
@@ -9,18 +10,26 @@ import { useState } from "react";
 
 type BorderRadiusToolProps = {
   currentElement: HTMLElement | Element | undefined | null;
+  locationStyles: LocationStyles;
+  type: "px" | "%";
 };
 
-export function BorderRadiusTool({ currentElement }: BorderRadiusToolProps) {
+export function BorderRadiusTool({
+  currentElement,
+  locationStyles,
+  type,
+}: BorderRadiusToolProps) {
   // Получаем текущее значение border radius
   const getCurrentNumberFromBorderRadius = (): number[] | undefined => {
     if (currentElement) {
-      const borderRadius = window.getComputedStyle(
-        currentElement as HTMLElement,
-      ).borderRadius;
-      const a = borderRadius.match(/\d+(\.\d+)?(?=%)/);
-      const b = a ? a[0] : undefined;
-      return b ? [+b] : undefined;
+      const style = window.getComputedStyle(currentElement as HTMLElement);
+      const borderRadius = style.borderRadius;
+      const regex = new RegExp(`\\d+(\\.\\d+)?(?=${type})`, "g");
+
+      // Используем метод match и передаем ему регулярное выражение
+      const matches = borderRadius.match(regex);
+      const numbers = matches ? matches.map(Number) : undefined; // Преобразуем найденные строки в числа
+      return numbers;
     }
     return undefined;
   };
@@ -37,24 +46,24 @@ export function BorderRadiusTool({ currentElement }: BorderRadiusToolProps) {
 
     if (currentElement) {
       (currentElement as HTMLElement).style.borderRadius =
-        `${value[0].toString()}%`;
+        `${value[0].toString()}${type}`;
     }
   };
 
   return (
-    <Popover>
+    <Popover
+      onOpenChange={(isOpen) =>
+        !isOpen &&
+        updateInlineStyles(currentElement as HTMLElement, pathName, locationStyles)
+      }
+    >
       <PopoverTrigger asChild>
         <button className="toggle-popover" aria-label="Border Radius">
           <CornersIcon className="svg-icon-fill" />
         </button>
       </PopoverTrigger>
 
-      <PopoverContent
-        className="relative h-[50px] rounded-[25px] border-none p-0"
-        onBlur={() =>
-          updateInlineStyles(currentElement as HTMLElement, pathName, "rounded")
-        }
-      >
+      <PopoverContent className="relative h-[50px] rounded-[25px] border-none p-0">
         <Arrow
           width={100}
           height={5}
@@ -63,7 +72,11 @@ export function BorderRadiusTool({ currentElement }: BorderRadiusToolProps) {
 
         <div className="bg-glass absolute top-0 z-20 w-[300px] rounded-full">
           <span className="text-black-stroke-thin pointer-events-none absolute top-1/2 z-30 w-full -translate-y-1/2 transform text-center text-slate-50">
-            Text Border Radius - <span>{text}%</span>
+            Text Border Radius -{" "}
+            <span>
+              {text}
+              {type}
+            </span>
           </span>
           <Slider
             onValueChange={(n) => onSetBorderRadius(n)}

@@ -19,9 +19,16 @@ export function ChangeText({ currentElement }: ChangeTextProps) {
 
   return (
     <Popover
-      onOpenChange={(isOpen) =>
-        isOpen && setTextareaValue(currentElement?.textContent as string)
-      }
+      onOpenChange={(isOpen) => {
+        isOpen && setTextareaValue(currentElement?.textContent as string);
+
+        !isOpen &&
+          updateTextContent(
+            currentElement as HTMLElement,
+            pathName,
+            "textContent",
+          );
+      }}
     >
       <PopoverTrigger asChild>
         <button className="toggle-popover" aria-label="Change text">
@@ -29,16 +36,7 @@ export function ChangeText({ currentElement }: ChangeTextProps) {
         </button>
       </PopoverTrigger>
 
-      <PopoverContent
-        className="bg-glass w-80 rounded-lg p-0"
-        onBlur={() =>
-          updateTextContent(
-            currentElement as HTMLElement,
-            pathName,
-            "textContent",
-          )
-        }
-      >
+      <PopoverContent className="bg-glass w-80 rounded-lg p-0">
         <Arrow
           width={100}
           height={5}

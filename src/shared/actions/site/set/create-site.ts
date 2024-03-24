@@ -86,7 +86,7 @@ const createSite = async (
       const avatarComponent = await prisma.component.create({
         data: {
           type: "image",
-          parenTag: "div",
+          parentTag: "div",
           src: `/images/users/${id}/${imageFileName}`,
           alt: name,
           width: 100,
@@ -102,8 +102,9 @@ const createSite = async (
       const component = await prisma.component.create({
         data: {
           type: "text",
-          parenTag: "div",
+          parentTag: "div",
           innerStyles: text.innerStyles,
+          middleStyles: text.middleStyles,
           outerStyles: text.outerStyles,
           textContent: section.name,
           sectionId: section.id,

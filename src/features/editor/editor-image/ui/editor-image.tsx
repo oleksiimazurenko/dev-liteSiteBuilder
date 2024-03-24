@@ -7,7 +7,7 @@ import cn from "classnames";
 
 type EditorImageProps = {
   id: string;
-  parenTag: keyof JSX.IntrinsicElements;
+  parentTag: keyof JSX.IntrinsicElements;
   src: string;
   alt: string;
   width: number;
@@ -18,7 +18,7 @@ type EditorImageProps = {
 
 export function EditorImage({
   id,
-  parenTag,
+  parentTag,
   src,
   alt,
   width,
@@ -27,7 +27,7 @@ export function EditorImage({
   innerStyles,
 }: EditorImageProps) {
   const editorImageRef = useRef<HTMLImageElement>(null);
-  const Tag = parenTag;
+  const Tag = parentTag;
 
   const { editableGroup, setEditableGroup, setIsOpenDrawerTools, setTypeOpen } =
     useDrawerToolsStore();
@@ -54,11 +54,12 @@ export function EditorImage({
   };
 
   return (
-    <Tag style={outerStyles as React.CSSProperties}>
+    <Tag data-outer style={outerStyles as React.CSSProperties}>
       <img
+        data-id={id}
+        data-inner
         data-component
         data-trigger-tools
-        data-id={id}
         className={cn("!relative cursor-pointer")}
         style={innerStyles as React.CSSProperties}
         src={src}

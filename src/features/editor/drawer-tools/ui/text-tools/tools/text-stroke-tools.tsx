@@ -1,6 +1,7 @@
 "use client";
 
 import { rgbToHex } from "@/shared/helpers/color/rgb-to-hex";
+import { LocationStyles } from "@/shared/types/types";
 import { Input } from "@/shared/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
@@ -12,9 +13,13 @@ import { updateInlineStyles } from "../../../../../../shared/helpers/update-inli
 
 type TextStrokeToolsProps = {
   currentElement: HTMLElement | Element | undefined | null;
+  locationStyles: LocationStyles;
 };
 
-export function TextStrokeTools({ currentElement }: TextStrokeToolsProps) {
+export function TextStrokeTools({
+  currentElement,
+  locationStyles,
+}: TextStrokeToolsProps) {
   const inputSingleColorRef = useRef<HTMLInputElement>(null);
 
   const pathName = usePathname();
@@ -87,23 +92,23 @@ export function TextStrokeTools({ currentElement }: TextStrokeToolsProps) {
   };
 
   return (
-    <Popover>
+    <Popover
+      onOpenChange={(isOpen) =>
+        !isOpen &&
+        updateInlineStyles(
+          currentElement as HTMLElement,
+          pathName,
+          locationStyles,
+        )
+      }
+    >
       <PopoverTrigger asChild>
         <button className="toggle-popover" aria-label="Text Stroke">
           <PenTool strokeWidth={1} className="svg-icon-stroke" />
         </button>
       </PopoverTrigger>
 
-      <PopoverContent
-        className="relative h-[50px] w-80 rounded-[25px] border-none p-0"
-        onBlur={() =>
-          updateInlineStyles(
-            currentElement as HTMLElement,
-            pathName,
-            "textStroke",
-          )
-        }
-      >
+      <PopoverContent className="relative h-[50px] w-80 rounded-[25px] border-none p-0">
         <Arrow
           width={100}
           height={5}

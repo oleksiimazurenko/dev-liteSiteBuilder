@@ -1,44 +1,52 @@
 "use client";
-
-import TextAlignCenterIcon from "@/features/editor/drawer-tools/svg/text-align-center-icon.svg";
-import TextAlignJustifyIcon from "@/features/editor/drawer-tools/svg/text-align-justify-icon.svg";
-import TextAlignLeftIcon from "@/features/editor/drawer-tools/svg/text-align-left-icon.svg";
-import TextAlignRightIcon from "@/features/editor/drawer-tools/svg/text-align-right-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
-import { LocationStyles } from '@/shared/types/types'
+import { LocationStyles } from "@/shared/types/types";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/toggle-group";
 import { Arrow } from "@radix-ui/react-popover";
-import { ArrowLeftRight } from "lucide-react";
+import {
+  AlignCenterVertical,
+  AlignEndVertical,
+  AlignStartVertical,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
-type TextAlignToolsProps = {
+type FlexboxToolProps = {
   currentElement: HTMLElement | Element | undefined | null;
   locationStyles: LocationStyles;
 };
 
-export function TextAlignTools({ currentElement, locationStyles }: TextAlignToolsProps) {
+export function FlexboxTool({
+  currentElement,
+  locationStyles,
+}: FlexboxToolProps) {
   const parentElement = currentElement?.parentElement;
   const [value, setValue] = useState<string | null>(null);
   const pathName = usePathname();
 
   useEffect(() => {
     if (parentElement) {
-      setValue(window.getComputedStyle(parentElement).textAlign);
+      setValue(window.getComputedStyle(parentElement).alignItems);
     }
   }, [parentElement]);
 
   return (
     <Popover
-      onOpenChange={(isOpen) =>
+      onOpenChange={(isOpen) => {
         !isOpen &&
-        updateInlineStyles(currentElement as HTMLElement, pathName, locationStyles)
-      }
+          updateInlineStyles(
+            currentElement as HTMLElement,
+            pathName,
+            locationStyles,
+          );
+      }}
     >
       <PopoverTrigger asChild>
         <button className="toggle-popover" aria-label="Text Align">
-          <ArrowLeftRight strokeWidth={1} className="svg-icon-stroke" />
+          <AlignEndVertical
+            strokeWidth={0.75}
+            className="svg-icon-fill h-4 w-4"
+          />
         </button>
       </PopoverTrigger>
 
@@ -56,41 +64,42 @@ export function TextAlignTools({ currentElement, locationStyles }: TextAlignTool
           value={value ? value : undefined}
           onValueChange={(value) => {
             if (parentElement) {
-              (parentElement as HTMLElement).style.textAlign = value;
+              (parentElement as HTMLElement).style.alignItems = value;
               setValue(value);
             }
           }}
         >
           <ToggleGroupItem
-            value="left"
-            aria-label="Toggle textalignleft"
+            value="start"
+            aria-label="AlignStartVertical"
             className="toggle-single"
           >
-            <TextAlignLeftIcon className="svg-icon-fill h-4 w-4" />
+            <AlignStartVertical
+              strokeWidth={0.75}
+              className="svg-icon-fill h-4 w-4"
+            />
           </ToggleGroupItem>
 
           <ToggleGroupItem
             value="center"
-            aria-label="Toggle textaligncenter"
+            aria-label="AlignCenterVertical"
             className="toggle-single"
           >
-            <TextAlignCenterIcon className="svg-icon-fill h-4 w-4" />
+            <AlignCenterVertical
+              strokeWidth={0.75}
+              className="svg-icon-fill h-4 w-4"
+            />
           </ToggleGroupItem>
 
           <ToggleGroupItem
-            value="justify"
-            aria-label="Toggle textalignjustify"
+            value="end"
+            aria-label="AlignEndVertical"
             className="toggle-single"
           >
-            <TextAlignJustifyIcon className="svg-icon-fill h-4 w-4" />
-          </ToggleGroupItem>
-
-          <ToggleGroupItem
-            value="right"
-            aria-label="Toggle textalignright"
-            className="toggle-single"
-          >
-            <TextAlignRightIcon className="svg-icon-fill h-4 w-4" />
+            <AlignEndVertical
+              strokeWidth={0.75}
+              className="svg-icon-fill h-4 w-4"
+            />
           </ToggleGroupItem>
         </ToggleGroup>
       </PopoverContent>

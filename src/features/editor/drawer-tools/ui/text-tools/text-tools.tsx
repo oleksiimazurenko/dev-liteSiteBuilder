@@ -12,6 +12,7 @@ import { FontSizeTool } from "./tools/font-size-tool";
 import { TextAlignTools } from "./tools/text-align-tools";
 import { TextDecorationTools } from "./tools/text-decoration-tools";
 import { TextStrokeTools } from "./tools/text-stroke-tools";
+import { FlexboxTool } from '../tools/flexbox-tool'
 
 type ToolsTextProps = {};
 
@@ -24,15 +25,15 @@ export function TextTools({}: ToolsTextProps) {
       <div className="flex flex-col items-center justify-center">
         <h2 className="text-quaternary text-sm">Box Model</h2>
         <div className="flex items-center justify-center">
-          <PaddingTool currentElement={currentElement} />
-          <HeightTool currentElement={currentElement} />
+          <PaddingTool currentElement={currentElement} locationStyles='middle'/>
+          <HeightTool currentElement={currentElement} locationStyles='outer'/>
         </div>
       </div>
 
       <div className="flex flex-col items-center justify-center">
         <h2 className="text-quaternary text-sm">Interactive Actions</h2>
         <div className="flex items-center justify-center">
-          <ChangeText currentElement={currentElement} />
+          <ChangeText currentElement={currentElement}/>
           <RemoveElement currentElement={currentElement} />
         </div>
       </div>
@@ -40,13 +41,13 @@ export function TextTools({}: ToolsTextProps) {
       <div className="flex flex-col items-center justify-center">
         <h2 className="text-quaternary text-sm">Visual Styles</h2>
         <div className="flex items-center justify-center">
-          <BorderRadiusTool currentElement={currentElement} />
-          <BGColorTools currentElement={currentElement} />
-          <TextDecorationTools currentElement={currentElement} />
-          <TextAlignTools currentElement={currentElement} />
-          <TextStrokeTools currentElement={currentElement} />
-          <ColorTool currentElement={currentElement} />
-          <FontSizeTool currentElement={currentElement} />
+          <BorderRadiusTool currentElement={currentElement} locationStyles='inner' type="px" />
+          <BGColorTools currentElement={currentElement} locationStyles='inner'/>
+          <TextDecorationTools currentElement={currentElement} locationStyles='inner'/>
+          <TextAlignTools currentElement={currentElement} locationStyles='outer'/>
+          <TextStrokeTools currentElement={currentElement} locationStyles='inner'/>
+          <ColorTool currentElement={currentElement} locationStyles='inner' />
+          <FontSizeTool currentElement={currentElement} locationStyles='inner'/>
         </div>
       </div>
     </>

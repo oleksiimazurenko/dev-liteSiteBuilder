@@ -19,7 +19,7 @@ export function TextModel({ id }: TextElementProps) {
       textContent: "Default text",
       outerStyles: text.outerStyles,
       innerStyles: text.innerStyles,
-      parenTag: "div",
+      parentTag: "div",
       rPath: pathName,
       width: null,
       height: null,

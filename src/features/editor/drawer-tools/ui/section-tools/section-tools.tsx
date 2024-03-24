@@ -20,8 +20,8 @@ export function SectionTools({}: SectionToolsProps) {
       <div className="flex flex-col items-center justify-center">
         <h2 className="text-quaternary text-sm">Box Model</h2>
         <div className="flex items-center justify-center">
-          <PaddingTool currentElement={currentElement} />
-          <HeightTool currentElement={currentElement} />
+          <PaddingTool currentElement={currentElement} locationStyles='outer'/> 
+          <HeightTool currentElement={currentElement} locationStyles='outer'/>
         </div>
       </div>
 
@@ -43,8 +43,8 @@ export function SectionTools({}: SectionToolsProps) {
         <h2 className="text-quaternary text-sm">Visual Styles</h2>
         <div className="flex items-center justify-center">
           <ChangeBackgroundImage currentElement={currentElement} />
-          <BGColorTools currentElement={currentElement} />
-          <BorderRadiusTool currentElement={currentElement} />
+          <BGColorTools currentElement={currentElement} locationStyles='outer'/>
+          <BorderRadiusTool currentElement={currentElement} locationStyles='outer' type='px'/>
         </div>
       </div>
     </>

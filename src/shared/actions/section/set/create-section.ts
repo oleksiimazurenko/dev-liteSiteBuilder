@@ -56,7 +56,7 @@ const createSection = async ({
         data: {
           type: "text",
           ...text,
-          parenTag: "div",
+          parentTag: "div",
           textContent: name,
           sectionId: responseSection.id,
           position: 1,

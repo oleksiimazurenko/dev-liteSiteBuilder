@@ -7,21 +7,23 @@ import cn from "classnames";
 
 type EditorTextProps = {
   id: string;
-  parenTag: keyof JSX.IntrinsicElements;
+  parentTag: keyof JSX.IntrinsicElements;
   textContent: string;
   outerStyles: React.CSSProperties;
+  middleStyles: React.CSSProperties;
   innerStyles: React.CSSProperties;
 };
 
 export function EditorText({
   id,
-  parenTag,
+  parentTag,
   textContent,
   outerStyles,
+  middleStyles,
   innerStyles,
 }: EditorTextProps) {
   const editorTextRef = useRef<HTMLDivElement>(null);
-  const Tag = parenTag;
+  const Tag = parentTag;
 
   const { editableGroup, setEditableGroup, setIsOpenDrawerTools, setTypeOpen } =
     useDrawerToolsStore();
@@ -55,17 +57,20 @@ export function EditorText({
   };
 
   return (
-    <Tag style={outerStyles as React.CSSProperties}>
-      <span
-        data-id={id}
-        data-component
-        data-trigger-tools
-        style={innerStyles as React.CSSProperties}
-        className={cn("cursor-pointer")}
-        ref={editorTextRef}
-        tabIndex={0}
-        onClick={onHandleClick}
-      />
+    <Tag data-outer style={outerStyles as React.CSSProperties}>
+      <div data-middle style={middleStyles as React.CSSProperties}>
+        <span
+          data-id={id}
+          data-inner
+          data-component
+          data-trigger-tools
+          style={innerStyles as React.CSSProperties}
+          className={cn("cursor-pointer")}
+          ref={editorTextRef}
+          onClick={onHandleClick}
+          tabIndex={0}
+        />
+      </div>
     </Tag>
   );
 }
