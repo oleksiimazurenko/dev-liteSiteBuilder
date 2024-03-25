@@ -1,6 +1,6 @@
 import Dimensions from "@/features/editor/drawer-tools/svg/dimensions-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
-import { LocationStyles } from '@/shared/types/types'
+import { LocationStyles } from "@/shared/types/types";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
 import { Arrow } from "@radix-ui/react-popover";
@@ -8,14 +8,17 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type ImageSizeToolProps = {
-  currentElement: HTMLElement | Element | undefined | null;
-  locationStyles: LocationStyles
+  editableElement: HTMLElement | Element | undefined | null;
+  locationStyles: LocationStyles;
 };
 
-export function ImageSizeTool({ currentElement, locationStyles }: ImageSizeToolProps) {
-  const parentElement = currentElement?.parentElement;
+export function ImageSizeTool({
+  editableElement,
+  locationStyles,
+}: ImageSizeToolProps) {
+  const parentElement = editableElement?.parentElement;
   const pathName = usePathname();
-  const parentHeight = currentElement
+  const parentHeight = editableElement
     ? (parentElement as HTMLDivElement).offsetHeight
     : 0;
 
@@ -33,7 +36,7 @@ export function ImageSizeTool({ currentElement, locationStyles }: ImageSizeToolP
 
   const getCurrentHeight = (): number[] | undefined => {
     if (parentElement) {
-      const styles = window.getComputedStyle(currentElement as HTMLElement);
+      const styles = window.getComputedStyle(editableElement as HTMLElement);
       const height = styles.getPropertyValue("height");
       const matchResult = height.match(/\d+\.?\d*?(?=px)/);
       if (matchResult) {
@@ -45,7 +48,7 @@ export function ImageSizeTool({ currentElement, locationStyles }: ImageSizeToolP
 
   const getCurrentWidth = (): number[] | undefined => {
     if (parentElement) {
-      const styles = window.getComputedStyle(currentElement as HTMLElement);
+      const styles = window.getComputedStyle(editableElement as HTMLElement);
       const height = styles.getPropertyValue("width");
       const matchResult = height.match(/\d+\.?\d*?(?=px)/);
       if (matchResult) {
@@ -75,9 +78,9 @@ export function ImageSizeTool({ currentElement, locationStyles }: ImageSizeToolP
     }
 
     // Применяем значения к текущему элементу
-    if (currentElement) {
-      (currentElement as HTMLElement).style.height = `${value}px`;
-      (currentElement as HTMLElement).style.width = `${value}px`;
+    if (editableElement) {
+      (editableElement as HTMLElement).style.height = `${value}px`;
+      (editableElement as HTMLElement).style.width = `${value}px`;
     }
   };
 
@@ -86,12 +89,12 @@ export function ImageSizeTool({ currentElement, locationStyles }: ImageSizeToolP
       onOpenChange={(isOpen) => {
         !isOpen &&
           updateInlineStyles(
-            currentElement as HTMLElement,
+            editableElement as HTMLElement,
             pathName,
             locationStyles,
           );
         !isOpen &&
-          updateInlineStyles(currentElement as HTMLElement, pathName, "outer");
+          updateInlineStyles(editableElement as HTMLElement, pathName, "outer");
       }}
     >
       <PopoverTrigger asChild>

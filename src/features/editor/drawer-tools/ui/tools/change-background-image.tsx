@@ -16,26 +16,25 @@ import {
 import { uploadImage } from "@/shared/actions/user/set/upload-image";
 import { Button } from "@/shared/ui/button";
 import { getErrorMessage } from "@/shared/utils/extract-error-message";
-import { Image, ImagePlus } from "lucide-react";
+import { Image } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
+import { imageSchema } from "@/shared/schemas/image-schema";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
-import { Arrow } from "@radix-ui/react-popover";
 import { useSession } from "next-auth/react";
-import { imageSchema } from '@/shared/schemas/image-schema'
 
 type UploadImageModalProps = React.ComponentPropsWithoutRef<"button"> & {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
 };
 
 //---------------------------------------------------------------
 // Компонент модального окна для загрузки фото на сервер
 //---------------------------------------------------------------
 export function ChangeBackgroundImage({
-  currentElement,
+  editableElement,
   ...rest
 }: UploadImageModalProps) {
   const [fileName, setFileName] = useState<JSX.Element | string>("");
@@ -63,8 +62,8 @@ export function ChangeBackgroundImage({
         //-----------------------------------------------------------------------------
 
         // Изменения Background на прямую в DOM структуре
-        if (currentElement)
-          (currentElement as HTMLElement).style.setProperty(
+        if (editableElement)
+          (editableElement as HTMLElement).style.setProperty(
             "background-image",
             `url(/images/users/${userId}/${fileName})`,
           );
@@ -72,7 +71,7 @@ export function ChangeBackgroundImage({
 
         // Записываем изменения на сервер
         updateInlineStyles(
-          currentElement as HTMLElement,
+          editableElement as HTMLElement,
           pathName,
           "sectionStyles",
         );
@@ -132,8 +131,6 @@ export function ChangeBackgroundImage({
       </PopoverTrigger>
 
       <PopoverContent className="bg-glass max-w-[300px] border-none px-[10px] py-[5px]">
-        
-
         <div className="text-tertiary text-center leading-7">
           Are you want change background?
         </div>

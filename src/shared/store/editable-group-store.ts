@@ -12,7 +12,7 @@ type typeOpen =
   | "create-section";
 
 type typeEditableGroup = {
-  editableElement: HTMLElement | SVGSVGElement | null;
+  editableElement: HTMLElement | null;
   editableTrigger: SVGSVGElement | HTMLElement | null;
 };
 

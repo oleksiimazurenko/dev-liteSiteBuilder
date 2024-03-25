@@ -9,10 +9,10 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 type ChangeTextProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
 };
 
-export function ChangeText({ currentElement }: ChangeTextProps) {
+export function ChangeText({ editableElement }: ChangeTextProps) {
   const [textareaValue, setTextareaValue] = useState<string>("");
 
   const pathName = usePathname();
@@ -20,11 +20,11 @@ export function ChangeText({ currentElement }: ChangeTextProps) {
   return (
     <Popover
       onOpenChange={(isOpen) => {
-        isOpen && setTextareaValue(currentElement?.textContent as string);
+        isOpen && setTextareaValue(editableElement?.textContent as string);
 
         !isOpen &&
           updateTextContent(
-            currentElement as HTMLElement,
+            editableElement as HTMLElement,
             pathName,
             "textContent",
           );
@@ -46,14 +46,14 @@ export function ChangeText({ currentElement }: ChangeTextProps) {
           className="text-tertiary resize-none border-none bg-transparent"
           defaultValue={textareaValue}
           onChange={(e) => {
-            if (currentElement) {
-              (currentElement as HTMLElement).textContent = e.target.value;
+            if (editableElement) {
+              (editableElement as HTMLElement).textContent = e.target.value;
 
               if (
-                currentElement.textContent?.length === 0 ||
-                currentElement.textContent?.trim().length === 0
+                editableElement.textContent?.length === 0 ||
+                editableElement.textContent?.trim().length === 0
               ) {
-                (currentElement as HTMLElement).textContent =
+                (editableElement as HTMLElement).textContent =
                   "Default text element";
               }
             }

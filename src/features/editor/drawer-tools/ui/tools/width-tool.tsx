@@ -3,10 +3,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Arrow } from "@radix-ui/react-popover";
 
 type WidthToolProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
 };
 
-export function WidthTool({ currentElement }: WidthToolProps) {
+export function WidthTool({ editableElement }: WidthToolProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>

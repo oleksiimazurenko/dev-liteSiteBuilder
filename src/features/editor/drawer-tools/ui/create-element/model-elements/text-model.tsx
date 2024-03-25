@@ -18,6 +18,7 @@ export function TextModel({ id }: TextElementProps) {
       type: "text",
       textContent: "Default text",
       outerStyles: text.outerStyles,
+      middleStyles: text.middleStyles,
       innerStyles: text.innerStyles,
       parentTag: "div",
       rPath: pathName,

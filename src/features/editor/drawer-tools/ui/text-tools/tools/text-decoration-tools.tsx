@@ -13,12 +13,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type TextDecorationToolsProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
   locationStyles: LocationStyles;
 };
 
 export function TextDecorationTools({
-  currentElement,
+  editableElement,
   locationStyles,
 }: TextDecorationToolsProps) {
   const [values, setValues] = useState<string[] | null>(null);
@@ -26,14 +26,14 @@ export function TextDecorationTools({
   const pathName = usePathname();
 
   useEffect(() => {
-    if (currentElement) {
+    if (editableElement) {
       const newValues = (
         ["fontWeight", "fontStyle", "textDecoration"] as Array<
           keyof CSSStyleDeclaration
         >
       )
         .map((style) => {
-          const value = window.getComputedStyle(currentElement)[style];
+          const value = window.getComputedStyle(editableElement)[style];
           switch (style) {
             case "fontWeight":
               return value === "bold" || (value && +value > 500)
@@ -50,10 +50,10 @@ export function TextDecorationTools({
         .filter(Boolean) as string[];
       setValues(newValues);
     }
-  }, [currentElement]);
+  }, [editableElement]);
 
   const onHandleValueChange = (receivedValues: string[]) => {
-    if (currentElement) {
+    if (editableElement) {
       const findDifference = (
         prevArray: string[] | null,
         currArray: string[],
@@ -73,20 +73,20 @@ export function TextDecorationTools({
 
       if (added) {
         added === "bold" &&
-          ((currentElement as HTMLElement).style.fontWeight = "bold");
+          ((editableElement as HTMLElement).style.fontWeight = "bold");
         added === "italic" &&
-          ((currentElement as HTMLElement).style.fontStyle = "italic");
+          ((editableElement as HTMLElement).style.fontStyle = "italic");
         added === "underline" &&
-          ((currentElement as HTMLElement).style.textDecoration = "underline");
+          ((editableElement as HTMLElement).style.textDecoration = "underline");
       }
 
       if (removed) {
         removed === "bold" &&
-          ((currentElement as HTMLElement).style.fontWeight = "normal");
+          ((editableElement as HTMLElement).style.fontWeight = "normal");
         removed === "italic" &&
-          ((currentElement as HTMLElement).style.fontStyle = "normal");
+          ((editableElement as HTMLElement).style.fontStyle = "normal");
         removed === "underline" &&
-          ((currentElement as HTMLElement).style.textDecoration = "none");
+          ((editableElement as HTMLElement).style.textDecoration = "none");
       }
       setValues(receivedValues);
     }
@@ -97,7 +97,7 @@ export function TextDecorationTools({
       onOpenChange={(isOpen) =>
         !isOpen &&
         updateInlineStyles(
-          currentElement as HTMLElement,
+          editableElement as HTMLElement,
           pathName,
           locationStyles,
         )

@@ -77,6 +77,7 @@ export function ImageModel({ id }: ImageElementProps) {
           width: 100,
           height: 100,
           innerStyles: image.innerStyles,
+          middleStyles: null,
           outerStyles: image.outerStyles,
         });
 

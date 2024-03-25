@@ -8,18 +8,18 @@ import { Arrow } from "@radix-ui/react-popover";
 import { Trash2 } from "lucide-react";
 
 type RemoveElementProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
 };
 
-export function RemoveElement({ currentElement }: RemoveElementProps) {
+export function RemoveElement({ editableElement }: RemoveElementProps) {
   const { setIsOpenDrawerTools } = useDrawerToolsStore();
 
-  const parentElement = currentElement?.parentElement;
+  const parentElement = editableElement?.parentElement;
 
   const onRemoveElement = () => {
     setIsOpenDrawerTools(false);
 
-    const id = currentElement?.getAttribute("data-id");
+    const id = editableElement?.getAttribute("data-id");
 
     id && deleteElement({ id, rPath: "/" });
   };

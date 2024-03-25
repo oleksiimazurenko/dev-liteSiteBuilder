@@ -11,10 +11,10 @@ import { useEffect, useRef } from "react";
 import { deleteSection } from "../../../../../../shared/actions/section/set/delete-section";
 
 type RemoveSectionProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
 };
 
-export function DeleteSection({ currentElement }: RemoveSectionProps) {
+export function DeleteSection({ editableElement }: RemoveSectionProps) {
   const { setIsOpenDrawerTools } = useDrawerToolsStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -32,7 +32,7 @@ export function DeleteSection({ currentElement }: RemoveSectionProps) {
   const onRemoveSection = () => {
     setIsOpenDrawerTools(false);
 
-    const id = currentElement?.getAttribute("data-id");
+    const id = editableElement?.getAttribute("data-id");
 
     id && deleteSection(id, pathName);
   };

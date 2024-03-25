@@ -17,7 +17,6 @@ import { uploadImage } from "@/shared/actions/user/set/upload-image";
 import { Button } from "@/shared/ui/button";
 import { getErrorMessage } from "@/shared/utils/extract-error-message";
 import { Image } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -28,21 +27,20 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { useSession } from "next-auth/react";
 
 type UploadImageModalProps = React.ComponentPropsWithoutRef<"button"> & {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
 };
 
 //---------------------------------------------------------------
 // Компонент модального окна для загрузки фото на сервер
 //---------------------------------------------------------------
 export function ChangeImage({
-  currentElement,
+  editableElement,
   ...rest
 }: UploadImageModalProps) {
   const [fileName, setFileName] = useState<JSX.Element | string>("");
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const userId = useSession().data?.user?.id;
-  const { setIsOpenDrawerTools, editableGroup } = useDrawerToolsStore();
-  const { editableElement } = editableGroup;
+  const { setIsOpenDrawerTools } = useDrawerToolsStore();
 
   const form = useForm<z.infer<typeof imageSchema>>({
     resolver: zodResolver(imageSchema),
@@ -52,7 +50,7 @@ export function ChangeImage({
   // Функция для отправки файла на сервер и изменения Background
   //---------------------------------------------------------------
   const onSubmit = async ({ file }: z.infer<typeof imageSchema>) => {
-    const elementId = currentElement?.getAttribute("data-id");
+    const elementId = editableElement?.getAttribute("data-id");
     if (file && file instanceof File && userId && elementId) {
       try {
         // Создание объекта FormData для отправки на сервер и добавление в него файла

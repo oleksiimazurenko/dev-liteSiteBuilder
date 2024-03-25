@@ -8,21 +8,21 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 type FontSizeToolProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
   locationStyles: LocationStyles;
 };
 
 export function FontSizeTool({
-  currentElement,
+  editableElement,
   locationStyles,
 }: FontSizeToolProps) {
   const pathName = usePathname();
 
   // Получаем текущее значение font size
   const getCurrentNumberFromFontSize = (): number[] | undefined => {
-    if (currentElement) {
+    if (editableElement) {
       const fontSize = window.getComputedStyle(
-        currentElement as HTMLElement,
+        editableElement as HTMLElement,
       ).fontSize;
       const a = fontSize.match(/\d+(?=px)/);
       const b = a ? a[0] : undefined;
@@ -38,8 +38,8 @@ export function FontSizeTool({
   // Функция для изменения font size
   const onSetFontSize = (value: number[]) => {
     setText(value.toString());
-    if (currentElement) {
-      (currentElement as HTMLElement).style.fontSize = `${value.toString()}px`;
+    if (editableElement) {
+      (editableElement as HTMLElement).style.fontSize = `${value.toString()}px`;
     }
   };
 
@@ -48,7 +48,7 @@ export function FontSizeTool({
       onOpenChange={(isOpen) =>
         !isOpen &&
         updateInlineStyles(
-          currentElement as HTMLElement,
+          editableElement as HTMLElement,
           pathName,
           locationStyles,
         )

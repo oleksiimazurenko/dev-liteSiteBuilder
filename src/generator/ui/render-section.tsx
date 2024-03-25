@@ -22,13 +22,15 @@ export async function RenderSection({
     id,
     content: (
       <section
-        data-id={id}
-        data-section
         key={id}
+        data-id={id}
+        data-outer
+        data-section
         className="min-h-[230px] !bg-cover !bg-center !bg-no-repeat"
         style={sectionStyles as React.CSSProperties}
       >
         <div
+          data-inner
           data-container
           className="container"
           style={containerStyles as React.CSSProperties}

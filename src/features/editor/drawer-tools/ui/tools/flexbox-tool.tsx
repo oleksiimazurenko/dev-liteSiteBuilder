@@ -12,15 +12,15 @@ import {
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 type FlexboxToolProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
   locationStyles: LocationStyles;
 };
 
 export function FlexboxTool({
-  currentElement,
+  editableElement,
   locationStyles,
 }: FlexboxToolProps) {
-  const parentElement = currentElement?.parentElement;
+  const parentElement = editableElement?.parentElement;
   const [value, setValue] = useState<string | null>(null);
   const pathName = usePathname();
 
@@ -35,7 +35,7 @@ export function FlexboxTool({
       onOpenChange={(isOpen) => {
         !isOpen &&
           updateInlineStyles(
-            currentElement as HTMLElement,
+            editableElement as HTMLElement,
             pathName,
             locationStyles,
           );

@@ -25,7 +25,10 @@ export default async function RootLayout({
             <Footer />
           </div>
 
-          <Toaster className="[&>li]:bg-glass [&>li]:text-tertiary [&>li]:!border-none" />
+          <Toaster
+            className="[&>li]:bg-glass [&>li]:text-tertiary [&>li]:!border-none"
+            position="top-center"
+          />
         </body>
       </html>
     </SessionProvider>

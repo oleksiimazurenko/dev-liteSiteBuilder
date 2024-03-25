@@ -1,7 +1,7 @@
 "use client";
 import CornersIcon from "@/features/editor/drawer-tools/svg/corners-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
-import { LocationStyles } from '@/shared/types/types'
+import { LocationStyles } from "@/shared/types/types";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
 import { Arrow } from "@radix-ui/react-popover";
@@ -9,20 +9,20 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 type BorderRadiusToolProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
   locationStyles: LocationStyles;
   type: "px" | "%";
 };
 
 export function BorderRadiusTool({
-  currentElement,
+  editableElement,
   locationStyles,
   type,
 }: BorderRadiusToolProps) {
   // Получаем текущее значение border radius
   const getCurrentNumberFromBorderRadius = (): number[] | undefined => {
-    if (currentElement) {
-      const style = window.getComputedStyle(currentElement as HTMLElement);
+    if (editableElement) {
+      const style = window.getComputedStyle(editableElement as HTMLElement);
       const borderRadius = style.borderRadius;
       const regex = new RegExp(`\\d+(\\.\\d+)?(?=${type})`, "g");
 
@@ -44,8 +44,8 @@ export function BorderRadiusTool({
   const onSetBorderRadius = (value: number[]) => {
     setText(value.toString());
 
-    if (currentElement) {
-      (currentElement as HTMLElement).style.borderRadius =
+    if (editableElement) {
+      (editableElement as HTMLElement).style.borderRadius =
         `${value[0].toString()}${type}`;
     }
   };
@@ -54,7 +54,11 @@ export function BorderRadiusTool({
     <Popover
       onOpenChange={(isOpen) =>
         !isOpen &&
-        updateInlineStyles(currentElement as HTMLElement, pathName, locationStyles)
+        updateInlineStyles(
+          editableElement as HTMLElement,
+          pathName,
+          locationStyles,
+        )
       }
     >
       <PopoverTrigger asChild>

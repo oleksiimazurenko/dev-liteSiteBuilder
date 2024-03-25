@@ -1,12 +1,4 @@
-import { ScrollArea, ScrollBar } from "@/shared/ui/scroll-area";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/shared/ui/tooltip";
-import { CellContext } from "@tanstack/react-table";
-import cn from "classnames";
+import { Badge } from "@/shared/ui/badge";
 
 type CheckUrlCellProps = {
   value: unknown;
@@ -16,35 +8,14 @@ const CheckUrlCell = ({ value }: CheckUrlCellProps) => {
   const isRegisteredDomain = false;
 
   return (
-    <ScrollArea>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <p
-              className={cn(
-                "rounded-md px-[10px] py-[2px] text-center text-xs font-[200] text-foreground text-neutral-700 transition-all dark:text-neutral-400",
-                {
-                  ["bg-green-500/40 backdrop-blur supports-[backdrop-filter]:bg-green-500/40"]:
-                    isRegisteredDomain,
-                  ["bg-red-500/40 backdrop-blur supports-[backdrop-filter]:bg-red-500/40"]:
-                    !isRegisteredDomain,
-                },
-              )}
-            >
-              {value as string}
-            </p>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p className="">
-              {isRegisteredDomain
-                ? "Ваш домен зареєстрований"
-                : "Ваш домен не зареєстрований"}
-            </p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      <ScrollBar orientation="horizontal" />
-    </ScrollArea>
+    <div className="flex h-full w-full items-center justify-center">
+      <Badge
+        variant="outline"
+        className="bg-background/95 supports-[backdrop-filter]:bg-background/10 rounded-md border-none font-[200] text-neutral-500 backdrop-blur transition-all dark:text-neutral-400"
+      >
+        {value as string}
+      </Badge>
+    </div>
   );
 };
 

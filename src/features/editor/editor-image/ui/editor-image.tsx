@@ -69,7 +69,7 @@ export function EditorImage({
       />
     </Tag>
   );
-}
+}4
 
 {
   /* <Image

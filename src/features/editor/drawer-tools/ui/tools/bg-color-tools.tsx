@@ -13,17 +13,31 @@ import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 
 type BGColorToolsProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
   locationStyles: LocationStyles;
 };
 
 export function BGColorTools({
-  currentElement,
+  editableElement,
   locationStyles,
 }: BGColorToolsProps) {
   const inputSingleColorRef = useRef<HTMLInputElement>(null);
   const inputFirstColorRef = useRef<HTMLInputElement>(null);
   const inputSecondColorRef = useRef<HTMLInputElement>(null);
+
+  let currentElement: HTMLElement | Element | null | undefined = null;
+
+  switch (locationStyles) {
+    case "outer":
+      currentElement = editableElement?.closest("[data-outer]");
+      break;
+    case "middle":
+      currentElement = editableElement?.closest("[data-middle]");
+      break;
+    case "inner":
+      currentElement = editableElement?.closest("[data-inner]");
+      break;
+  }
 
   const [backgroundColor, setBackgroundColor] = useState<string>(
     currentElement
@@ -99,7 +113,7 @@ export function BGColorTools({
             <CarouselItem>
               <div className="relative h-[200px] w-full overflow-hidden">
                 <button
-                  className="toggle-popover"
+                  className="hover:bg-muted hover:text-muted-foreground absolute right-0 top-0 z-30 inline-flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-bl-md bg-slate-100 p-[12px] focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50"
                   aria-label="Change text"
                   onClick={onResetBackgroundColor}
                 >
@@ -131,7 +145,7 @@ export function BGColorTools({
             <CarouselItem>
               <div className="relative h-[200px] w-full overflow-hidden">
                 <button
-                  className="ring-offset-background hover:bg-muted hover:text-muted-foreground focus-visible:ring-ring data-[state=on]:bg-accent data-[state=on]:text-accent-foreground absolute right-0 top-0 z-30 inline-flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-bl-md bg-slate-100 p-[12px] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                  className="hover:bg-muted hover:text-muted-foreground absolute right-0 top-0 z-30 inline-flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-bl-md bg-slate-100 p-[12px] focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50"
                   aria-label="Change text"
                   onClick={onResetBackgroundColor}
                   tabIndex={1}

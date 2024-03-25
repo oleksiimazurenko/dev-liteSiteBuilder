@@ -5,7 +5,7 @@ import TextAlignJustifyIcon from "@/features/editor/drawer-tools/svg/text-align-
 import TextAlignLeftIcon from "@/features/editor/drawer-tools/svg/text-align-left-icon.svg";
 import TextAlignRightIcon from "@/features/editor/drawer-tools/svg/text-align-right-icon.svg";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
-import { LocationStyles } from '@/shared/types/types'
+import { LocationStyles } from "@/shared/types/types";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/toggle-group";
 import { Arrow } from "@radix-ui/react-popover";
@@ -14,12 +14,15 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type TextAlignToolsProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
   locationStyles: LocationStyles;
 };
 
-export function TextAlignTools({ currentElement, locationStyles }: TextAlignToolsProps) {
-  const parentElement = currentElement?.parentElement;
+export function TextAlignTools({
+  editableElement,
+  locationStyles,
+}: TextAlignToolsProps) {
+  const parentElement = editableElement?.parentElement;
   const [value, setValue] = useState<string | null>(null);
   const pathName = usePathname();
 
@@ -33,7 +36,11 @@ export function TextAlignTools({ currentElement, locationStyles }: TextAlignTool
     <Popover
       onOpenChange={(isOpen) =>
         !isOpen &&
-        updateInlineStyles(currentElement as HTMLElement, pathName, locationStyles)
+        updateInlineStyles(
+          editableElement as HTMLElement,
+          pathName,
+          locationStyles,
+        )
       }
     >
       <PopoverTrigger asChild>

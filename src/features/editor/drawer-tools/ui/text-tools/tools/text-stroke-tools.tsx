@@ -12,20 +12,20 @@ import { useRef, useState } from "react";
 import { updateInlineStyles } from "../../../../../../shared/helpers/update-inline-styles";
 
 type TextStrokeToolsProps = {
-  currentElement: HTMLElement | Element | undefined | null;
+  editableElement: HTMLElement | Element | undefined | null;
   locationStyles: LocationStyles;
 };
 
 export function TextStrokeTools({
-  currentElement,
+  editableElement,
   locationStyles,
 }: TextStrokeToolsProps) {
   const inputSingleColorRef = useRef<HTMLInputElement>(null);
 
   const pathName = usePathname();
   const getCurrentTextStrokeWidth = (): number[] | undefined => {
-    if (currentElement) {
-      const styles = window.getComputedStyle(currentElement as HTMLElement);
+    if (editableElement) {
+      const styles = window.getComputedStyle(editableElement as HTMLElement);
       const strokeWidth = styles.getPropertyValue("-webkit-text-stroke-width");
       const matchResult = strokeWidth.match(/\d+\.?\d*?(?=px)/);
       if (matchResult) {
@@ -36,8 +36,8 @@ export function TextStrokeTools({
   };
 
   const getCurrentTextStrokeColor = () => {
-    if (currentElement) {
-      const styles = window.getComputedStyle(currentElement as HTMLElement);
+    if (editableElement) {
+      const styles = window.getComputedStyle(editableElement as HTMLElement);
       const strokeColor = styles.getPropertyValue("-webkit-text-stroke-color");
 
       return rgbToHex(strokeColor);
@@ -52,7 +52,7 @@ export function TextStrokeTools({
 
   const currentVariableForTextStrokeRef = useRef<string[]>([]);
 
-  if (currentElement) {
+  if (editableElement) {
     currentVariableForTextStrokeRef.current[0] =
       getCurrentTextStrokeWidth()?.toString() || "0px";
     currentVariableForTextStrokeRef.current[1] =
@@ -71,8 +71,8 @@ export function TextStrokeTools({
 
     currentVariableForTextStrokeRef.current[0] = value[0].toString() + "px";
 
-    if (currentElement) {
-      (currentElement as HTMLElement).style.setProperty(
+    if (editableElement) {
+      (editableElement as HTMLElement).style.setProperty(
         "-webkit-text-stroke",
         `${currentVariableForTextStrokeRef.current[0]} ${currentVariableForTextStrokeRef.current[1]}`,
       );
@@ -80,11 +80,11 @@ export function TextStrokeTools({
   };
 
   const onChangeTextStrokeColor = (color: string) => {
-    if (currentElement) {
+    if (editableElement) {
       setTextStrokeColor(color);
 
       currentVariableForTextStrokeRef.current[1] = color;
-      (currentElement as HTMLElement).style.setProperty(
+      (editableElement as HTMLElement).style.setProperty(
         "-webkit-text-stroke-color",
         color,
       );
@@ -96,7 +96,7 @@ export function TextStrokeTools({
       onOpenChange={(isOpen) =>
         !isOpen &&
         updateInlineStyles(
-          currentElement as HTMLElement,
+          editableElement as HTMLElement,
           pathName,
           locationStyles,
         )
