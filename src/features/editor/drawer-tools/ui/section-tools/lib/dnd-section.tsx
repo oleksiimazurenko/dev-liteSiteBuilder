@@ -13,6 +13,7 @@ import {
 } from "@hello-pangea/dnd";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { SectionPanelTools } from "../section-panel-tools";
+import { PanelParams, Rect } from "../types/types";
 
 type SectionRefs = {
   [key: string]: HTMLDivElement | null;
@@ -27,35 +28,28 @@ export function DNDSection({ items }: DNDProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   const sectionRefs: MutableRefObject<SectionRefs> = useRef<SectionRefs>({});
-  const [panelPositions, setPanelPositions] = useState<Record<string, number>>(
-    {},
-  );
-  const [visiblePanels, setVisiblePanels] = useState<Record<string, boolean>>(
+
+  const [panelParams, setPanelParams] = useState<Record<string, PanelParams>>(
     {},
   );
 
   const updatePanelPositions = () => {
-    const newPositions: Record<string, number> = {};
-    const newVisiblePanels: Record<string, boolean> = {};
-
-    Object.keys(sectionRefs.current).forEach((id) => {
+    const viewportHeight = window.innerHeight;
+    const newPanelParams = Object.keys(sectionRefs.current).reduce<
+      Record<string, PanelParams>
+    >((acc, id) => {
       const section = sectionRefs.current[id];
-      if (section) {
-        const rect = section.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      if (!section) return acc;
 
-        newVisiblePanels[id] = isVisible;
+      const rectSection = section.getBoundingClientRect();
+      const isVisible =
+        rectSection.top < viewportHeight && rectSection.bottom > 0;
+      acc[id] = calculatePanelParams(rectSection, isVisible, viewportHeight);
 
-        if (isVisible) {
-          const visibleHeight =
-            Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-          newPositions[id] = Math.max(rect.top, 0) + visibleHeight / 2;
-        }
-      }
-    });
+      return acc;
+    }, {});
 
-    setVisiblePanels(newVisiblePanels);
-    setPanelPositions(newPositions);
+    setPanelParams(newPanelParams);
   };
 
   useEffect(() => {
@@ -93,19 +87,6 @@ export function DNDSection({ items }: DNDProps) {
     setDNDItems(reorderedItems);
   };
 
-  // Функция для переупорядочивания элементов
-  const reorder = (
-    list: typeCurrentItemsDND[],
-    startIndex: number,
-    endIndex: number,
-  ): typeCurrentItemsDND[] => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  };
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       {isMounted ? (
@@ -126,11 +107,14 @@ export function DNDSection({ items }: DNDProps) {
                       <SectionPanelTools
                         provided={provided}
                         id={item.id}
-                        top={panelPositions[item.id] || `calc(50% + 24px)`}
-                        isVisible={
-                          index === 0 && visiblePanels[item.id] === undefined
-                            ? true
-                            : visiblePanels[item.id]
+                        panelParams={
+                          panelParams[item.id]
+                            ? panelParams[item.id]
+                            : {
+                                isAbsolute: true,
+                                positionY: "calc(50% + 20px)",
+                                lastPositionY: "initial",
+                              }
                         }
                       />
 
@@ -147,3 +131,37 @@ export function DNDSection({ items }: DNDProps) {
     </DragDropContext>
   );
 }
+
+export function calculatePanelParams(
+  rect: Rect,
+  isVisible: boolean,
+  viewportHeight: number = window.innerHeight,
+): PanelParams {
+  const isAbsolute =
+    !isVisible || rect.bottom < 212 || rect.top > viewportHeight - 214;
+  const visibleHeight = isAbsolute
+    ? Math.min(214, viewportHeight) - Math.max(rect.top, 0)
+    : Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+  const positionY = `${Math.max(rect.top, 0) + visibleHeight / 2}px`;
+  const lastPositionY =
+    rect.bottom < 212
+      ? "bottom"
+      : rect.top > viewportHeight - 214
+        ? "top"
+        : "initial";
+
+  return { isAbsolute, positionY, lastPositionY };
+}
+
+// Функция для переупорядочивания элементов
+export function reorder(
+  list: typeCurrentItemsDND[],
+  startIndex: number,
+  endIndex: number,
+): typeCurrentItemsDND[] {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};

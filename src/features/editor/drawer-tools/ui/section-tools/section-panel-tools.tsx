@@ -1,39 +1,37 @@
-"use client";
-
 import { DraggableProvided } from "@hello-pangea/dnd";
+import cn from "classnames";
 import { CreateElementTrigger } from "./triggers/create-element-trigger";
 import { CreateSectionTrigger } from "./triggers/create-section-trigger";
 import { DragHandleTrigger } from "./triggers/drag-handle-trigger";
 import { SectionToolsTrigger } from "./triggers/section-tools-trigger";
-import cn from "classnames";
+import { PanelParams } from "./types/types";
 
 type SectionPanelToolsProps = {
   id: string;
   provided: DraggableProvided;
-  top: string | number | undefined;
-  isVisible: boolean;
+  panelParams: PanelParams;
 };
 
-export function SectionPanelTools({
+export const SectionPanelTools = ({
   id,
   provided,
-  top,
-  isVisible,
-}: SectionPanelToolsProps) {
-  console.log(isVisible);
+  panelParams,
+}: SectionPanelToolsProps) => {
+  const { isAbsolute, positionY, lastPositionY } = panelParams;
+
   return (
     <div
       className={cn(
-        "bg-glass right-[20px] z-10 -translate-y-1/2 transform rounded-xl border-none p-1 shadow-xl",
+        "bg-glass absolute right-[20px] top-[calc(50%-24px)] z-10 -translate-y-1/2 transform rounded-xl border-none p-1 shadow-xl",
         {
-          ["fixed"]: isVisible,
-          ["absolute"]: !isVisible,
+          ["!bottom-0 !-translate-y-[20px] top-auto"]: lastPositionY === "bottom",
+          ["!top-0 !translate-y-[20px]"]: lastPositionY === "top",
         },
       )}
       style={{
-        top: top,
+        top: !isAbsolute ? positionY : undefined,
+        position: isAbsolute ? "absolute" : "fixed",
       }}
-      key={id}
     >
       {/* Кнопка для перетаскивания секций */}
       <DragHandleTrigger provided={provided} />
@@ -48,4 +46,4 @@ export function SectionPanelTools({
       <CreateSectionTrigger />
     </div>
   );
-}
+};
