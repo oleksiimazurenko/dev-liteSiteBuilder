@@ -1,13 +1,33 @@
+'use client'
+
 import { DraggableProvided } from "@hello-pangea/dnd";
 import { GripVertical } from "lucide-react";
+import { MutableRefObject, forwardRef } from 'react'
 
-type SectionPanelToolsProps = {
+type DragHandleTriggerProps = {
   provided: DraggableProvided;
+  id: string;
+  // setDragPositionPanel: (id: string) => void;
 };
 
-export function DragHandleTrigger({ provided }: SectionPanelToolsProps) {
+export const DragHandleTrigger = forwardRef<HTMLDivElement, DragHandleTriggerProps>(({ provided, id, 
+  // setDragPositionPanel
+ }, ref) => {
+
+  // const handleMouseEnter = () => {
+    
+  //   const mutableRef = ref as MutableRefObject<HTMLDivElement | null>;
+  //   console.log(mutableRef.current);
+  //   if (mutableRef.current) {
+  //     mutableRef.current.style.position = "absolute";
+  //   }
+    
+  // }
+
   return (
-    <div {...provided.dragHandleProps}>
+    <div {...provided.dragHandleProps} 
+    // onMouseEnter={() => setDragPositionPanel(id)}
+    >
       <GripVertical
         size={40}
         strokeWidth={0.5}
@@ -15,4 +35,5 @@ export function DragHandleTrigger({ provided }: SectionPanelToolsProps) {
       />
     </div>
   );
-}
+  
+})

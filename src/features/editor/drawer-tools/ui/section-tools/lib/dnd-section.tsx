@@ -7,6 +7,7 @@ import {
 } from "@/shared/store/dnd-store";
 import {
   DragDropContext,
+  DragStart,
   Draggable,
   DropResult,
   Droppable,
@@ -14,8 +15,12 @@ import {
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { SectionPanelTools } from "../section-panel-tools";
 import { PanelParams, Rect } from "../types/types";
+import { set } from "zod";
 
 type SectionRefs = {
+  [key: string]: HTMLDivElement | null;
+};
+type PanelRefs = {
   [key: string]: HTMLDivElement | null;
 };
 
@@ -26,40 +31,64 @@ type DNDProps = {
 export function DNDSection({ items }: DNDProps) {
   const { currentItems, setDNDItems } = useDNDSectionStore();
   const [isMounted, setIsMounted] = useState(false);
+  // const handleScrollRef = useRef<() => void>(updatePanelPositions);
+  const [scrollEnabled, setScrollEnabled] = useState(true);
 
   const sectionRefs: MutableRefObject<SectionRefs> = useRef<SectionRefs>({});
+  const panelRefs: MutableRefObject<PanelRefs> = useRef<PanelRefs>({});
 
   const [panelParams, setPanelParams] = useState<Record<string, PanelParams>>(
     {},
   );
 
-  const updatePanelPositions = () => {
+
+
+  function updatePanelPositions() {
     const viewportHeight = window.innerHeight;
     const newPanelParams = Object.keys(sectionRefs.current).reduce<
       Record<string, PanelParams>
-    >((acc, id) => {
+    >((acc, id, i) => {
       const section = sectionRefs.current[id];
       if (!section) return acc;
 
       const rectSection = section.getBoundingClientRect();
       const isVisible =
         rectSection.top < viewportHeight && rectSection.bottom > 0;
-      acc[id] = calculatePanelParams(rectSection, isVisible, viewportHeight);
+
+      acc[id] = {
+        ...calculatePanelParams(rectSection, isVisible, viewportHeight),
+        lastRectTopPanel: panelRefs.current[id]?.getBoundingClientRect().top,
+      };
 
       return acc;
     }, {});
 
     setPanelParams(newPanelParams);
-  };
+  }
+
+
 
   useEffect(() => {
-    const handleScroll = () => updatePanelPositions();
-
+    const handleScroll = () => {
+      if (scrollEnabled) {
+        updatePanelPositions();
+      }
+    };
+  
     window.addEventListener("scroll", handleScroll);
-    handleScroll();
-
+    if (scrollEnabled) {
+      handleScroll(); // Инициализирующий вызов
+    }
+  
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [scrollEnabled]);
+
+
+
+
+
+
+  //--------------------------------------------------------------------------------
 
   useEffect(() => {
     // Установка начального состояния
@@ -85,10 +114,61 @@ export function DNDSection({ items }: DNDProps) {
       rPath: "/",
     });
     setDNDItems(reorderedItems);
+    setScrollEnabled(true);
   };
 
+  // ---------------------------------------------------------------------------
+
+  const setDragPositionPanel = (e: DragStart) => {
+
+    // Отрубаем этот гребанный скроллинг!
+    setScrollEnabled(false);
+
+    const id = e.draggableId;
+
+    // Переводим все эти конченные панели в абсолютное положение
+    Object.keys(sectionRefs.current).forEach((id) => {
+      const childElement = sectionRefs.current[id]?.firstChild;
+      if (childElement instanceof HTMLElement) {
+        childElement.style.position = 'absolute';
+      }
+    });
+
+    const childElement = sectionRefs.current[id]?.firstChild;
+    const parentElement = sectionRefs.current[id];
+    const childRectTop = panelParams[id]?.lastRectTopPanel
+
+    if (childElement instanceof HTMLElement && parentElement && childRectTop) {
+      const parentRectTop = parentElement.getBoundingClientRect().top;
+      const distanceToParentTop = childRectTop - parentRectTop;
+
+      childElement.style.top = `${distanceToParentTop}px`;
+
+    }
+  };
+
+  // const setDragPositionPanel = (id: string) => {
+  
+  //   setScrollEnabled(false);
+  
+
+  //   // const childElement = sectionRefs.current[id]?.firstChild;
+  //   // const parentElement = sectionRefs.current[id];
+  //   // const childRectTop = panelParams[id]?.lastRectTopPanel;
+  //   // if (childElement instanceof HTMLElement && parentElement && childRectTop) {
+  //   //   const parentRectTop = parentElement.getBoundingClientRect().top;
+  //   //   const distanceToParentTop = childRectTop - parentRectTop;
+  //   //   childElement.style.position = `absolute`;
+  //   //   childElement.style.top = `${distanceToParentTop + 88}px`;
+  //   //   // Суть в том что нужно выключать скроллинг в момент перетаскивания а так же ставить позицию абсолют до тех пор пока не отпустим
+  //   // }
+  // };
+
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext
+      onDragEnd={onDragEnd}
+      onDragStart={setDragPositionPanel}
+    >
       {isMounted ? (
         <Droppable droppableId="droppable">
           {(provided) => (
@@ -107,15 +187,18 @@ export function DNDSection({ items }: DNDProps) {
                       <SectionPanelTools
                         provided={provided}
                         id={item.id}
+                        ref={(ref) => (panelRefs.current[item.id] = ref)}
                         panelParams={
                           panelParams[item.id]
                             ? panelParams[item.id]
                             : {
                                 isAbsolute: true,
-                                positionY: "calc(50% + 20px)",
+                                positionY: undefined,
                                 lastPositionY: "initial",
+                                lastRectTopPanel: undefined,
                               }
                         }
+                        // setDragPositionPanel={setDragPositionPanel}
                       />
 
                       {item.content}
@@ -136,7 +219,7 @@ export function calculatePanelParams(
   rect: Rect,
   isVisible: boolean,
   viewportHeight: number = window.innerHeight,
-): PanelParams {
+): Omit<PanelParams, "lastRectTopPanel"> {
   const isAbsolute =
     !isVisible || rect.bottom < 212 || rect.top > viewportHeight - 214;
   const visibleHeight = isAbsolute
@@ -164,4 +247,4 @@ export function reorder(
   result.splice(endIndex, 0, removed);
 
   return result;
-};
+}
