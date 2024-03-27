@@ -7,8 +7,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Arrow } from "@radix-ui/react-popover";
 import { Trash2 } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
-import { deleteSection } from "../../../../../../shared/actions/section/set/delete-section";
+import { use, useEffect, useRef } from "react";
+import { deleteSection } from "@/shared/actions/section/set/delete-section";
 
 type RemoveSectionProps = {
   editableElement: HTMLElement | Element | undefined | null;

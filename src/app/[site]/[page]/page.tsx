@@ -4,7 +4,7 @@ import { getPageByUrl } from "@/shared/actions/page/get/get-page-by-url";
 import { getPages } from "@/shared/actions/page/get/get-pages";
 import { getSiteById } from "@/shared/actions/site/get/get-site-by-id";
 import { auth } from "@/shared/lib/auth/model/auth";
-import { Component, Page, Section, Site } from "@prisma/client";
+import type { Component, Page, Section, Site } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 type SectionWithComponents = {

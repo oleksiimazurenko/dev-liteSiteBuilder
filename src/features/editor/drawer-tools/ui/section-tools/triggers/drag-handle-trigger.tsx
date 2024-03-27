@@ -5,10 +5,9 @@ import { GripVertical } from "lucide-react";
 
 type DragHandleTriggerProps = {
   provided: DraggableProvided;
-  id: string;
 };
 
-export const DragHandleTrigger = ({ provided, id }: DragHandleTriggerProps) => {
+export const DragHandleTrigger = ({ provided }: DragHandleTriggerProps) => {
   return (
     <div {...provided.dragHandleProps}>
       <GripVertical

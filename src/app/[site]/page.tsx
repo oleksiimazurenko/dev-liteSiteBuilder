@@ -55,4 +55,5 @@ export default async function Site({
   const renderedSections = await Promise.all(promisesSections);
 
   return <DNDSection items={renderedSections} />;
+  
 }

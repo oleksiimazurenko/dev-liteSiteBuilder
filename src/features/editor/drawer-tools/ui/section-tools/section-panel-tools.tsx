@@ -10,33 +10,21 @@ import { PanelParams } from "./types/types";
 type SectionPanelToolsProps = {
   id: string;
   provided: DraggableProvided;
-  panelParams: PanelParams;
 };
 
 export const SectionPanelTools = forwardRef<
   HTMLDivElement,
   SectionPanelToolsProps
->(({ id, provided, panelParams }, ref) => {
-  const { isAbsolute, positionY, lastPositionY } = panelParams;
-
+>(({ id, provided }, ref) => {
   return (
     <div
       ref={ref}
       className={cn(
-        "bg-glass absolute right-[20px] top-[calc(50%-24px)] z-10 -translate-y-1/2 transform rounded-xl border-none p-1 shadow-xl",
-        {
-          ["!top-0 !translate-y-[20px]"]: lastPositionY === "top",
-          ["!bottom-0 top-auto !-translate-y-[20px]"]:
-            lastPositionY === "bottom",
-        },
+        "bg-glass absolute right-[20px] z-10 transform rounded-xl border-none p-1 shadow-xl",
       )}
-      style={{
-        top: !isAbsolute ? positionY : undefined,
-        position: isAbsolute ? "absolute" : "fixed",
-      }}
     >
       {/* Кнопка для перетаскивания секций */}
-      <DragHandleTrigger provided={provided} id={id} />
+      <DragHandleTrigger provided={provided} />
 
       {/*Кнопка для открытия поповера настроек секции*/}
       <SectionToolsTrigger id={id} />

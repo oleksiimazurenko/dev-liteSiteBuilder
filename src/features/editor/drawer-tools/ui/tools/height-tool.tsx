@@ -1,6 +1,9 @@
+'use client'
+
 import RowSpacing from "@/features/editor/drawer-tools/svg/height-icon.svg";
 import { identifyEditableStructure } from "@/shared/helpers/identify-editable-structure";
 import { updateInlineStyles } from "@/shared/helpers/update-inline-styles";
+import { useRefreshGsapToken } from "@/shared/store/refresh-gsap-status";
 import { LocationStyles } from "@/shared/types/types";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
@@ -17,6 +20,7 @@ export function HeightTool({
   editableElement,
   locationStyles,
 }: HeightToolProps) {
+  const { setRefreshToken } = useRefreshGsapToken();
   const { type, outerElement, middleElement, innerElement } =
     identifyEditableStructure(editableElement);
   const pathName = usePathname();
@@ -58,14 +62,16 @@ export function HeightTool({
 
   return (
     <Popover
-      onOpenChange={(isOpen) =>
-        !isOpen &&
-        updateInlineStyles(
-          editableElement as HTMLDivElement,
-          pathName,
-          locationStyles,
-        )
-      }
+      onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          updateInlineStyles(
+            editableElement as HTMLDivElement,
+            pathName,
+            locationStyles,
+          );
+          setRefreshToken(Math.random());
+        }
+      }}
     >
       <PopoverTrigger asChild>
         <button className="toggle-popover" aria-label="Height Tool">

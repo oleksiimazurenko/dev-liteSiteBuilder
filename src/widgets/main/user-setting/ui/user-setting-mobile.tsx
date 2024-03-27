@@ -12,7 +12,7 @@ import {
 import { UserInfo } from "@/features/main/auth";
 import { useCurrentUser } from "@/shared/lib/auth/hooks/use-current-user";
 import { Badge } from "@/shared/ui/badge";
-import SettingForm from "./setting-form";
+import { SettingForm } from "./setting-form";
 
 type UserSettingMobileProps = {
   className?: string;

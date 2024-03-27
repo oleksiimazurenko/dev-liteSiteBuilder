@@ -7,14 +7,21 @@ import {
 } from "@/shared/store/dnd-store";
 import {
   DragDropContext,
-  DragStart,
   Draggable,
   DropResult,
   Droppable,
 } from "@hello-pangea/dnd";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  MutableRefObject,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { SectionPanelTools } from "../section-panel-tools";
-import { PanelParams, Rect } from "../types/types";
+import { useRefreshGsapToken } from "@/shared/store/refresh-gsap-status";
 
 type SectionRefs = {
   [key: string]: HTMLDivElement | null;
@@ -30,55 +37,80 @@ type DNDProps = {
 export function DNDSection({ items }: DNDProps) {
   const { currentItems, setDNDItems } = useDNDSectionStore();
   const [isMounted, setIsMounted] = useState(false);
-  const [scrollEnabled, setScrollEnabled] = useState(true);
+  const { refreshToken } = useRefreshGsapToken();
+
+  // Например, вы можете заставить панель плавно следовать за скроллом в пределах своей секции, создавая эффект плавающего элемента, который всегда остаётся в поле зрения пользователя в рамках этой секции.
 
   const sectionRefs: MutableRefObject<SectionRefs> = useRef<SectionRefs>({});
   const panelRefs: MutableRefObject<PanelRefs> = useRef<PanelRefs>({});
 
-  const [panelParams, setPanelParams] = useState<Record<string, PanelParams>>(
-    {},
-  );
-
-  function updatePanelPositions() {
-    const viewportHeight = window.innerHeight;
-    const newPanelParams = Object.keys(sectionRefs.current).reduce<
-      Record<string, PanelParams>
-    >((acc, id, i) => {
-      const section = sectionRefs.current[id];
-      if (!section) return acc;
-
-      const rectSection = section.getBoundingClientRect();
-      const isVisible =
-        rectSection.top < viewportHeight && rectSection.bottom > 0;
-
-      acc[id] = {
-        ...calculatePanelParams(rectSection, isVisible, viewportHeight),
-        lastRectTopPanel: panelRefs.current[id]?.getBoundingClientRect().top,
-      };
-
-      if (i === 0)
-        console.log(panelRefs.current[id]?.getBoundingClientRect().top);
-
-      return acc;
-    }, {});
-
-    setPanelParams(newPanelParams);
-  }
-
   useEffect(() => {
-    const handleScroll = () => {
-      if (scrollEnabled) {
-        updatePanelPositions();
-      }
-    };
+    
+    // После динамического удаления секций или любых других элементов которые взаимодействуют с ScrollTrigger нужно обновить ScrollTrigger
+    if (Object.keys(sectionRefs.current).length > 0) {
+      ScrollTrigger.refresh(true);
+      console.log("ScrollTrigger.refresh(true)");
+    }
+  }, [currentItems, refreshToken]);
 
-    window.addEventListener("scroll", handleScroll);
-    if (scrollEnabled) {
-      handleScroll(); // Инициализирующий вызов
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    if (Object.keys(sectionRefs.current).length > 0) {
+      
+      Object.keys(sectionRefs.current).forEach((id, i) => {
+        const section = sectionRefs.current[id];
+        const panel = panelRefs.current[id];
+
+        if (!section || !panel) return null;
+
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+          markers: true,
+          onUpdate: (self) => {
+            const progress = self.progress.toFixed(2); // Прогресс скролла от 0 до 1
+            console.log(progress);
+            // const sectionHeight = section.offsetHeight;
+            // const panelHeight = panel.offsetHeight;
+            // const viewportHeight = window.innerHeight;
+            // const dynamicY = (sectionHeight - viewportHeight) * progress;
+
+            // // Если видимая часть секции меньше высоты панели,
+            // // панель будет двигаться вместе с секцией
+            // if (viewportHeight < panelHeight) {
+            //   gsap.to(panel, {y: dynamicY, immediateRender: false});
+            // } else {
+            //   // Панель остается в середине видимой части секции
+            //   const maxScroll = sectionHeight - viewportHeight;
+            //   const midPoint = Math.min(dynamicY, maxScroll / 2);
+            //   gsap.to(panel, {y: midPoint, immediateRender: false});
+            // }
+          }
+        });
+
+        // gsap.to(panel, {
+        //   scrollTrigger: {
+        //     trigger: section,
+        //     start: "top top",
+        //     end: "bottom bottom",
+        //     scrub: 3,
+        //     markers: true,
+        //   },
+        //   y: section.offsetHeight - 212,
+        //   ease: "none",
+        //   duration: 5,
+        // });
+      });
     }
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrollEnabled]);
+    // return () => {
+    //   // Очищаем ScrollTriggers при размонтировании компонента
+    //   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    // };
+  }, [currentItems]);
 
   //--------------------------------------------------------------------------------
 
@@ -108,50 +140,12 @@ export function DNDSection({ items }: DNDProps) {
     setDNDItems(reorderedItems);
 
     // -----------------------------
-    const id = result.draggableId;
-    const childElement = sectionRefs.current[id]?.firstChild;
-
-    // Включаем скроллинг обратно
-    setScrollEnabled(true);
-
-    if (childElement instanceof HTMLElement) {
-      childElement.style.transform = "translateY(-50%)";
-      childElement.style.position = "fixed";
-    }
   };
 
   // ---------------------------------------------------------------------------
 
-  const setDragPositionPanel = (e: DragStart) => {
-    // Отрубаем этот гребанный скроллинг!
-    setScrollEnabled(false);
-
-    // Получаем id перетаскиваемой панели
-    const id = e.draggableId;
-
-    // Переводим все эти конченные панели в абсолютное позиционирование
-    Object.keys(sectionRefs.current).forEach((id) => {
-      const childElement = sectionRefs.current[id]?.firstChild;
-      if (childElement instanceof HTMLElement) {
-        childElement.style.position = "absolute";
-      }
-    });
-
-    const childElement = sectionRefs.current[id]?.firstChild;
-    const parentElement = sectionRefs.current[id];
-    const childRectTop = panelParams[id]?.lastRectTopPanel;
-
-    if (childElement instanceof HTMLElement && parentElement && childRectTop) {
-      const parentRectTop = parentElement.getBoundingClientRect().top;
-      const distanceToParentTop = childRectTop - parentRectTop;
-
-      childElement.style.top = `${distanceToParentTop}px`;
-      childElement.style.transform = `translateY(${0}px)`;
-    }
-  };
-
   return (
-    <DragDropContext onDragEnd={onDragEnd} onDragStart={setDragPositionPanel}>
+    <DragDropContext onDragEnd={onDragEnd}>
       {isMounted ? (
         <Droppable droppableId="droppable">
           {(provided) => (
@@ -171,16 +165,6 @@ export function DNDSection({ items }: DNDProps) {
                         provided={provided}
                         id={item.id}
                         ref={(ref) => (panelRefs.current[item.id] = ref)}
-                        panelParams={
-                          panelParams[item.id]
-                            ? panelParams[item.id]
-                            : {
-                                isAbsolute: true,
-                                positionY: undefined,
-                                lastPositionY: "initial",
-                                lastRectTopPanel: undefined,
-                              }
-                        }
                       />
 
                       {item.content}
@@ -195,27 +179,6 @@ export function DNDSection({ items }: DNDProps) {
       ) : null}
     </DragDropContext>
   );
-}
-
-export function calculatePanelParams(
-  rect: Rect,
-  isVisible: boolean,
-  viewportHeight: number = window.innerHeight,
-): Omit<PanelParams, "lastRectTopPanel"> {
-  const isAbsolute =
-    !isVisible || rect.bottom < 212 || rect.top > viewportHeight - 214;
-  const visibleHeight = isAbsolute
-    ? Math.min(214, viewportHeight) - Math.max(rect.top, 0)
-    : Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-  const positionY = `${Math.max(rect.top, 0) + visibleHeight / 2}px`;
-  const lastPositionY =
-    rect.bottom < 212
-      ? "bottom"
-      : rect.top > viewportHeight - 214
-        ? "top"
-        : "initial";
-
-  return { isAbsolute, positionY, lastPositionY };
 }
 
 // Функция для переупорядочивания элементов

@@ -131,6 +131,7 @@ export function ImageModel({ id }: ImageElementProps) {
           className="toggle-popover"
           aria-label="Background image"
         >
+           {/* eslint-disable-next-line jsx-a11y/alt-text */}
           <Image className="svg-icon-stroke" size={28} strokeWidth={0.9} />
         </button>
       </PopoverTrigger>
