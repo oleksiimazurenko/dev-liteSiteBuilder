@@ -68,11 +68,11 @@ export function DNDSection({ items }: DNDProps) {
           trigger: section,
           start: "top top",
           end: "bottom bottom",
-          scrub: true,
+          scrub: 3,
+          
           markers: true,
           onUpdate: (self) => {
-            const progress = self.progress.toFixed(2); // Прогресс скролла от 0 до 1
-            console.log(progress);
+            const progress = self.progress; // Прогресс скролла от 0 до 1
             // const sectionHeight = section.offsetHeight;
             // const panelHeight = panel.offsetHeight;
             // const viewportHeight = window.innerHeight;
@@ -90,26 +90,13 @@ export function DNDSection({ items }: DNDProps) {
             // }
           }
         });
-
-        // gsap.to(panel, {
-        //   scrollTrigger: {
-        //     trigger: section,
-        //     start: "top top",
-        //     end: "bottom bottom",
-        //     scrub: 3,
-        //     markers: true,
-        //   },
-        //   y: section.offsetHeight - 212,
-        //   ease: "none",
-        //   duration: 5,
-        // });
       });
     }
 
-    // return () => {
-    //   // Очищаем ScrollTriggers при размонтировании компонента
-    //   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    // };
+    return () => {
+      // Очищаем ScrollTriggers при размонтировании компонента
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, [currentItems]);
 
   //--------------------------------------------------------------------------------

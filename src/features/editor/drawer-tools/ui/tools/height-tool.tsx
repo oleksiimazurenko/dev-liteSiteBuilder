@@ -9,7 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
 import { Arrow } from "@radix-ui/react-popover";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 type HeightToolProps = {
   editableElement: HTMLElement | null;
