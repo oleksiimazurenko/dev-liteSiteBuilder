@@ -72,7 +72,7 @@ export function ImageModel({ id }: ImageElementProps) {
           parentTag: "div",
           rPath: pathName,
           href: null,
-          src: `/images/users/${id}/${fileName}`,
+          src: `/images/users/${userId}/${fileName}`,
           alt: fileName,
           width: 100,
           height: 100,

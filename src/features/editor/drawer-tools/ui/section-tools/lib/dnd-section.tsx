@@ -30,7 +30,6 @@ type DNDProps = {
 export function DNDSection({ items }: DNDProps) {
   const { currentItems, setDNDItems } = useDNDSectionStore();
   const [isMounted, setIsMounted] = useState(false);
-  // const handleScrollRef = useRef<() => void>(updatePanelPositions);
   const [scrollEnabled, setScrollEnabled] = useState(true);
 
   const sectionRefs: MutableRefObject<SectionRefs> = useRef<SectionRefs>({});
