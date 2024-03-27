@@ -15,7 +15,6 @@ import {
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { SectionPanelTools } from "../section-panel-tools";
 import { PanelParams, Rect } from "../types/types";
-import { set } from "zod";
 
 type SectionRefs = {
   [key: string]: HTMLDivElement | null;
@@ -41,8 +40,6 @@ export function DNDSection({ items }: DNDProps) {
     {},
   );
 
-
-
   function updatePanelPositions() {
     const viewportHeight = window.innerHeight;
     const newPanelParams = Object.keys(sectionRefs.current).reduce<
@@ -60,13 +57,14 @@ export function DNDSection({ items }: DNDProps) {
         lastRectTopPanel: panelRefs.current[id]?.getBoundingClientRect().top,
       };
 
+      if (i === 0)
+        console.log(panelRefs.current[id]?.getBoundingClientRect().top);
+
       return acc;
     }, {});
 
     setPanelParams(newPanelParams);
   }
-
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,19 +72,14 @@ export function DNDSection({ items }: DNDProps) {
         updatePanelPositions();
       }
     };
-  
+
     window.addEventListener("scroll", handleScroll);
     if (scrollEnabled) {
       handleScroll(); // Инициализирующий вызов
     }
-  
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollEnabled]);
-
-
-
-
-
 
   //--------------------------------------------------------------------------------
 
@@ -114,61 +107,52 @@ export function DNDSection({ items }: DNDProps) {
       rPath: "/",
     });
     setDNDItems(reorderedItems);
+
+    // -----------------------------
+    const id = result.draggableId;
+    const childElement = sectionRefs.current[id]?.firstChild;
+
+    // Включаем скроллинг обратно
     setScrollEnabled(true);
+
+    if (childElement instanceof HTMLElement) {
+      childElement.style.transform = "translateY(-50%)";
+      childElement.style.position = "fixed";
+    }
   };
 
   // ---------------------------------------------------------------------------
 
   const setDragPositionPanel = (e: DragStart) => {
-
     // Отрубаем этот гребанный скроллинг!
     setScrollEnabled(false);
 
+    // Получаем id перетаскиваемой панели
     const id = e.draggableId;
 
-    // Переводим все эти конченные панели в абсолютное положение
+    // Переводим все эти конченные панели в абсолютное позиционирование
     Object.keys(sectionRefs.current).forEach((id) => {
       const childElement = sectionRefs.current[id]?.firstChild;
       if (childElement instanceof HTMLElement) {
-        childElement.style.position = 'absolute';
+        childElement.style.position = "absolute";
       }
     });
 
     const childElement = sectionRefs.current[id]?.firstChild;
     const parentElement = sectionRefs.current[id];
-    const childRectTop = panelParams[id]?.lastRectTopPanel
+    const childRectTop = panelParams[id]?.lastRectTopPanel;
 
     if (childElement instanceof HTMLElement && parentElement && childRectTop) {
       const parentRectTop = parentElement.getBoundingClientRect().top;
       const distanceToParentTop = childRectTop - parentRectTop;
 
       childElement.style.top = `${distanceToParentTop}px`;
-
+      childElement.style.transform = `translateY(${0}px)`;
     }
   };
 
-  // const setDragPositionPanel = (id: string) => {
-  
-  //   setScrollEnabled(false);
-  
-
-  //   // const childElement = sectionRefs.current[id]?.firstChild;
-  //   // const parentElement = sectionRefs.current[id];
-  //   // const childRectTop = panelParams[id]?.lastRectTopPanel;
-  //   // if (childElement instanceof HTMLElement && parentElement && childRectTop) {
-  //   //   const parentRectTop = parentElement.getBoundingClientRect().top;
-  //   //   const distanceToParentTop = childRectTop - parentRectTop;
-  //   //   childElement.style.position = `absolute`;
-  //   //   childElement.style.top = `${distanceToParentTop + 88}px`;
-  //   //   // Суть в том что нужно выключать скроллинг в момент перетаскивания а так же ставить позицию абсолют до тех пор пока не отпустим
-  //   // }
-  // };
-
   return (
-    <DragDropContext
-      onDragEnd={onDragEnd}
-      onDragStart={setDragPositionPanel}
-    >
+    <DragDropContext onDragEnd={onDragEnd} onDragStart={setDragPositionPanel}>
       {isMounted ? (
         <Droppable droppableId="droppable">
           {(provided) => (
@@ -198,7 +182,6 @@ export function DNDSection({ items }: DNDProps) {
                                 lastRectTopPanel: undefined,
                               }
                         }
-                        // setDragPositionPanel={setDragPositionPanel}
                       />
 
                       {item.content}
