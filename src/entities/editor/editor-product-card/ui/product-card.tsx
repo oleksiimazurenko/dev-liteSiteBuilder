@@ -1,6 +1,7 @@
 'use client'
 
-import { ProductCardProps } from '@/shared/types/types'
+
+import { ProductCardProps } from '@/shared/types/props'
 import {
 	Card,
 	CardContent,

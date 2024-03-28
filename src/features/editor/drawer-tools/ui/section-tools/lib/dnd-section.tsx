@@ -132,6 +132,7 @@ export function DNDSection({ items }: DNDProps) {
           trigger: section,
           start: "top 56px",
           end: `${sectionHeight - 172}px 56px`,
+          scrub: true,
           markers: true,
           onUpdate: () => {
             calculateY(section, panel);
@@ -143,6 +144,7 @@ export function DNDSection({ items }: DNDProps) {
           trigger: section,
           start: `top bottom`,
           end: `bottom bottom`,
+          scrub: true,
           markers: true,
           onUpdate: () => {
             calculateY(section, panel);
