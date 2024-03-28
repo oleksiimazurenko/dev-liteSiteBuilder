@@ -17,18 +17,18 @@ import { Input } from "@/shared/ui/input";
 
 import { createSection } from "@/shared/actions/section/set/create-section";
 import { useDrawerToolsStore } from "@/shared/store/editable-group-store";
+import { useRefreshGsapToken } from "@/shared/store/refresh-gsap-status";
 import { usePathname } from "next/navigation";
+import { useTransition } from "react";
 import { toast } from "sonner";
-import { useTransition } from 'react'
-import { useRefreshGsapToken } from '@/shared/store/refresh-gsap-status'
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
 });
 
 export function CreateSection() {
-  const [ isPending, startTransition ] = useTransition();
-  const { setRefreshToken } = useRefreshGsapToken();
+  const [isPending, startTransition] = useTransition();
+  const { setRefreshGsapToken } = useRefreshGsapToken();
   const pathName = usePathname();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -41,8 +41,7 @@ export function CreateSection() {
   const { setIsOpenDrawerTools } = useDrawerToolsStore();
 
   async function onSubmit({ name }: z.infer<typeof formSchema>) {
-    
-    startTransition(async() => {
+    startTransition(async () => {
       const { success, error } = await createSection({
         url: pathName,
         name,
@@ -51,10 +50,9 @@ export function CreateSection() {
       success && toast.success("Section created");
       !success && toast.error(error);
     });
-    setRefreshToken(Date.now());
+    setRefreshGsapToken(Date.now());
     form.reset();
     setIsOpenDrawerTools(false);
-    
   }
 
   return (

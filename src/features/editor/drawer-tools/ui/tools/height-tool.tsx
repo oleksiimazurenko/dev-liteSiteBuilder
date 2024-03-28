@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import RowSpacing from "@/features/editor/drawer-tools/svg/height-icon.svg";
 import { identifyEditableStructure } from "@/shared/helpers/identify-editable-structure";
@@ -9,7 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Slider } from "@/shared/ui/slider";
 import { Arrow } from "@radix-ui/react-popover";
 import { usePathname } from "next/navigation";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type HeightToolProps = {
   editableElement: HTMLElement | null;
@@ -20,7 +20,7 @@ export function HeightTool({
   editableElement,
   locationStyles,
 }: HeightToolProps) {
-  const { setRefreshToken } = useRefreshGsapToken();
+  const { setRefreshGsapToken } = useRefreshGsapToken();
   const { type, outerElement, middleElement, innerElement } =
     identifyEditableStructure(editableElement);
   const pathName = usePathname();
@@ -69,7 +69,6 @@ export function HeightTool({
             pathName,
             locationStyles,
           );
-          setRefreshToken(Math.random());
         }
       }}
     >

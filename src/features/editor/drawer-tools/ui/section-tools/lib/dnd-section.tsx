@@ -5,6 +5,7 @@ import {
   typeCurrentItemsDND,
   useDNDSectionStore,
 } from "@/shared/store/dnd-store";
+import { useRefreshGsapToken } from "@/shared/store/refresh-gsap-status";
 import {
   DragDropContext,
   Draggable,
@@ -21,7 +22,6 @@ import {
   useState,
 } from "react";
 import { SectionPanelTools } from "../section-panel-tools";
-import { useRefreshGsapToken } from "@/shared/store/refresh-gsap-status";
 
 type SectionRefs = {
   [key: string]: HTMLDivElement | null;
@@ -39,63 +39,120 @@ export function DNDSection({ items }: DNDProps) {
   const [isMounted, setIsMounted] = useState(false);
   const { refreshToken } = useRefreshGsapToken();
 
-  // Например, вы можете заставить панель плавно следовать за скроллом в пределах своей секции, создавая эффект плавающего элемента, который всегда остаётся в поле зрения пользователя в рамках этой секции.
-
   const sectionRefs: MutableRefObject<SectionRefs> = useRef<SectionRefs>({});
   const panelRefs: MutableRefObject<PanelRefs> = useRef<PanelRefs>({});
 
   useEffect(() => {
-    
+    if (Object.keys(sectionRefs.current).length > 0) {
+      Object.keys(sectionRefs.current).forEach((id) => {
+        const section = sectionRefs.current[id];
+        const panel = panelRefs.current[id];
+
+        if (panel && section) {
+          const sectionRect = section.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+
+          // Вычисляем видимую высоту секции
+          const visibleTop = Math.max(sectionRect.top, 0);
+          const visibleBottom = Math.min(sectionRect.bottom, viewportHeight);
+          const visibleHeight = visibleBottom - visibleTop;
+
+          let initialY;
+
+          if (sectionRect.bottom > 0 && sectionRect.top < viewportHeight) {
+            // Секция полностью или частично видна
+            const panelHeight = panel.offsetHeight;
+            // Если секция видна только частично снизу или сверху
+            if (sectionRect.top < 0 || sectionRect.bottom > viewportHeight) {
+              initialY =
+                visibleTop +
+                (visibleHeight - panelHeight) / 2 -
+                Math.max(sectionRect.top, 0);
+            } else {
+              // Если секция полностью видна
+              initialY = (sectionRect.height - panelHeight) / 2;
+            }
+          } else {
+            // Секция не видна (расположена полностью ниже видимой области экрана)
+            initialY = 20;
+          }
+
+          gsap.set(panel, { y: initialY });
+        }
+      });
+    }
+  }, [refreshToken, currentItems]);
+
+  const calculateY = (section: HTMLDivElement, panel: HTMLDivElement) => {
+    const sectionRect = section.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    // Вычисляем видимую высоту секции
+    const visibleTop = Math.max(sectionRect.top, 0); // Верхняя граница видимой части секции
+    const visibleBottom = Math.min(sectionRect.bottom, viewportHeight); // Нижняя граница видимой части секции
+    const visibleHeight = visibleBottom - visibleTop; // Высота видимой части секции
+
+    if (visibleHeight < 212) {
+      gsap.set(panel, { y: 20 });
+      return;
+    }
+
+    // Если секция не видна сразу, подождем, пока она не появится
+    if (visibleHeight <= 0) return;
+
+    // Центрируем панель относительно видимой части секции
+    const panelHeight = panel.offsetHeight;
+    const initialY =
+      (visibleHeight - panelHeight) / 2 + visibleTop - sectionRect.top;
+
+    gsap.set(panel, { y: initialY });
+  };
+
+  useEffect(() => {
     // После динамического удаления секций или любых других элементов которые взаимодействуют с ScrollTrigger нужно обновить ScrollTrigger
     if (Object.keys(sectionRefs.current).length > 0) {
-      ScrollTrigger.refresh(true);
-      console.log("ScrollTrigger.refresh(true)");
+      ScrollTrigger.refresh();
     }
   }, [currentItems, refreshToken]);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    
+
     if (Object.keys(sectionRefs.current).length > 0) {
-      
       Object.keys(sectionRefs.current).forEach((id, i) => {
         const section = sectionRefs.current[id];
         const panel = panelRefs.current[id];
 
         if (!section || !panel) return null;
 
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 3,
-          
-          markers: true,
-          onUpdate: (self) => {
-            const progress = self.progress; // Прогресс скролла от 0 до 1
-            // const sectionHeight = section.offsetHeight;
-            // const panelHeight = panel.offsetHeight;
-            // const viewportHeight = window.innerHeight;
-            // const dynamicY = (sectionHeight - viewportHeight) * progress;
+        const sectionHeight = section.offsetHeight;
 
-            // // Если видимая часть секции меньше высоты панели,
-            // // панель будет двигаться вместе с секцией
-            // if (viewportHeight < panelHeight) {
-            //   gsap.to(panel, {y: dynamicY, immediateRender: false});
-            // } else {
-            //   // Панель остается в середине видимой части секции
-            //   const maxScroll = sectionHeight - viewportHeight;
-            //   const midPoint = Math.min(dynamicY, maxScroll / 2);
-            //   gsap.to(panel, {y: midPoint, immediateRender: false});
-            // }
-          }
+        ScrollTrigger.create({
+          id: "top",
+          trigger: section,
+          start: "top 56px",
+          end: `${sectionHeight - 172}px 56px`,
+          markers: true,
+          onUpdate: () => {
+            calculateY(section, panel);
+          },
+        });
+
+        ScrollTrigger.create({
+          id: "bottom",
+          trigger: section,
+          start: `top bottom`,
+          end: `bottom bottom`,
+          markers: true,
+          onUpdate: () => {
+            calculateY(section, panel);
+          },
         });
       });
     }
 
     return () => {
-      // Очищаем ScrollTriggers при размонтировании компонента
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, [currentItems]);
 
@@ -125,8 +182,6 @@ export function DNDSection({ items }: DNDProps) {
       rPath: "/",
     });
     setDNDItems(reorderedItems);
-
-    // -----------------------------
   };
 
   // ---------------------------------------------------------------------------

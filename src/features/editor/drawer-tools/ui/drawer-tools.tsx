@@ -13,6 +13,7 @@ import { DeleteProduct } from "./product-tools/modal/delete-product";
 import { CreateSection } from "./section-tools/modal/create-section";
 import { SectionTools } from "./section-tools/section-tools";
 
+import { useRefreshGsapToken } from "@/shared/store/refresh-gsap-status";
 import { Button } from "@/shared/ui/button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/shared/ui/drawer";
 import { useDrawerHelper } from "../hooks/use-drawer-helper";
@@ -27,6 +28,16 @@ export function DrawerTools({}: DrawerToolsProps) {
     useDrawerToolsStore();
 
   const { editableElement, editableTrigger } = editableGroup;
+  const { setRefreshGsapToken } = useRefreshGsapToken();
+
+  // С этим возможно придется поработать, так как в некоторых случаях бывают проблемы с обновлением gsap
+  useEffect(() => {
+    if (!isOpenDrawerTools) {
+      setTimeout(() => {
+        setRefreshGsapToken(Math.random());
+      }, 500);
+    }
+  }, [isOpenDrawerTools]);
 
   useEffect(() => {
     if (isOpenDrawerTools) {
@@ -86,4 +97,7 @@ export function DrawerTools({}: DrawerToolsProps) {
       </DrawerContent>
     </Drawer>
   );
+}
+function setRefreshGsapToken(arg0: number) {
+  throw new Error("Function not implemented.");
 }
